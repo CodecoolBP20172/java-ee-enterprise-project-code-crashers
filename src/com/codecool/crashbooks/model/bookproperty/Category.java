@@ -1,6 +1,6 @@
 package com.codecool.crashbooks.model.bookproperty;
 
-import com.codecool.crashbooks.model.Book;
+import com.codecool.crashbooks.model.Media;
 
 import javax.persistence.*;
 import java.util.List;
@@ -16,7 +16,7 @@ public class Category {
     private Categories name;
 
     @OneToMany(mappedBy = "category", fetch = FetchType.LAZY)
-    private List<Book> book;
+    private List<Media> book;
 
     public Category(Categories name) {
         this.name = name;
