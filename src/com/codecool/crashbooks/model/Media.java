@@ -58,4 +58,16 @@ public class Media {
     public void setGenres(Genre genres) {
         this.genres.add(genres);
     }
+
+    public String getTitle() {
+        return title;
+    }
+
+    public String getPictureUrl() {
+        return pictureUrl;
+    }
+
+    public String getDescription() {
+        return description;
+    }
 }
