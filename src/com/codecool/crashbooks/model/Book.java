@@ -16,4 +16,22 @@ public class Book {
     private int year;
     private String description;
 
+    //test constructor, can be deleted any time
+    public Book(int id, String title) {
+        this.id = id;
+        this.title = title;
+        this.pictureUrl = "book_thumb.png";
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public String getTitle() {
+        return title;
+    }
+
+    public String getPictureUrl() {
+        return pictureUrl;
+    }
 }
