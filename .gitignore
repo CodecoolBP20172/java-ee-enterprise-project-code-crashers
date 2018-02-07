@@ -110,3 +110,4 @@ buildNumber.properties
 *.iml
 /.idea/
 /enterprise-project.iml
+/src/resources/META-INF/persistence.xml
