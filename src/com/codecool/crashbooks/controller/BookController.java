@@ -1,5 +1,9 @@
 package com.codecool.crashbooks.controller;
 
+import com.codecool.crashbooks.model.Media;
+import com.codecool.crashbooks.model.bookproperty.Author;
+import com.codecool.crashbooks.model.bookproperty.Category;
+import com.codecool.crashbooks.model.bookproperty.Genre;
 import spark.ModelAndView;
 import spark.Request;
 import spark.Response;
@@ -9,17 +13,13 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import com.codecool.crashbooks.model.Book;
+import com.codecool.crashbooks.model.Media;
 
 public class BookController {
 
 
     public static ModelAndView renderAllBooks(Request request, Response response) {
-        List<Book> bookList = new ArrayList<>();
-        Book book1 = new Book(1,"testtitle");
-        Book book2 = new Book(2,"testtitle2");
-        bookList.add(book1);
-        bookList.add(book2);
+        List<Media> bookList = new ArrayList<>();
         Map<String, List> params = new HashMap<>();
 
         params.put("booklist", bookList);
