@@ -3,6 +3,7 @@ package com.codecool.crashbooks;
 import static spark.Spark.*;
 import static spark.debug.DebugScreen.enableDebugScreen;
 
+import com.codecool.crashbooks.controller.BookController;
 import spark.Request;
 import spark.Response;
 import spark.template.thymeleaf.ThymeleafTemplateEngine;
@@ -16,6 +17,8 @@ public class Main {
         port(8888);
 
         get("/hello", (req, res) -> "Hello World!");
+
+        get("/", BookController::renderAllBooks, new ThymeleafTemplateEngine());
 
         enableDebugScreen();
     }
