@@ -1,6 +1,26 @@
 package com.codecool.crashbooks.model.bookproperty;
 
-import com.codecool.crashbooks.model.Base;
+import com.codecool.crashbooks.model.Book;
 
-public class Category extends Base {
+import javax.persistence.*;
+import java.util.List;
+
+@Entity
+public class Category {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private int id;
+
+    private String name;
+
+    @OneToMany(mappedBy = "category", fetch = FetchType.LAZY)
+    private List<Book> book;
+
+    public Category(String name) {
+        this.name = name;
+    }
+
+    public Category() {
+    }
 }

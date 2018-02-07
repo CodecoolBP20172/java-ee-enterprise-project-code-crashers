@@ -4,16 +4,51 @@ import com.codecool.crashbooks.model.bookproperty.Author;
 import com.codecool.crashbooks.model.bookproperty.Category;
 import com.codecool.crashbooks.model.bookproperty.Genre;
 
+import javax.persistence.*;
+import java.util.HashSet;
 import java.util.Set;
 
+@Entity
 public class Book {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
+
     private String title;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "author_id")
     private Author author;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "category_id")
     private Category category;
-    private Set<Genre> genres;
+
+    @ManyToMany
+    @JoinTable(name="book_genres")
+    private Set<Genre> genres = new HashSet<>();
+
     private String pictureUrl;
+
     private int year;
+
     private String description;
 
+    public Book() {
+    }
+
+    public Book(String title, Author author, Category category, Genre genre, String pictureUrl, int year, String description) {
+        this.title = title;
+        this.author = author;
+        this.category = category;
+        this.genres.add(genre);
+        this.pictureUrl = pictureUrl;
+        this.year = year;
+        this.description = description;
+    }
+
+    public void setGenres(Genre genres) {
+        this.genres.add(genres);
+    }
 }
