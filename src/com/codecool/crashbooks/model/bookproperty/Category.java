@@ -13,6 +13,7 @@ public class Category {
     private int id;
 
     @Enumerated(EnumType.STRING)
+    @Column(unique = true)
     private Categories name;
 
     @OneToMany(mappedBy = "category", fetch = FetchType.LAZY)
