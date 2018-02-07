@@ -1,9 +1,8 @@
 package com.codecool.crashbooks.model.bookproperty;
 
-import com.codecool.crashbooks.model.Book;
+import com.codecool.crashbooks.model.Media;
 
 import javax.persistence.*;
-import java.util.List;
 import java.util.Set;
 
 @Entity
@@ -17,7 +16,7 @@ public class Genre {
     private Genres name;
 
     @ManyToMany(mappedBy = "genres")
-    private Set<Book> book;
+    private Set<Media> book;
 
     public Genre(Genres name) {
         this.name = name;

@@ -9,7 +9,7 @@ import java.util.HashSet;
 import java.util.Set;
 
 @Entity
-public class Book {
+public class Media {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -35,10 +35,10 @@ public class Book {
 
     private String description;
 
-    public Book() {
+    public Media() {
     }
 
-    public Book(String title, Author author, Category category, Genre genre, String pictureUrl, int year, String description) {
+    public Media(String title, Author author, Category category, Genre genre, String pictureUrl, int year, String description) {
         this.title = title;
         this.author = author;
         this.category = category;
