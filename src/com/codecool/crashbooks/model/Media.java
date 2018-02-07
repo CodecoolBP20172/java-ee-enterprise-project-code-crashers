@@ -79,19 +79,19 @@ public class Media {
         return mediaList;
     }
 
-    public List<Media> getMediaByGenre(Genre genre){
+    public List<Media> getMediaBy(Genre genre){
         List<Media> mediaList = new ArrayList<>();
         //todo
         return mediaList;
     }
 
-    public List<Media> getMediaByCategory(Category category){
+    public List<Media> getMediaBy(Category category){
         List<Media> mediaList = new ArrayList<>();
         //todo
         return mediaList;
     }
 
-    public List<Media> getMediaByAuthor(Author author){
+    public List<Media> getMediaBy(Author author){
         List<Media> mediaList = new ArrayList<>();
         //todo
         return mediaList;
