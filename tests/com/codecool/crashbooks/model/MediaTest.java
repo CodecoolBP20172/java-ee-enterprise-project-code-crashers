@@ -1,17 +1,23 @@
 package com.codecool.crashbooks.model;
 
 import com.codecool.crashbooks.model.bookproperty.*;
+import org.junit.Ignore;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
+import javax.persistence.EntityManagerFactory;
+import javax.persistence.Persistence;
 import java.util.ArrayList;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 
 class MediaTest extends SetupAndTearDown{
+    EntityManagerFactory emf = Persistence.createEntityManagerFactory("CrashBooks");
 
     @Test
-    public void testGetAllMedia(){
+    @DisplayName("All media")
+    public void testGetAllMedia(){  // TODO assertEqual list.size?
         List<Media> expectedResultList = new ArrayList<Media>();
         Author fekete = new Author("Fekete István");
         Author rowling = new Author("J. K. Rowling");
@@ -54,7 +60,30 @@ class MediaTest extends SetupAndTearDown{
         expectedResultList.add(it);
         expectedResultList.add(jurassicPark);
         expectedResultList.add(twister);
-        assertEquals(expectedResultList.toString(), Media.getAllMedia());
+        assertEquals(expectedResultList.toString(), Media.getAllMedia(emf));
     }
 
+    @Ignore
+    @Test
+    @DisplayName("All Fantasy Media")
+    public void testGetMediaByGenreValid() {
+        Genre genre = new Genre(Genres.FANTASY);
+        assertEquals(4, (Media.getMediaBy(emf, genre)).size());
+    }
+
+    @Test
+    @DisplayName("All book Media")
+    public void testGetMediaByCategValidInputs() {
+        Category book = new Category(Categories.BOOK);
+        assertEquals(8, (Media.getMediaBy(emf, book)).size());
+    }
+
+    @Test
+    @DisplayName("Media by Cagetory null")
+    public void testGetMediaByCategInValidInputs() {
+        Category book = null;
+        assertThrows(NullPointerException.class, () -> {
+            Media.getMediaBy(emf, book);
+        });
+    }
 }
