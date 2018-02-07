@@ -9,12 +9,16 @@ import spark.Request;
 import spark.Response;
 import spark.template.thymeleaf.ThymeleafTemplateEngine;
 
+import javax.persistence.EntityManagerFactory;
+import javax.persistence.Persistence;
+
 
 public class Main {
     public static void main(String[] args) {
+        EntityManagerFactory emf = Persistence.createEntityManagerFactory("CrashBooks");
 
         //Populate Data
-        PopulateData.populateDB();
+        PopulateData.populateDB(emf);
 
         exception(Exception.class, (e, req, res) -> e.printStackTrace());
         staticFileLocation("/public");
