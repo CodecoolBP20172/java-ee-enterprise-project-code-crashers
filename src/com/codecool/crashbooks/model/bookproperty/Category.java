@@ -12,12 +12,13 @@ public class Category {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
-    private String name;
+    @Enumerated(EnumType.STRING)
+    private Categories name;
 
     @OneToMany(mappedBy = "category", fetch = FetchType.LAZY)
     private List<Book> book;
 
-    public Category(String name) {
+    public Category(Categories name) {
         this.name = name;
     }
 

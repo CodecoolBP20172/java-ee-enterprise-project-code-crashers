@@ -13,12 +13,13 @@ public class Genre {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
-    private String name;
+    @Enumerated(EnumType.STRING)
+    private Genres name;
 
     @ManyToMany(mappedBy = "genres")
     private Set<Book> book;
 
-    public Genre(String name) {
+    public Genre(Genres name) {
         this.name = name;
     }
 
