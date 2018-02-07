@@ -1,0 +1,20 @@
+<!doctype html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+    <head th:replace="head :: copy"></head>
+    <body>
+
+        <div th:replace="header :: copy"></div>
+        <div class="container">
+         
+
+            <div class="btn btn-group d-flex justify-content-center">
+                <a href="/index"><button type="button" class="btn btn-outline-info"> Continue</button></a>
+                <a href="/cart"><button type= "button" class="btn btn-outline-info">Update list</button></a>
+                <a href="/index"><button type="button" class="btn btn-outline-info">Rent</button></a>
+            </div>
+
+            <div th:replace="footer :: copy"></div>
+
+        </div>
+    </body>
+</html>
