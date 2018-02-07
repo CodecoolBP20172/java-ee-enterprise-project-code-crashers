@@ -13,6 +13,7 @@ public class Genre {
     private int id;
 
     @Enumerated(EnumType.STRING)
+    @Column(unique = true)
     private Genres name;
 
     @ManyToMany(mappedBy = "genres")
