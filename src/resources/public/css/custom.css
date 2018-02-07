@@ -70,6 +70,10 @@
     right: 16px;
 }
 
+.filter {
+    flex-flow: row;
+}
+
 .jumbotron {
     background-size: contain;
     background: #98d0c5 url("../img/banner.png") no-repeat;

@@ -9,7 +9,7 @@
                         <a class="navbar-brand" href="/">
                             <img src="/img/logo.png" alt=""/>
                         </a>
-                        <form class="form-inline" action="/filter" method="get">
+                        <form class="form-inline filter" action="/filter" method="get">
                             <div class="form-group" th:object="${allCategories}">
                                 <select class="form-control" id="categories" name="categories">
                                     <option th:each="cat : ${allCategories}"
@@ -31,12 +31,25 @@
                     <ul class="nav navbar-nav">
                         <li class="active">
                             <div class="btn-group" role="group" aria-label="Basic example">
-                                <button type="button" class="btn btn-outline-warning">
-                                    <a href="/cart"><img src="/img/cart.png" width="25" height="25" alt=""/></a>
-                                </button>
-                                <button type="button" class="btn btn-outline-warning"
-                                        th:text="${cartProducts}"></button>
+                                <a href="/register">
+                                    <button type="register" class="btn btn-warning">Register</button>
+                                </a>
+                                <a href="/login">
+                                    <button type="login" class="btn btn-warning">Login</button>
+                                </a>
+                                <!-- todo session
+                                if(session != null)
+                                    see line 34-39
+                                else
+                                    <button type="button" class="btn btn-outline-warning">
+                                        Hello $(user.getName())
+                                    </button>
+                                     <a href="/profile">
+                                        <button type="logout" class="btn btn-warning">Login</button>
+                                     </a> -->
                             </div>
+                            <a href="/profile"><img src="/img/profile.png"  alt=""/></a>
+
                         </li>
                     </ul>
                 </div>
