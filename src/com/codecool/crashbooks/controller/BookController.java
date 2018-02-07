@@ -1,9 +1,6 @@
 package com.codecool.crashbooks.controller;
 
 import com.codecool.crashbooks.model.Media;
-import com.codecool.crashbooks.model.bookproperty.Author;
-import com.codecool.crashbooks.model.bookproperty.Category;
-import com.codecool.crashbooks.model.bookproperty.Genre;
 import spark.ModelAndView;
 import spark.Request;
 import spark.Response;

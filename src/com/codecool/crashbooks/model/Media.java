@@ -5,7 +5,9 @@ import com.codecool.crashbooks.model.bookproperty.Category;
 import com.codecool.crashbooks.model.bookproperty.Genre;
 
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 @Entity
@@ -69,5 +71,29 @@ public class Media {
 
     public String getDescription() {
         return description;
+    }
+
+    public List<Media> getAllMedia(){
+        List<Media> mediaList = new ArrayList<>();
+        //todo
+        return mediaList;
+    }
+
+    public List<Media> getMediaByGenre(Genre genre){
+        List<Media> mediaList = new ArrayList<>();
+        //todo
+        return mediaList;
+    }
+
+    public List<Media> getMediaByCategory(Category category){
+        List<Media> mediaList = new ArrayList<>();
+        //todo
+        return mediaList;
+    }
+
+    public List<Media> getMediaByAuthor(Author author){
+        List<Media> mediaList = new ArrayList<>();
+        //todo
+        return mediaList;
     }
 }
