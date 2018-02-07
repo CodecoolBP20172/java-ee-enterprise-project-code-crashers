@@ -47,6 +47,13 @@ public class Media {
         this.year = year;
         this.description = description;
     }
+    //test constructor can be deleted
+    public Media(String title, String description){
+        this.title = title;
+        this.description = description;
+        this.pictureUrl = "book_thumb.png";
+    }
+
 
     public void setGenres(Genre genres) {
         this.genres.add(genres);
