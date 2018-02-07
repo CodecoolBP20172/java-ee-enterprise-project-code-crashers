@@ -10,8 +10,7 @@ import javax.persistence.Persistence;
 
 public class PopulateData {
 
-    public static void populateDB() {
-        EntityManagerFactory emf = Persistence.createEntityManagerFactory("CrashBooks");
+    public static void populateDB(EntityManagerFactory emf) {
         EntityManager em = emf.createEntityManager();
 
         Author fekete = new Author("Fekete István");
@@ -87,7 +86,6 @@ public class PopulateData {
         transaction.commit();
 
         em.close();
-        emf.close();
 
     }
 

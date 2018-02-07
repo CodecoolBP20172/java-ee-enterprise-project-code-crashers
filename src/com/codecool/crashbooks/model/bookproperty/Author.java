@@ -4,7 +4,9 @@ import com.codecool.crashbooks.model.Media;
 
 import javax.persistence.*;
 import java.util.List;
-
+@NamedQueries({
+        @NamedQuery(name="Author.getById", query="SELECT a FROM Author a WHERE id = :id")
+})
 @Entity
 public class Author {
 
@@ -22,5 +24,16 @@ public class Author {
     }
 
     public Author() {
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public static Author getAuthorById(EntityManagerFactory emf, int id){
+        EntityManager em = emf.createEntityManager();
+        Author author = em.createNamedQuery("Author.getById", Author.class).setParameter("id", id).getSingleResult();
+        em.close();
+        return author;
     }
 }
