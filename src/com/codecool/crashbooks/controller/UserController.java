@@ -16,11 +16,11 @@ import java.util.Map;
 public class UserController {
 
     public static ModelAndView login(Request req, Response res) {
-        return new ModelAndView(new HashMap<>(), "login");
+        return new ModelAndView(new HashMap<>(), "book/login");
     }
 
     public static ModelAndView registration(Request req, Response res) {
-        return new ModelAndView(new HashMap<>(), "registration");
+        return new ModelAndView(new HashMap<>(), "book/registration");
     }
 
     public static User saveUser(Request req, EntityManagerFactory emf) {

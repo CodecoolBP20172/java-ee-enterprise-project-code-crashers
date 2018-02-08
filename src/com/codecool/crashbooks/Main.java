@@ -69,8 +69,8 @@ public class Main {
             }
             return null;
         });
-
         enableDebugScreen();
+        //TODO all route should check status code 200 if not should redirect to an error page.
     }
 
 
