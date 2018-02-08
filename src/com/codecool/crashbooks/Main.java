@@ -71,6 +71,13 @@ public class Main {
             }
             return "";
         });
+
+        get("/logout", (Request req, Response res) -> {
+            req.session().removeAttribute("name");
+            req.session().removeAttribute("id");
+            res.redirect("/");
+            return null;
+        });
         enableDebugScreen();
         //TODO all route should check status code 200 if not should redirect to an error page.
     }
