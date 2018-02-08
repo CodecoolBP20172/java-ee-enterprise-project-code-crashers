@@ -7,15 +7,17 @@
 
         <div class="container">
 
-            <div class="breadcrumb" th:text="${#lists.size(medialist)}">
-                catg+genre
-                <!--<strong th:text="${category.name} + ' from ' + ${genre.name}">Category Title</strong>-->
+            <div class="breadcrumb">
+                Category&nbsp;
+                <strong th:text="${category} != null ? ${category.getName()} : 'ALL'">Category Title</strong>
+                &nbsp;Genre&nbsp;
+                <strong th:text="${genre} != null ? ${genre.getName()} : 'ALL'">Category Title</strong>
             </div>
             <div id="products" class="row list-group">
 
                 <div class="item col-4" th:each="media,iterStat : ${medialist}">
                     <div class="thumbnail">
-                        <img class="group list-group-image" src="http://placehold.it/400x250/000/fff" th:attr="src='/img/' + ${media.pictureUrl} " alt="" />
+                        <img class="group list-group-image" src="/img/book_thumb.png" th:src="${media.pictureUrl} != null ? '/img/' + ${media.pictureUrl} " alt="" />
                         <div class="caption">
                             <h4 class="group inner list-group-item-heading" th:text="${media.getTitle()}">Product name</h4>
                             <h4 class="group inner list-group-item-heading" th:text="${media.getDescription()}">description</h4>

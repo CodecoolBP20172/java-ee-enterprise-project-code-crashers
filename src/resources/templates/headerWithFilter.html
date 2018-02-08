@@ -12,6 +12,7 @@
                         <form class="form-inline filter" action="/filter" method="get">
                             <div class="form-group" th:object="${categories}">
                                 <select class="form-control" id="category" name="category">
+                                    <option value="0">ALL</option>
                                     <option th:each="cat : ${categories}"
                                             th:value="${cat.getId()}"
                                             th:text="${cat.getName()}"></option>
@@ -20,12 +21,13 @@
 
                             <div class="col-sm-5" th:object="${genres}">
                                 <select class="form-control" id="genre" name="genre">
+                                    <option value="0">ALL</option>
                                     <option th:each="gen : ${genres}"
                                             th:value="${gen.getId()}"
                                             th:text="${gen.getName()}"></option>
                                 </select>
                             </div>
-                            <button type="selectCategory" class="btn btn-warning">Submit</button>
+                            <button type="selectCategory" class="btn btn-warning">Filter</button>
                         </form>
                     </div>
                     <ul class="nav navbar-nav">
