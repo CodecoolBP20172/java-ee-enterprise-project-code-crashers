@@ -20,27 +20,29 @@ class MediaTest extends SetupAndTearDown{
         assertEquals(4, (Media.getAllMedia(emf)).size());
     }
 
-    @Ignore
     @Test
-    @DisplayName("All Fantasy Media")
-    public void testGetMediaByGenreValid() {//why valid suffix
-        Genre genre = new Genre(Genres.FANTASY);
-        assertEquals(4, (Media.getMediaBy(emf, genre)).size());
+    @DisplayName("Size check for allMediaByCategory, BOOK")
+    public void testGetAllMediaByCategoryValidSizeForBooks(){
+        Category category = Category.getCategoryById(emf, 1);
+        assertEquals(2, Media.getMediaBy(emf, category).size());
     }
 
     @Test
-    @DisplayName("All book Media")
-    public void testGetMediaByCategoryValidInputs() {
-        Category book = new Category(Categories.BOOK);
-        assertEquals(8, (Media.getMediaBy(emf, book)).size());
+    @DisplayName("Size check for allMediaByCategory, MAGAZINE")
+    public void testGetAllMediaByCategorzValidSizeForMagazines(){
+        Category category = Category.getCategoryById(emf, 2);
+        assertEquals(1, Media.getMediaBy(emf, category).size());
     }
 
     @Test
-    @DisplayName("Media by Cagetory null")
-    public void testGetMediaByCategInValidInputs() {
-        Category book = null;
-        assertThrows(NullPointerException.class, () -> {
-            Media.getMediaBy(emf, book);
+    @DisplayName("Check for invalid category")
+    public void testGetAllMediaByCategory(){
+        Category category = null;
+        assertThrows(NullPointerException.class, ()->{
+            Media.getMediaBy(emf, category);
         });
     }
-}
+
+
+
+    }
