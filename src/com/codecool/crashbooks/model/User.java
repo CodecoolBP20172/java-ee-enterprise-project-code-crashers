@@ -20,7 +20,7 @@ public class User {
     @Enumerated(EnumType.STRING)
     private Enum<Membership> membership;
 
-    public User(String name, String password, Enum<Membership> membership) {
+    public User(String name, String password) {
         this.name = name;
         this.password = password;
         this.membership = Membership.FREE;
