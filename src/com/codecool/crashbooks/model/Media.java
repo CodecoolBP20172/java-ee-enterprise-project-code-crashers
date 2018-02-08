@@ -30,19 +30,14 @@ public class Media {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "author_id")
     private Author author;
-
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "category_id")
     private Category category;
-
     @ManyToMany
     @JoinTable(name = "book_genres")
     private Set<Genre> genres = new HashSet<>();
-
     private String pictureUrl;
-
     private int year;
-
     private String description;
 
     public Media() {
@@ -63,23 +58,6 @@ public class Media {
         this.title = title;
         this.description = description;
         this.pictureUrl = "book_thumb.png";
-    }
-
-
-    public void setGenres(Genre genres) {
-        this.genres.add(genres);
-    }
-
-    public String getTitle() {
-        return title;
-    }
-
-    public String getPictureUrl() {
-        return pictureUrl;
-    }
-
-    public String getDescription() {
-        return description;
     }
 
     public static List<Media> getAllMedia(EntityManagerFactory emf) {
@@ -118,6 +96,26 @@ public class Media {
                                                         .getResultList();
         em.close();
         return mediaList;
+    }
+
+    public Category getCategory() {
+        return category;
+    }
+
+    public void setGenres(Genre genres) {
+        this.genres.add(genres);
+    }
+
+    public String getTitle() {
+        return title;
+    }
+
+    public String getPictureUrl() {
+        return pictureUrl;
+    }
+
+    public String getDescription() {
+        return description;
     }
 }
 

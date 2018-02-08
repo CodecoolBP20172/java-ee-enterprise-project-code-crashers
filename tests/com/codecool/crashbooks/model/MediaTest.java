@@ -29,18 +29,42 @@ class MediaTest extends SetupAndTearDown{
 
     @Test
     @DisplayName("Size check for allMediaByCategory, MAGAZINE")
-    public void testGetAllMediaByCategorzValidSizeForMagazines(){
+    public void testGetAllMediaByCategoryValidSizeForMagazines(){
         Category category = Category.getCategoryById(emf, 2);
         assertEquals(1, Media.getMediaBy(emf, category).size());
     }
 
     @Test
     @DisplayName("Check for invalid category")
-    public void testGetAllMediaByCategory(){
+    public void testGetAllMediaByCategoryForInvalidCategory(){
         Category category = null;
         assertThrows(NullPointerException.class, ()->{
             Media.getMediaBy(emf, category);
         });
+    }
+
+    @Test
+    @DisplayName("Check for valid type, MAGAZINE")
+    public void testGetAllMediaByCategoryForMagazineType(){
+        Category exceptedCategory = Category.getCategoryById(emf, 2);
+        Category realCategory = Media.getAllMedia(emf).get(0).getCategory();
+        assertEquals(exceptedCategory.getName(), realCategory.getName());
+    }
+
+    @Test
+    @DisplayName("Check for valid type, Book")
+    public void testGetAllMediaByCategoryForBookType(){
+        Category exceptedCategory = Category.getCategoryById(emf, 1);
+        Category realCategory = Media.getAllMedia(emf).get(1).getCategory();
+        assertEquals(exceptedCategory.getName(), realCategory.getName());
+    }
+
+
+    @Test
+    @DisplayName("Size check for allMediaByCategory, testAuthor1")
+    public void testGetAllMediaByCategoryForTestAuthor1(){
+        Author author = Author.getAuthorById(emf, 1);
+        assertEquals(2, Media.getMediaBy(emf, author).size());
     }
 
 
