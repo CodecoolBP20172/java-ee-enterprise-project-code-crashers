@@ -19,10 +19,9 @@ public class SetupAndTearDown {
         tDB.populateTestDB(emf);
     }
 
-
     @AfterAll
     static void tearDown() {
         emf.close();
-        //emf  has create-drop policy
+
     }
 }
