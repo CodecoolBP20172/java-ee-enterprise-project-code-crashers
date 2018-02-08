@@ -13,7 +13,7 @@ import java.util.Set;
 @NamedQueries({
         @NamedQuery(name = "Media.getAllMedia", query = "SELECT m FROM Media m"),
         @NamedQuery(name = "Media.getMediaByGenre", query = "SELECT m FROM Media m JOIN m.genres bg " +
-                            " WHERE bg.id = :id"),
+                " WHERE bg.id = :id"),
         @NamedQuery(name = "Media.getMediaByGenreAndCategory", query = "SELECT m FROM Media m JOIN m.genres bg " +
                 " WHERE bg.id = :genreId AND category_id = :categoryId"),
         @NamedQuery(name = "Media.getMediaByCategory", query = "SELECT m FROM Media m WHERE category_id = :id"),
@@ -30,19 +30,15 @@ public class Media {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "author_id")
     private Author author;
-
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "category_id")
     private Category category;
 
-    @ManyToMany
+    @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(name = "book_genres")
     private Set<Genre> genres = new HashSet<>();
-
     private String pictureUrl;
-
     private int year;
-
     private String description;
 
     public Media() {
@@ -63,23 +59,6 @@ public class Media {
         this.title = title;
         this.description = description;
         this.pictureUrl = "book_thumb.png";
-    }
-
-
-    public void setGenres(Genre genres) {
-        this.genres.add(genres);
-    }
-
-    public String getTitle() {
-        return title;
-    }
-
-    public String getPictureUrl() {
-        return pictureUrl;
-    }
-
-    public String getDescription() {
-        return description;
     }
 
     public static List<Media> getAllMedia(EntityManagerFactory emf) {
@@ -113,11 +92,36 @@ public class Media {
     public static List<Media> getMediaBy(EntityManagerFactory emf, Genre genre, Category category) {
         EntityManager em = emf.createEntityManager();
         List<Media> mediaList = em.createNamedQuery("Media.getMediaByGenreAndCategory", Media.class)
-                                                        .setParameter("genreId", genre.getId())
-                                                        .setParameter("categoryId", category.getId())
-                                                        .getResultList();
+                .setParameter("genreId", genre.getId())
+                .setParameter("categoryId", category.getId())
+                .getResultList();
         em.close();
         return mediaList;
     }
+
+    public Category getCategory() {
+        return category;
+    }
+
+    public void setGenres(Genre genres) {
+        this.genres.add(genres);
+    }
+
+    public String getTitle() {
+        return title;
+    }
+
+    public String getPictureUrl() {
+        return pictureUrl;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public Set<Genre> getGenres() {
+        return genres;
+    }
 }
+
 
