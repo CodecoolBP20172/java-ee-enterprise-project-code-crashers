@@ -1,0 +1,66 @@
+<!doctype html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+    <body>
+
+        <div th:fragment="copy">
+            <div class="navbar navbar-expand-lg navbar-light bg-light">
+                <div class="container-fluid">
+                    <div class="form-inline">
+                        <a class="navbar-brand" href="/">
+                            <img src="/img/logo.png" alt=""/>
+                        </a>
+                        <form class="form-inline filter" action="/filter" method="get">
+                            <div class="form-group" th:object="${allCategories}">
+                                <select class="form-control" id="categories" name="categories">
+                                    <option th:each="cat : ${allCategories}"
+                                            th:value="${cat.id}"
+                                            th:text="${cat.name}"></option>
+                                </select>
+                            </div>
+
+                            <div class="col-sm-5" th:object="${allSupplier}">
+                                <select class="form-control" id="suppliers" name="suppliers">
+                                    <option th:each="sup : ${allSupplier}"
+                                            th:value="${sup.id}"
+                                            th:text="${sup.name}"></option>
+                                </select>
+                            </div>
+                            <button type="selectCategory" class="btn btn-warning">Submit</button>
+                        </form>
+                    </div>
+                    <ul class="nav navbar-nav">
+                        <li class="active">
+                            <div class="btn-group" role="group" aria-label="Basic example">
+                                <a href="/register">
+                                    <button type="register" class="btn btn-warning">Register</button>
+                                </a>
+                                <a href="/login">
+                                    <button type="login" class="btn btn-warning">Login</button>
+                                </a>
+                                <!-- todo session
+                                if(session != null)
+                                    see line 34-39
+                                else
+                                    <button type="button" class="btn btn-outline-warning">
+                                        Hello $(user.getName())
+                                    </button>
+                                     <a href="/profile">
+                                        <button type="logout" class="btn btn-warning">Login</button>
+                                     </a> -->
+                            </div>
+                            <a href="/profile"><img src="/img/profile.png"  alt=""/></a>
+
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <div class="jumbotron text-center">
+                <h2>
+                    CrashBooks
+                    <small class="text-muted">by Code Crashers</small>
+                </h2>
+            </div>
+        </div>
+
+    </body>
+</html>
