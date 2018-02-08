@@ -57,15 +57,12 @@ public class AllUsers {
         EntityManager em = emf.createEntityManager();
         AllUsers user = em.createNamedQuery("AllUsers.getUserByName", AllUsers.class).setParameter("name", name).getSingleResult();
         em.close();
-        System.out.println(user.getName());
         return user;
     }
 
     public static void saveUser(EntityManagerFactory emf, String name, String password){
         EntityManager em = emf.createEntityManager();
         EntityTransaction transaction = em.getTransaction();
-        System.out.println(name);
-        System.out.println(password);
         AllUsers user = new AllUsers(name, password);
         transaction.begin();
         em.persist(user);
