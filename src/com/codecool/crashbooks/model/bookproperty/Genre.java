@@ -5,7 +5,9 @@ import com.codecool.crashbooks.model.Media;
 import javax.persistence.*;
 import java.util.Set;
 @NamedQueries({
-        @NamedQuery(name="Genre.getById", query="SELECT g FROM Genre g WHERE id = :id")
+        @NamedQuery(name="Genre.getById", query="SELECT g FROM Genre g WHERE id = :id"),
+        @NamedQuery(name="Genre.getByName", query="SELECT g FROM Genre g WHERE name = :name"),
+        @NamedQuery(name = "Genre.getAll", query="SELECT g FROM Genre g")
 })
 @Entity
 public class Genre {

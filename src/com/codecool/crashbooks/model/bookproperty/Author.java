@@ -5,7 +5,9 @@ import com.codecool.crashbooks.model.Media;
 import javax.persistence.*;
 import java.util.List;
 @NamedQueries({
-        @NamedQuery(name="Author.getById", query="SELECT a FROM Author a WHERE id = :id")
+        @NamedQuery(name="Author.getById", query="SELECT a FROM Author a WHERE id = :id"),
+        @NamedQuery(name="Author.getByName", query="SELECT a FROM Author a WHERE name = :name"),
+        @NamedQuery(name="Author.getAll", query="SELECT a FROM Author a")
 })
 @Entity
 public class Author {
