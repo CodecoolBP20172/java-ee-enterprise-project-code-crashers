@@ -1,68 +1,67 @@
 <!doctype html>
 <html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
-    <body>
+<body>
 
-        <div th:fragment="copy">
-            <div class="navbar navbar-expand-lg navbar-light bg-light">
-                <div class="container-fluid">
-                    <div class="form-inline">
-                        <a class="navbar-brand" href="/">
-                            <img src="/img/logo.png" alt=""/>
-                        </a>
-                        <form class="form-inline filter" action="/filter" method="get">
-                            <div class="form-group" th:object="${categories}">
-                                <select class="form-control" id="category" name="category">
-                                    <option value="0">ALL</option>
-                                    <option th:each="cat : ${categories}"
-                                            th:value="${cat.getId()}"
-                                            th:text="${cat.getName()}"></option>
-                                </select>
-                            </div>
-
-                            <div class="col-sm-5" th:object="${genres}">
-                                <select class="form-control" id="genre" name="genre">
-                                    <option value="0">ALL</option>
-                                    <option th:each="gen : ${genres}"
-                                            th:value="${gen.getId()}"
-                                            th:text="${gen.getName()}"></option>
-                                </select>
-                            </div>
-                            <button type="selectCategory" class="btn btn-warning">Filter</button>
-                        </form>
+<div th:fragment="copy">
+    <div class="navbar navbar-expand-lg navbar-light bg-light">
+        <div class="container-fluid">
+            <div class="form-inline">
+                <a class="navbar-brand" href="/">
+                    <img src="/img/logo.png" alt=""/>
+                </a>
+                <form class="form-inline filter" action="/filter" method="get">
+                    <div class="form-group" th:object="${categories}">
+                        <select class="form-control" id="category" name="category">
+                            <option value="0">ALL</option>
+                            <option th:each="cat : ${categories}"
+                                    th:value="${cat.getId()}"
+                                    th:text="${cat.getName()}"></option>
+                        </select>
                     </div>
-                    <ul class="nav navbar-nav">
-                        <li class="active">
-                            <div class="btn-group" role="group" aria-label="Basic example">
-                                <a href="/register">
-                                    <button type="register" class="btn btn-warning">Register</button>
-                                </a>
-                                <a href="/login">
-                                    <button type="login" class="btn btn-warning">Login</button>
-                                </a>
-                                <!-- todo session
-                                if(session != null)
-                                    see line 34-39
-                                else
-                                    <button type="button" class="btn btn-outline-warning">
-                                        Hello $(user.getName())
-                                    </button>
-                                     <a href="/profile">
-                                        <button type="logout" class="btn btn-warning">Login</button>
-                                     </a> -->
-                            </div>
-                            <a href="/profile"><img src="/img/profile.png"  alt=""/></a>
 
-                        </li>
-                    </ul>
-                </div>
+                    <div class="col-sm-5" th:object="${genres}">
+                        <select class="form-control" id="genre" name="genre">
+                            <option value="0">ALL</option>
+                            <option th:each="gen : ${genres}"
+                                    th:value="${gen.getId()}"
+                                    th:text="${gen.getName()}"></option>
+                        </select>
+                    </div>
+                    <button type="selectCategory" class="btn btn-warning">Filter</button>
+                </form>
             </div>
-            <div class="jumbotron text-center">
-                <h2>
-                    CrashBooks
-                    <small class="text-muted">by Code Crashers</small>
-                </h2>
-            </div>
+            <ul class="nav navbar-nav">
+                <li class="active">
+                    <div th:if="${user}">
+                        <div class="btn-group" role="group" aria-label="Basic example">
+                            <button type="button" class="btn btn-outline-warning" th:text="'Hi ' + ${user}"></button>
+                            <a href="/logout">
+                                <button type="button" class="btn btn-outline-warning">Logout</button>
+                            </a>
+                        </div>
+                        <a href="/soon"><img src="/img/profile.png" alt=""/></a> <!--TODO profile page-->
+                    </div>
+                    <div th:unless="${user}">
+                        <div class="btn-group" role="group" aria-label="Basic example">
+                            <a href="/registration">
+                                <button type="register" class="btn btn-warning">Register</button>
+                            </a>
+                            <a href="/login">
+                                <button type="login" class="btn btn-warning">Login</button>
+                            </a>
+                        </div>
+                    </div>
+                </li>
+            </ul>
         </div>
+    </div>
+    <div class="jumbotron text-center">
+        <h2>
+            CrashBooks
+            <small class="text-muted">by Code Crashers</small>
+        </h2>
+    </div>
+</div>
 
-    </body>
+</body>
 </html>

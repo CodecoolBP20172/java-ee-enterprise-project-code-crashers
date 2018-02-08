@@ -19,6 +19,7 @@ public class BookController {
         params.put("medialist", Media.getAllMedia(emf));
         params.put("genres", Genre.getAllGenre(emf));
         params.put("categories", Category.getAllCategory(emf));
+        params.put("user", request.session().attribute("name"));
         return new ModelAndView(params, "book/index");
     }
 
@@ -26,6 +27,7 @@ public class BookController {
         Map<String, Object> params = new HashMap<>();
         int genreId = Integer.parseInt(request.queryParams("genre"));
         int categoryId = Integer.parseInt(request.queryParams("category"));
+        params.put("user", request.session().attribute("name"));
         if (genreId == 0 && categoryId == 0) {
             response.redirect("/");
         } else if (genreId == 0) {
@@ -47,5 +49,11 @@ public class BookController {
         params.put("genres", Genre.getAllGenre(emf));
         params.put("categories", Category.getAllCategory(emf));
         return new ModelAndView(params, "book/index");
+    }
+
+    public static ModelAndView soon(Request req, Response res) {
+        Map<String, Object> params = new HashMap<>();
+        params.put("user", req.session().attribute("name"));
+        return new ModelAndView(params, "book/soon");
     }
 }
