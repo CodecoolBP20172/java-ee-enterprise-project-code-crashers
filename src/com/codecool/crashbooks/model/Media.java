@@ -12,8 +12,8 @@ import java.util.Set;
 
 @NamedQueries({
         @NamedQuery(name = "Media.getAllMedia", query = "SELECT m FROM Media m"),
-        //@NamedQuery(name = "Media.getMediaByGenre", query = "SELECT m FROM Media m JOIN m.genres bg ON " +
-        //                    "(m.id = bg.book_id) WHERE genre_id = :id"),
+        @NamedQuery(name = "Media.getMediaByGenre", query = "SELECT m FROM Media m JOIN m.genres bg " +
+                            " WHERE bg.id = :id"),
         @NamedQuery(name = "Media.getMediaByCategory", query = "SELECT m FROM Media m WHERE category_id = :id"),
         @NamedQuery(name = "Media.getMediaByAuthor", query = "SELECT m FROM Media m WHERE author_id = :id")})
 @Entity
