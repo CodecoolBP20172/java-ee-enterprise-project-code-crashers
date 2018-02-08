@@ -1,0 +1,24 @@
+<!doctype html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+    <head th:replace="head :: copy"></head>
+    <body>
+
+        <div th:replace="header :: copy"></div>
+        <div class="container">
+            <a href="/">
+                <button type="button" class="btn btn-warning">Back to main page</button>
+            </a>
+            <form method = "post" action = "/login">
+                <div th:replace="logregpart :: copy"></div>
+                <div class="btn-group formbutton" role="group">
+
+                    <button type="submit" class="btn btn-warning">Login</button>
+                </div>
+            </form>
+
+
+            <div th:replace="footer :: copy"></div>
+
+        </div>
+    </body>
+</html>
