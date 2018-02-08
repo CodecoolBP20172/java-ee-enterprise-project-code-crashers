@@ -30,6 +30,10 @@ public class Main {
             return new ThymeleafTemplateEngine().render(BookController.renderAllBooks(req, res, emf));
         });
 
+        get("/filter", (Request req, Response res) -> {
+            return new ThymeleafTemplateEngine().render(BookController.renderBooksByFilter(req, res, emf));
+        });
+
         enableDebugScreen();
     }
 
