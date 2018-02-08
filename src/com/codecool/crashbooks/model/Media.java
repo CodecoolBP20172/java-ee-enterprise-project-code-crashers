@@ -35,7 +35,7 @@ public class Media {
     @JoinColumn(name = "category_id")
     private Category category;
 
-    @ManyToMany
+    @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(name = "book_genres")
     private Set<Genre> genres = new HashSet<>();
 
@@ -118,6 +118,10 @@ public class Media {
                                                         .getResultList();
         em.close();
         return mediaList;
+    }
+
+    public Set<Genre> getGenres() {
+        return genres;
     }
 }
 

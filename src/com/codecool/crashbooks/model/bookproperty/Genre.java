@@ -4,6 +4,7 @@ import com.codecool.crashbooks.model.Media;
 
 import javax.persistence.*;
 import java.util.List;
+import java.util.Objects;
 import java.util.Set;
 @NamedQueries({
         @NamedQuery(name="Genre.getById", query="SELECT g FROM Genre g WHERE id = :id"),
@@ -21,7 +22,7 @@ public class Genre {
     @Column(unique = true)
     private Genres name;
 
-    @ManyToMany(mappedBy = "genres")
+    @ManyToMany(mappedBy = "genres", fetch = FetchType.EAGER)
     private Set<Media> book;
 
     public Genre(Genres name) {
@@ -57,5 +58,20 @@ public class Genre {
         Genre genre = em.createNamedQuery("Genre.getByName", Genre.class).setParameter("name", name).getSingleResult();
         em.close();
         return genre;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Genre genre = (Genre) o;
+        return id == genre.id &&
+                name == genre.name;
+    }
+
+    @Override
+    public int hashCode() {
+
+        return Objects.hash(id, name);
     }
 }
