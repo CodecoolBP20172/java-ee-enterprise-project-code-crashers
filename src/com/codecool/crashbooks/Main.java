@@ -24,9 +24,11 @@ public class Main {
         staticFileLocation("/public");
         port(8888);
 
-        get("/hello", (req, res) -> "Hello World!");
+        get("/hello", (req, res) -> "Hello Crashers!!!");
 
-        get("/", BookController::renderAllBooks, new ThymeleafTemplateEngine());
+        get("/", (Request req, Response res) -> {
+            return new ThymeleafTemplateEngine().render(BookController.renderAllBooks(req, res, emf));
+        });
 
         enableDebugScreen();
     }
