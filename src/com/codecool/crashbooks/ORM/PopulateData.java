@@ -39,7 +39,7 @@ public class PopulateData {
 
         Media vuk = new Media("Vuk", fekete, book, adventure, "book_thumb.png", 1965, "A good book...");
         Media tuskevar = new Media("Tüskevár", fekete, book, realism, "book_thumb.png", 1957, "A good book...");
-        Media potter1 = new Media("Harry Potter", rowling, book, fantasy, "potter.jpg", 1997, "A good book...");
+        Media potter1 = new Media("Harry Potter", rowling, book, fantasy, "book_thumb.png", 1997, "A good book...");
         potter1.setGenres(adventure);
         Media lordOfTheRings1 = new Media("Lord of the Rings", tolkien, book, fantasy, "book_thumb.png", 1954, "A good book...");
         Media gOfThrones1 = new Media("Game of Thrones", martin, book, fantasy, "book_thumb.png", 1996, "A good book...");
