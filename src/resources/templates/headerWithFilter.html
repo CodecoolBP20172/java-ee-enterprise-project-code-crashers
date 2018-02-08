@@ -10,19 +10,19 @@
                             <img src="/img/logo.png" alt=""/>
                         </a>
                         <form class="form-inline filter" action="/filter" method="get">
-                            <div class="form-group" th:object="${allCategories}">
-                                <select class="form-control" id="categories" name="categories">
-                                    <option th:each="cat : ${allCategories}"
-                                            th:value="${cat.id}"
-                                            th:text="${cat.name}"></option>
+                            <div class="form-group" th:object="${categories}">
+                                <select class="form-control" id="category" name="category">
+                                    <option th:each="cat : ${categories}"
+                                            th:value="${cat.getId()}"
+                                            th:text="${cat.getName()}"></option>
                                 </select>
                             </div>
 
-                            <div class="col-sm-5" th:object="${allSupplier}">
-                                <select class="form-control" id="suppliers" name="suppliers">
-                                    <option th:each="sup : ${allSupplier}"
-                                            th:value="${sup.id}"
-                                            th:text="${sup.name}"></option>
+                            <div class="col-sm-5" th:object="${genres}">
+                                <select class="form-control" id="genre" name="genre">
+                                    <option th:each="gen : ${genres}"
+                                            th:value="${gen.getId()}"
+                                            th:text="${gen.getName()}"></option>
                                 </select>
                             </div>
                             <button type="selectCategory" class="btn btn-warning">Submit</button>
