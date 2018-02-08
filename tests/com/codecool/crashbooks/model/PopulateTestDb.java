@@ -11,13 +11,10 @@ public class PopulateTestDb {
     public void populateTestDB(EntityManagerFactory emf) {
         EntityManager em = emf.createEntityManager();
 
-        Author fekete = new Author("Fekete István");
-        Author rowling = new Author("J. K. Rowling");
-        Author tolkien = new Author("J. R. R. Tolkien");
-        Author martin = new Author("George R. R. Martin");
-        Author king = new Author("Stephen King");
-        Author crichton = new Author("Michael Crichton");
-
+        Author testAuthor1 = new Author("testAuthor1");
+        Author testAuthor2 = new Author("testAuthor2");
+        Author testAuthor3 = new Author("testAuthor3");
+        Author testAuthor4 = new Author("testAuthor4");
 
         Category book = new Category(Categories.BOOK);
         Category magazine = new Category(Categories.MAGAZINE);
@@ -35,26 +32,19 @@ public class PopulateTestDb {
         Genre adventure = new Genre(Genres.ADVENTURE);
         Genre realism = new Genre(Genres.REALISM);
 
-        Media vuk = new Media("Vuk", fekete, magazine, adventure, "url/pic.jpg", 1965, "A good book...");
-        Media tuskevar = new Media("Tüskevár", fekete, book, realism, "url/pic.jpg", 1957, "A good book...");
-        Media potter1 = new Media("Harry Potter", rowling, magazine, fantasy, "url/pic.jpg", 1997, "A good book...");
-        potter1.setGenres(adventure);
-        Media lordOfTheRings1 = new Media("Lord of the Rings", tolkien, book, fantasy, "url/pic.jpg", 1954, "A good book...");
-        Media gOfThrones1 = new Media("Game of Thrones", martin, book, fantasy, "url/pic.jpg", 1996, "A good book...");
-        Media it = new Media("It", king, book, horror, "url/pic.jpg", 1986, "A good book...");
-        Media jurassicPark = new Media("Jurassic Park", crichton, newspaper, fantasy, "url/pic.jpg", 1990, "A good book...");
-        Media twister = new Media("Twister", crichton, book, drama, "url/pic.jpg", 1994, "A good book...");
+        Media media1 = new Media("testMedia1", testAuthor1, magazine, adventure, "url/pic.jpg", 1999, "A good book...");
+        Media media2 = new Media("testMedia2", testAuthor1, book, mythology, "url/pic.jpg", 1919, "A good book...");
+        Media media3 = new Media("testMedia3", testAuthor2, book, adventure, "url/pic.jpg", 1981, "A good book...");
+        Media media4 = new Media("testMedia4", testAuthor3, newspaper, realism, "url/pic.jpg", 1965, "A good book...");
 
         EntityTransaction transaction = em.getTransaction();
 
         transaction.begin();
 
-        em.persist(fekete);
-        em.persist(rowling);
-        em.persist(tolkien);
-        em.persist(martin);
-        em.persist(king);
-        em.persist(crichton);
+        em.persist(testAuthor1);
+        em.persist(testAuthor2);
+        em.persist(testAuthor3);
+        em.persist(testAuthor4);
 
         em.persist(book);
         em.persist(magazine);
@@ -72,14 +62,10 @@ public class PopulateTestDb {
         em.persist(adventure);
         em.persist(realism);
 
-        em.persist(vuk);
-        em.persist(tuskevar);
-        em.persist(potter1);
-        em.persist(lordOfTheRings1);
-        em.persist(gOfThrones1);
-        em.persist(it);
-        em.persist(jurassicPark);
-        em.persist(twister);
+        em.persist(media1);
+        em.persist(media2);
+        em.persist(media3);
+        em.persist(media4);
 
         transaction.commit();
 
