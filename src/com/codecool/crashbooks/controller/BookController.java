@@ -50,4 +50,10 @@ public class BookController {
         params.put("categories", Category.getAllCategory(emf));
         return new ModelAndView(params, "book/index");
     }
+
+    public static ModelAndView soon(Request req, Response res) {
+        Map<String, Object> params = new HashMap<>();
+        params.put("user", req.session().attribute("name"));
+        return new ModelAndView(params, "book/soon");
+    }
 }

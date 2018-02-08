@@ -78,6 +78,14 @@ public class Main {
             res.redirect("/");
             return null;
         });
+
+        get("/soon", (Request req, Response res) -> {
+            return new ThymeleafTemplateEngine().render(BookController.soon(req, res));
+        });
+
+        post("/soon", (Request req, Response res) -> {
+            return new ThymeleafTemplateEngine().render(BookController.soon(req, res));
+        });
         enableDebugScreen();
         //TODO all route should check status code 200 if not should redirect to an error page.
     }
