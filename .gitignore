@@ -110,4 +110,7 @@ buildNumber.properties
 *.iml
 /.idea/
 /enterprise-project.iml
+/src/resources/META-INF/create-schema.ddl
+/src/resources/META-INF/drop-schema.ddl
 /src/resources/META-INF/persistence.xml
+
