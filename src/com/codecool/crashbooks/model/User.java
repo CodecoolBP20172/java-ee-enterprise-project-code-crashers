@@ -34,6 +34,10 @@ public class User {
         return name;
     }
 
+    public String getPassword() {
+        return password;
+    }
+
     public void setMembership(Enum<Membership> membership) {
         this.membership = membership;
     }

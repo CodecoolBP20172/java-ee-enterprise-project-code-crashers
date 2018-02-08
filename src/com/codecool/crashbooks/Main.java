@@ -40,21 +40,19 @@ public class Main {
             return new ThymeleafTemplateEngine().render(UserController.login(req, res));
         });
 
-//        post("/login", (Request req, Response res) ->{
-//            String name = req.queryParams("name");
-//            String password = req.queryParams("password");
-//            if (UserController.loginIsValid(emf, name, password)) {
-//                User user = User.getUserByName(emf, name);
-//                req.session(true);
-//                req.session().attribute("name",req.queryParams("name"));
-//                req.session().attribute("id", user.getId());
-//                res.redirect("/");
-//            } else {
-//                return new ThymeleafTemplateEngine().render(UserController.login(req, res, "wrong email/pw"));
-//            }
-//            return null;
-//
-//        });
+        post("/login", (Request req, Response res) ->{
+            User user = User.getUserByName(emf, req.queryParams("name"));
+            if (user.getPassword() == req.queryParams("password")) {
+                req.session(true);
+                req.session().attribute("name", user.getName());
+                req.session().attribute("id", user.getId());
+                res.redirect("/");
+            } else {
+                return new ThymeleafTemplateEngine().render(UserController.errorPage(req, res, "Username is already taken"));
+            }
+            return null;
+
+        });
         get("/registration", (Request req, Response res) -> {
             return new ThymeleafTemplateEngine().render(UserController.registration(req, res));
         });
@@ -67,7 +65,7 @@ public class Main {
                 req.session().attribute("id", user.getId());
                 res.redirect("/");
             } else {
-                return new ThymeleafTemplateEngine().render(UserController.login(req, res, "wrong email/pw"));
+                return new ThymeleafTemplateEngine().render(UserController.errorPage(req, res, "Wrong username or password"));
             }
             return null;
         });
