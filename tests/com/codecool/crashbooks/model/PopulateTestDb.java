@@ -37,6 +37,7 @@ public class PopulateTestDb {
         Media media3 = new Media("testMedia3", testAuthor2, book, adventure, "url/pic.jpg", 1981, "A good book...");
         Media media4 = new Media("testMedia4", testAuthor3, newspaper, realism, "url/pic.jpg", 1965, "A good book...");
 
+        AllUsers testUser = new AllUsers("test1", "test1");
         EntityTransaction transaction = em.getTransaction();
 
         transaction.begin();
@@ -66,6 +67,8 @@ public class PopulateTestDb {
         em.persist(media2);
         em.persist(media3);
         em.persist(media4);
+
+        em.persist(testUser);
 
         transaction.commit();
 
