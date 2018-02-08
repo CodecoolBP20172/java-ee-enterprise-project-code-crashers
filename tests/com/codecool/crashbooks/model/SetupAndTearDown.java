@@ -11,7 +11,7 @@ import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
 
 public class SetupAndTearDown {
-    static EntityManagerFactory emf = Persistence.createEntityManagerFactory("CrashBooks");
+    static EntityManagerFactory emf = Persistence.createEntityManagerFactory("CrashBooks_test");
 
     @BeforeAll
     static void setUp() {
