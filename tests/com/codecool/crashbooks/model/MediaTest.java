@@ -13,7 +13,8 @@ import java.util.List;
 import static org.junit.jupiter.api.Assertions.*;
 
 class MediaTest extends SetupAndTearDown{
-    EntityManagerFactory emf = Persistence.createEntityManagerFactory("CrashBooks");
+    //EntityManagerFactory emf = Persistence.createEntityManagerFactory("CrashBooks");
+
 
     @Test
     @DisplayName("All media")
@@ -61,19 +62,20 @@ class MediaTest extends SetupAndTearDown{
         expectedResultList.add(jurassicPark);
         expectedResultList.add(twister);
         assertEquals(expectedResultList.toString(), Media.getAllMedia(emf));
+        //object equals override
     }
 
     @Ignore
     @Test
     @DisplayName("All Fantasy Media")
-    public void testGetMediaByGenreValid() {
+    public void testGetMediaByGenreValid() {//why valid suffix
         Genre genre = new Genre(Genres.FANTASY);
         assertEquals(4, (Media.getMediaBy(emf, genre)).size());
     }
 
     @Test
     @DisplayName("All book Media")
-    public void testGetMediaByCategValidInputs() {
+    public void testGetMediaByCategoryValidInputs() {
         Category book = new Category(Categories.BOOK);
         assertEquals(8, (Media.getMediaBy(emf, book)).size());
     }
