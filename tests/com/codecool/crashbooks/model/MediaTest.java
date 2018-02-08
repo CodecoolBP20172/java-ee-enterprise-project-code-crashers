@@ -1,22 +1,17 @@
 package com.codecool.crashbooks.model;
 
-import com.codecool.crashbooks.model.bookproperty.*;
-import org.junit.Ignore;
+import com.codecool.crashbooks.model.bookproperty.Category;
+import com.codecool.crashbooks.model.bookproperty.Genre;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
-import javax.persistence.EntityManagerFactory;
-import javax.persistence.Persistence;
-import java.util.ArrayList;
-import java.util.List;
-
 import static org.junit.jupiter.api.Assertions.*;
 
-class MediaTest extends SetupAndTearDown{
+class MediaTest extends SetupAndTearDown {
 
     @Test
     @DisplayName("All media")
-    public void testGetAllMedia(){
+    public void testGetAllMedia() {
         assertEquals(4, (Media.getAllMedia(emf)).size());
     }
 
@@ -25,7 +20,7 @@ class MediaTest extends SetupAndTearDown{
     public void testGetMediaByNullGenre() {
         Genre genre = null;
         assertThrows(NullPointerException.class, () -> {
-                Media.getMediaBy(emf, genre).size();
+            Media.getMediaBy(emf, genre).size();
         });
     }
 
@@ -64,18 +59,26 @@ class MediaTest extends SetupAndTearDown{
     }
 
     @Test
-    @DisplayName("All book Media")
-    public void testGetMediaByCategoryValidInputs() {
-        Category book = new Category(Categories.BOOK);
-        assertEquals(8, (Media.getMediaBy(emf, book)).size());
+    @DisplayName("Size check for allMediaByCategory, BOOK")
+    public void testGetAllMediaByCategoryValidSizeForBooks() {
+        Category category = Category.getCategoryById(emf, 1);
+        assertEquals(2, Media.getMediaBy(emf, category).size());
     }
 
     @Test
-    @DisplayName("Media by Cagetory null")
-    public void testGetMediaByCategInValidInputs() {
-        Category book = null;
+    @DisplayName("Size check for allMediaByCategory, MAGAZINE")
+    public void testGetAllMediaByCategorzValidSizeForMagazines() {
+        Category category = Category.getCategoryById(emf, 2);
+        assertEquals(1, Media.getMediaBy(emf, category).size());
+    }
+
+    @Test
+    @DisplayName("Check for invalid category")
+    public void testGetAllMediaByCategory() {
+        Category category = null;
         assertThrows(NullPointerException.class, () -> {
-            Media.getMediaBy(emf, book);
+            Media.getMediaBy(emf, category);
         });
     }
+
 }
