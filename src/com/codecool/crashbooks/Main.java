@@ -59,18 +59,16 @@ public class Main {
 
         post("/registration", (Request req, Response res) -> {
             System.out.println(req.queryParams("name"));
-            System.out.println(UserController.userNameIsValid(emf, req.queryParams("name")));
-            //if (UserController.userNameIsValid(emf, req.queryParams("name"))) {
-
+            if (UserController.userNameIsValid(emf, req.queryParams("name"))) {
                 UserController.saveUser(req, emf);
                 AllUsers user = AllUsers.getUserByName(emf, req.queryParams("name"));
                 req.session(true);
                 req.session().attribute("name",req.queryParams("name"));
                 req.session().attribute("id", user.getId());
                 res.redirect("/");
-            //} else {
-              //  return new ThymeleafTemplateEngine().render(UserController.errorPage(req, res, "Registration failed!"));
-            //}
+            } else {
+                return new ThymeleafTemplateEngine().render(UserController.errorPage(req, res, "Registration failed!"));
+            }
             return "";
         });
         enableDebugScreen();

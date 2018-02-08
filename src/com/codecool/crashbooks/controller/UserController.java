@@ -6,6 +6,7 @@ import spark.Request;
 import spark.Response;
 
 import javax.persistence.EntityManagerFactory;
+import javax.persistence.NoResultException;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -24,8 +25,12 @@ public class UserController {
     }
 
     public static boolean userNameIsValid(EntityManagerFactory emf, String name) {
-        System.out.println("Username is valid");
-        return AllUsers.getUserByName(emf, name).getName() == null;
+        try {
+            AllUsers.getUserByName(emf, name).getName();
+        } catch (NoResultException e) {
+            return true;
+        }
+        return false;
     }
 
     public static ModelAndView errorPage(Request req, Response res, String errorMessage) {
