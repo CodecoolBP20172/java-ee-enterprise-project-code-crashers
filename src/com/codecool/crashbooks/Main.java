@@ -6,7 +6,7 @@ import static spark.debug.DebugScreen.enableDebugScreen;
 import com.codecool.crashbooks.ORM.PopulateData;
 import com.codecool.crashbooks.controller.BookController;
 import com.codecool.crashbooks.controller.UserController;
-import com.codecool.crashbooks.model.User;
+import com.codecool.crashbooks.model.AllUsers;
 import spark.Request;
 import spark.Response;
 import spark.template.thymeleaf.ThymeleafTemplateEngine;
@@ -41,14 +41,14 @@ public class Main {
         });
 
         post("/login", (Request req, Response res) ->{
-            User user = User.getUserByName(emf, req.queryParams("name"));
-            if (user.getPassword() == req.queryParams("password")) {
+            AllUsers user = AllUsers.getUserByName(emf, req.queryParams("name"));
+            if (user.getPassword().equals(req.queryParams("password"))) {
                 req.session(true);
                 req.session().attribute("name", user.getName());
                 req.session().attribute("id", user.getId());
                 res.redirect("/");
             } else {
-                return new ThymeleafTemplateEngine().render(UserController.errorPage(req, res, "Username is already taken"));
+                return new ThymeleafTemplateEngine().render(UserController.errorPage(req, res, "Login Failed!"));
             }
             return null;
 
@@ -58,16 +58,20 @@ public class Main {
         });
 
         post("/registration", (Request req, Response res) -> {
-            if (UserController.userNameIsValid(emf, req.queryParams("name"))) {
-                User user = UserController.saveUser(req, emf);
+            System.out.println(req.queryParams("name"));
+            System.out.println(UserController.userNameIsValid(emf, req.queryParams("name")));
+            //if (UserController.userNameIsValid(emf, req.queryParams("name"))) {
+
+                UserController.saveUser(req, emf);
+                AllUsers user = AllUsers.getUserByName(emf, req.queryParams("name"));
                 req.session(true);
                 req.session().attribute("name",req.queryParams("name"));
                 req.session().attribute("id", user.getId());
                 res.redirect("/");
-            } else {
-                return new ThymeleafTemplateEngine().render(UserController.errorPage(req, res, "Wrong username or password"));
-            }
-            return null;
+            //} else {
+              //  return new ThymeleafTemplateEngine().render(UserController.errorPage(req, res, "Registration failed!"));
+            //}
+            return "";
         });
         enableDebugScreen();
         //TODO all route should check status code 200 if not should redirect to an error page.

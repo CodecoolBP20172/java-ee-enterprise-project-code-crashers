@@ -1,15 +1,11 @@
 package com.codecool.crashbooks.controller;
 
-import com.codecool.crashbooks.model.Membership;
-import com.codecool.crashbooks.model.User;
+import com.codecool.crashbooks.model.AllUsers;
 import spark.ModelAndView;
 import spark.Request;
 import spark.Response;
-import spark.template.thymeleaf.ThymeleafTemplateEngine;
 
-import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
-import javax.swing.text.html.parser.Entity;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -23,20 +19,19 @@ public class UserController {
         return new ModelAndView(new HashMap<>(), "book/registration");
     }
 
-    public static User saveUser(Request req, EntityManagerFactory emf) {
-        User user = new User(req.queryParams("name"), req.queryParams("password"));
-        User.saveUser(emf, user);
-        return user;
+    public static void saveUser(Request req, EntityManagerFactory emf) {
+        AllUsers.saveUser(emf, req.queryParams("name"), req.queryParams("password"));
     }
 
     public static boolean userNameIsValid(EntityManagerFactory emf, String name) {
-        return User.getUserByName(emf, name) == null;
+        System.out.println("Username is valid");
+        return AllUsers.getUserByName(emf, name).getName() == null;
     }
 
     public static ModelAndView errorPage(Request req, Response res, String errorMessage) {
         Map params = new HashMap();
         params.put("error", errorMessage);
-        return new ModelAndView(params, "error");
+        return new ModelAndView(params, "book/error");
     }
 
 
