@@ -2,7 +2,7 @@ package com.codecool.crashbooks.ORM;
 
 import com.codecool.crashbooks.model.Media;
 import com.codecool.crashbooks.model.Member;
-import com.codecool.crashbooks.model.bookproperty.*;
+import com.codecool.crashbooks.model.mediaproperty.*;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;

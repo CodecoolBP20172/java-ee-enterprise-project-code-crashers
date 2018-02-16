@@ -4,7 +4,7 @@ import static spark.Spark.*;
 import static spark.debug.DebugScreen.enableDebugScreen;
 
 import com.codecool.crashbooks.ORM.PopulateData;
-import com.codecool.crashbooks.controller.BookController;
+import com.codecool.crashbooks.controller.MediaController;
 import com.codecool.crashbooks.controller.MemberController;
 import com.codecool.crashbooks.model.Member;
 import spark.Request;
@@ -29,11 +29,11 @@ public class Main {
         get("/hello", (req, res) -> "Hello Crashers!!!");
 
         get("/", (Request req, Response res) -> {
-            return new ThymeleafTemplateEngine().render(BookController.renderAllBooks(req, res, emf));
+            return new ThymeleafTemplateEngine().render(MediaController.renderAllBooks(req, res, emf));
         });
 
         get("/filter", (Request req, Response res) -> {
-            return new ThymeleafTemplateEngine().render(BookController.renderBooksByFilter(req, res, emf));
+            return new ThymeleafTemplateEngine().render(MediaController.renderBooksByFilter(req, res, emf));
         });
 
         get("/login", (Request req, Response res) -> {
@@ -80,11 +80,11 @@ public class Main {
         });
 
         get("/soon", (Request req, Response res) -> {
-            return new ThymeleafTemplateEngine().render(BookController.soon(req, res));
+            return new ThymeleafTemplateEngine().render(MediaController.soon(req, res));
         });
 
         post("/soon", (Request req, Response res) -> {
-            return new ThymeleafTemplateEngine().render(BookController.soon(req, res));
+            return new ThymeleafTemplateEngine().render(MediaController.soon(req, res));
         });
         enableDebugScreen();
         //TODO all route should check status code 200 if not should redirect to an error page.

@@ -1,8 +1,8 @@
 package com.codecool.crashbooks.model;
 
-import com.codecool.crashbooks.model.bookproperty.Author;
-import com.codecool.crashbooks.model.bookproperty.Category;
-import com.codecool.crashbooks.model.bookproperty.Genre;
+import com.codecool.crashbooks.model.mediaproperty.Author;
+import com.codecool.crashbooks.model.mediaproperty.Category;
+import com.codecool.crashbooks.model.mediaproperty.Genre;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 

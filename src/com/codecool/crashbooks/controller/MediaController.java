@@ -1,8 +1,8 @@
 package com.codecool.crashbooks.controller;
 
 import com.codecool.crashbooks.model.Media;
-import com.codecool.crashbooks.model.bookproperty.Category;
-import com.codecool.crashbooks.model.bookproperty.Genre;
+import com.codecool.crashbooks.model.mediaproperty.Category;
+import com.codecool.crashbooks.model.mediaproperty.Genre;
 import spark.ModelAndView;
 import spark.Request;
 import spark.Response;
@@ -11,7 +11,7 @@ import javax.persistence.EntityManagerFactory;
 import java.util.HashMap;
 import java.util.Map;
 
-public class BookController {
+public class MediaController {
 
 
     public static ModelAndView renderAllBooks(Request request, Response response, EntityManagerFactory emf) {

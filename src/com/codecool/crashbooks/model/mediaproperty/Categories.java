@@ -1,4 +1,4 @@
-package com.codecool.crashbooks.model.bookproperty;
+package com.codecool.crashbooks.model.mediaproperty;
 
 public enum Categories {
     BOOK,
