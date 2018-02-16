@@ -87,7 +87,7 @@ class MediaTest extends SetupAndTearDown {
     public void testGetAllMediaByCategoryForMagazineType() {
         Category exceptedCategory = Category.getCategoryById(emf, 2);
         Category realCategory = Media.getAllMedia(emf).get(0).getCategory();
-        assertEquals(exceptedCategory.getName(), realCategory.getName());
+        assertEquals(exceptedCategory.getType(), realCategory.getType());
     }
 
     @Test
@@ -95,7 +95,7 @@ class MediaTest extends SetupAndTearDown {
     public void testGetAllMediaByCategoryForBookType() {
         Category exceptedCategory = Category.getCategoryById(emf, 1);
         Category realCategory = Media.getAllMedia(emf).get(1).getCategory();
-        assertEquals(exceptedCategory.getName(), realCategory.getName());
+        assertEquals(exceptedCategory.getType(), realCategory.getType());
     }
 
     //Author tests

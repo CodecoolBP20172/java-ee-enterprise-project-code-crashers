@@ -16,9 +16,9 @@ public class PopulateTestDb {
         Author testAuthor3 = new Author("testAuthor3");
         Author testAuthor4 = new Author("testAuthor4");
 
-        Category book = new Category(Categories.BOOK);
-        Category magazine = new Category(Categories.MAGAZINE);
-        Category newspaper = new Category(Categories.NEWSPAPER);
+        Category book = new Category(CategoryType.BOOK);
+        Category magazine = new Category(CategoryType.MAGAZINE);
+        Category newspaper = new Category(CategoryType.NEWSPAPER);
 
         Genre comedy = new Genre(GenreType.COMEDY);
         Genre drama = new Genre(GenreType.DRAMA);

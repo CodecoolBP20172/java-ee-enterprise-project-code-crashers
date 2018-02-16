@@ -15,7 +15,7 @@
                             <option value="0">ALL</option>
                             <option th:each="cat : ${categories}"
                                     th:value="${cat.getId()}"
-                                    th:text="${cat.getName()}"></option>
+                                    th:text="${cat.getType()}"></option>
                         </select>
                     </div>
 

@@ -10,7 +10,7 @@
             <div class="breadcrumb">
                 <!--todo dropdown should stay on the chosen filter, so a member should see whet did he searched for-->
                 Category&nbsp;
-                <strong th:text="${category} != null ? ${category.getName()} : 'ALL'">Category Title</strong>
+                <strong th:text="${category} != null ? ${category.getType()} : 'ALL'">Category Title</strong>
                 &nbsp;Genre&nbsp;
                 <strong th:text="${genre} != null ? ${genre.getType()} : 'ALL'">Genre Title</strong>
             </div>

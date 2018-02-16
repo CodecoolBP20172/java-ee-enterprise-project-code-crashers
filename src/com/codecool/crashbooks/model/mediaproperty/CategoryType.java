@@ -1,6 +1,6 @@
 package com.codecool.crashbooks.model.mediaproperty;
 
-public enum Categories {
+public enum CategoryType {
     BOOK,
     NEWSPAPER,
     MAGAZINE

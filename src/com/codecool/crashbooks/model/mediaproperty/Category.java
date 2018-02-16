@@ -6,7 +6,7 @@ import javax.persistence.*;
 import java.util.List;
 @NamedQueries({
         @NamedQuery(name="Category.getById", query="SELECT c FROM Category c WHERE id = :id"),
-        @NamedQuery(name="Category.getByName", query="SELECT c FROM Category c WHERE name = :name"),
+        @NamedQuery(name="Category.getByType", query="SELECT c FROM Category c WHERE type = :type"),
         @NamedQuery(name="Category.getAllCategory", query="SELECT c FROM Category c")
 })
 @Entity
@@ -18,13 +18,13 @@ public class Category {
 
     @Enumerated(EnumType.STRING)
     @Column(unique = true)
-    private Categories name;
+    private CategoryType type;
 
     @OneToMany(mappedBy = "category", fetch = FetchType.LAZY)
     private List<Media> book;
 
-    public Category(Categories name) {
-        this.name = name;
+    public Category(CategoryType type) {
+        this.type = type;
     }
 
     public Category() {
@@ -34,8 +34,8 @@ public class Category {
         return id;
     }
 
-    public Categories getName() {
-        return name;
+    public CategoryType getType() {
+        return type;
     }
 
     public static List<Category> getAllCategory(EntityManagerFactory emf) {
@@ -52,9 +52,9 @@ public class Category {
         return category;
     }
 
-    public static Category getCategoryByName(EntityManagerFactory emf, String name){
+    public static Category getCategoryByType(EntityManagerFactory emf, String type){
         EntityManager em = emf.createEntityManager();
-        Category category = em.createNamedQuery("Category.getByName", Category.class).setParameter("name", name).getSingleResult();
+        Category category = em.createNamedQuery("Category.getByType", Category.class).setParameter("type", type).getSingleResult();
         em.close();
         return category;
     }

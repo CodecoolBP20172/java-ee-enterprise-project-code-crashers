@@ -21,9 +21,9 @@ public class PopulateData {
         Author crichton = new Author("Michael Crichton");
 
 
-        Category book = new Category(Categories.BOOK);
-        Category magazine = new Category(Categories.MAGAZINE);
-        Category newspaper = new Category(Categories.NEWSPAPER);
+        Category book = new Category(CategoryType.BOOK);
+        Category magazine = new Category(CategoryType.MAGAZINE);
+        Category newspaper = new Category(CategoryType.NEWSPAPER);
 
         Genre comedy = new Genre(GenreType.COMEDY);
         Genre drama = new Genre(GenreType.DRAMA);
