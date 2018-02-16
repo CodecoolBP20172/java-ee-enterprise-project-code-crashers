@@ -12,19 +12,30 @@ import java.util.Map;
 
 public class MemberController {
 
-    public static ModelAndView login(Request req, Response res) {
+    private MemberController() {
+    }
+
+    private static class LazyHolder {
+        static final MemberController INSTANCE = new MemberController();
+    }
+
+    public static MemberController getInstance() {
+        return LazyHolder.INSTANCE;
+    }
+
+    public ModelAndView login(Request req, Response res) {
         return new ModelAndView(new HashMap<>(), "book/login");
     }
 
-    public static ModelAndView registration(Request req, Response res) {
+    public ModelAndView registration(Request req, Response res) {
         return new ModelAndView(new HashMap<>(), "book/registration");
     }
 
-    public static void saveMember(Request req, EntityManagerFactory emf) {
+    public void saveMember(Request req, EntityManagerFactory emf) {
         Member.saveMember(emf, req.queryParams("name"), req.queryParams("password"));
     }
 
-    public static boolean memberNameIsValid(EntityManagerFactory emf, String name) {
+    public boolean memberNameIsValid(EntityManagerFactory emf, String name) {
         try {
             Member.getMemberByName(emf, name).getName();
         } catch (NoResultException e) {
@@ -33,7 +44,7 @@ public class MemberController {
         return false;
     }
 
-    public static ModelAndView errorPage(Request req, Response res, String errorMessage) {
+    public ModelAndView errorPage(Request req, Response res, String errorMessage) {
         Map params = new HashMap();
         params.put("error", errorMessage);
         return new ModelAndView(params, "book/error");

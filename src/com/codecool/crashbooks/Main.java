@@ -19,6 +19,8 @@ public class Main {
     public static void main(String[] args) {
         EntityManagerFactory emf = Persistence.createEntityManagerFactory("CrashBooks");
 
+        MemberController memberController = MemberController.getInstance();
+
         //Populate Data
         PopulateData.populateDB(emf);
 
@@ -37,7 +39,7 @@ public class Main {
         });
 
         get("/login", (Request req, Response res) -> {
-            return new ThymeleafTemplateEngine().render(MemberController.login(req, res));
+            return new ThymeleafTemplateEngine().render(memberController.login(req, res));
         });
 
         post("/login", (Request req, Response res) ->{
@@ -48,26 +50,26 @@ public class Main {
                 req.session().attribute("id", member.getId());
                 res.redirect("/");
             } else {
-                return new ThymeleafTemplateEngine().render(MemberController.errorPage(req, res, "Login Failed!"));
+                return new ThymeleafTemplateEngine().render(memberController.errorPage(req, res, "Login Failed!"));
             }
             return null;
 
         });
         get("/registration", (Request req, Response res) -> {
-            return new ThymeleafTemplateEngine().render(MemberController.registration(req, res));
+            return new ThymeleafTemplateEngine().render(memberController.registration(req, res));
         });
 
         post("/registration", (Request req, Response res) -> {
             System.out.println(req.queryParams("name"));
-            if (MemberController.memberNameIsValid(emf, req.queryParams("name"))) {
-                MemberController.saveMember(req, emf);
+            if (memberController.memberNameIsValid(emf, req.queryParams("name"))) {
+                memberController.saveMember(req, emf);
                 Member member = Member.getMemberByName(emf, req.queryParams("name"));
                 req.session(true);
                 req.session().attribute("name",req.queryParams("name"));
                 req.session().attribute("id", member.getId());
                 res.redirect("/");
             } else {
-                return new ThymeleafTemplateEngine().render(MemberController.errorPage(req, res, "Registration failed!"));
+                return new ThymeleafTemplateEngine().render(memberController.errorPage(req, res, "Registration failed!"));
             }
             return "";
         });
