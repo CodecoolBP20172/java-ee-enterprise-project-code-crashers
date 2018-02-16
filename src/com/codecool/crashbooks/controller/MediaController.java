@@ -13,8 +13,18 @@ import java.util.Map;
 
 public class MediaController {
 
+    private MediaController() {
+    }
 
-    public static ModelAndView renderAllBooks(Request request, Response response, EntityManagerFactory emf) {
+    private static class LazyHolder {
+        static final MediaController INSTANCE = new MediaController();
+    }
+
+    public static MediaController getInstance() {
+        return MediaController.LazyHolder.INSTANCE;
+    }
+
+    public ModelAndView renderAllBooks(Request request, Response response, EntityManagerFactory emf) {
         Map<String, Object> params = new HashMap<>();
         params.put("medialist", Media.getAllMedia(emf));
         params.put("genres", Genre.getAllGenre(emf));
@@ -23,7 +33,7 @@ public class MediaController {
         return new ModelAndView(params, "book/index");
     }
 
-    public static ModelAndView renderBooksByFilter(Request request, Response response, EntityManagerFactory emf) {
+    public ModelAndView renderBooksByFilter(Request request, Response response, EntityManagerFactory emf) {
         Map<String, Object> params = new HashMap<>();
         int genreId = Integer.parseInt(request.queryParams("genre"));
         int categoryId = Integer.parseInt(request.queryParams("category"));
@@ -51,7 +61,7 @@ public class MediaController {
         return new ModelAndView(params, "book/index");
     }
 
-    public static ModelAndView soon(Request req, Response res) {
+    public ModelAndView soon(Request req, Response res) {
         Map<String, Object> params = new HashMap<>();
         params.put("member", req.session().attribute("name"));
         return new ModelAndView(params, "book/soon");

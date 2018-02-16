@@ -19,6 +19,7 @@ public class Main {
     public static void main(String[] args) {
         EntityManagerFactory emf = Persistence.createEntityManagerFactory("CrashBooks");
 
+        MediaController mediaController = MediaController.getInstance();
         MemberController memberController = MemberController.getInstance();
 
         //Populate Data
@@ -31,11 +32,11 @@ public class Main {
         get("/hello", (req, res) -> "Hello Crashers!!!");
 
         get("/", (Request req, Response res) -> {
-            return new ThymeleafTemplateEngine().render(MediaController.renderAllBooks(req, res, emf));
+            return new ThymeleafTemplateEngine().render(mediaController.renderAllBooks(req, res, emf));
         });
 
         get("/filter", (Request req, Response res) -> {
-            return new ThymeleafTemplateEngine().render(MediaController.renderBooksByFilter(req, res, emf));
+            return new ThymeleafTemplateEngine().render(mediaController.renderBooksByFilter(req, res, emf));
         });
 
         get("/login", (Request req, Response res) -> {
@@ -82,11 +83,11 @@ public class Main {
         });
 
         get("/soon", (Request req, Response res) -> {
-            return new ThymeleafTemplateEngine().render(MediaController.soon(req, res));
+            return new ThymeleafTemplateEngine().render(mediaController.soon(req, res));
         });
 
         post("/soon", (Request req, Response res) -> {
-            return new ThymeleafTemplateEngine().render(MediaController.soon(req, res));
+            return new ThymeleafTemplateEngine().render(mediaController.soon(req, res));
         });
         enableDebugScreen();
         //TODO all route should check status code 200 if not should redirect to an error page.
