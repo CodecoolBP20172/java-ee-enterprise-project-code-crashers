@@ -25,17 +25,17 @@ public class PopulateData {
         Category magazine = new Category(Categories.MAGAZINE);
         Category newspaper = new Category(Categories.NEWSPAPER);
 
-        Genre comedy = new Genre(Genres.COMEDY);
-        Genre drama = new Genre(Genres.DRAMA);
-        Genre horror = new Genre(Genres.HORROR);
-        Genre romance = new Genre(Genres.ROMANCE);
-        Genre satire = new Genre(Genres.SATIRE);
-        Genre tragedy = new Genre(Genres.TRAGEDY);
-        Genre fantasy = new Genre(Genres.FANTASY);
-        Genre mythology = new Genre(Genres.MYTHOLOGY);
-        Genre tragicomedy = new Genre(Genres.TRAGICOMEDY);
-        Genre adventure = new Genre(Genres.ADVENTURE);
-        Genre realism = new Genre(Genres.REALISM);
+        Genre comedy = new Genre(GenreType.COMEDY);
+        Genre drama = new Genre(GenreType.DRAMA);
+        Genre horror = new Genre(GenreType.HORROR);
+        Genre romance = new Genre(GenreType.ROMANCE);
+        Genre satire = new Genre(GenreType.SATIRE);
+        Genre tragedy = new Genre(GenreType.TRAGEDY);
+        Genre fantasy = new Genre(GenreType.FANTASY);
+        Genre mythology = new Genre(GenreType.MYTHOLOGY);
+        Genre tragicomedy = new Genre(GenreType.TRAGICOMEDY);
+        Genre adventure = new Genre(GenreType.ADVENTURE);
+        Genre realism = new Genre(GenreType.REALISM);
 
         Media vuk = new Media("Vuk", fekete, book, adventure, "book_thumb.png", 1965, "A good book...");
         Media tuskevar = new Media("Tüskevár", fekete, book, realism, "book_thumb.png", 1957, "A good book...");

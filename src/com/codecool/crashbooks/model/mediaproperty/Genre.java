@@ -8,7 +8,7 @@ import java.util.Objects;
 import java.util.Set;
 @NamedQueries({
         @NamedQuery(name="Genre.getById", query="SELECT g FROM Genre g WHERE id = :id"),
-        @NamedQuery(name="Genre.getByName", query="SELECT g FROM Genre g WHERE name = :name"),
+        @NamedQuery(name="Genre.getByType", query="SELECT g FROM Genre g WHERE type = :type"),
         @NamedQuery(name = "Genre.getAllGenre", query="SELECT g FROM Genre g")
 })
 @Entity
@@ -20,13 +20,13 @@ public class Genre {
 
     @Enumerated(EnumType.STRING)
     @Column(unique = true)
-    private Genres name;
+    private GenreType type;
 
     @ManyToMany(mappedBy = "genres", fetch = FetchType.EAGER)
     private Set<Media> book;
 
-    public Genre(Genres name) {
-        this.name = name;
+    public Genre(GenreType type) {
+        this.type = type;
     }
 
     public Genre() {
@@ -36,8 +36,8 @@ public class Genre {
         return id;
     }
 
-    public Genres getName() {
-        return name;
+    public GenreType getType() {
+        return type;
     }
 
     public static List<Genre> getAllGenre(EntityManagerFactory emf) {
@@ -53,9 +53,9 @@ public class Genre {
         return genre;
     }
 
-    public static Genre getGenreByName(EntityManagerFactory emf, String name){
+    public static Genre getGenreByType(EntityManagerFactory emf, String type){
         EntityManager em = emf.createEntityManager();
-        Genre genre = em.createNamedQuery("Genre.getByName", Genre.class).setParameter("name", name).getSingleResult();
+        Genre genre = em.createNamedQuery("Genre.getByType", Genre.class).setParameter("type", type).getSingleResult();
         em.close();
         return genre;
     }
@@ -66,12 +66,12 @@ public class Genre {
         if (o == null || getClass() != o.getClass()) return false;
         Genre genre = (Genre) o;
         return id == genre.id &&
-                name == genre.name;
+                type == genre.type;
     }
 
     @Override
     public int hashCode() {
 
-        return Objects.hash(id, name);
+        return Objects.hash(id, type);
     }
 }

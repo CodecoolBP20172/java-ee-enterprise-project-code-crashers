@@ -12,7 +12,7 @@
                 Category&nbsp;
                 <strong th:text="${category} != null ? ${category.getName()} : 'ALL'">Category Title</strong>
                 &nbsp;Genre&nbsp;
-                <strong th:text="${genre} != null ? ${genre.getName()} : 'ALL'">Genre Title</strong>
+                <strong th:text="${genre} != null ? ${genre.getType()} : 'ALL'">Genre Title</strong>
             </div>
             <div id="products" class="row list-group">
 
