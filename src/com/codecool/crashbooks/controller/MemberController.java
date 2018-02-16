@@ -1,6 +1,6 @@
 package com.codecool.crashbooks.controller;
 
-import com.codecool.crashbooks.model.AllUsers;
+import com.codecool.crashbooks.model.Member;
 import spark.ModelAndView;
 import spark.Request;
 import spark.Response;
@@ -10,7 +10,7 @@ import javax.persistence.NoResultException;
 import java.util.HashMap;
 import java.util.Map;
 
-public class UserController {
+public class MemberController {
 
     public static ModelAndView login(Request req, Response res) {
         return new ModelAndView(new HashMap<>(), "book/login");
@@ -20,13 +20,13 @@ public class UserController {
         return new ModelAndView(new HashMap<>(), "book/registration");
     }
 
-    public static void saveUser(Request req, EntityManagerFactory emf) {
-        AllUsers.saveUser(emf, req.queryParams("name"), req.queryParams("password"));
+    public static void saveMember(Request req, EntityManagerFactory emf) {
+        Member.saveMember(emf, req.queryParams("name"), req.queryParams("password"));
     }
 
-    public static boolean userNameIsValid(EntityManagerFactory emf, String name) {
+    public static boolean memberNameIsValid(EntityManagerFactory emf, String name) {
         try {
-            AllUsers.getUserByName(emf, name).getName();
+            Member.getMemberByName(emf, name).getName();
         } catch (NoResultException e) {
             return true;
         }

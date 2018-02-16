@@ -32,16 +32,16 @@
             </div>
             <ul class="nav navbar-nav">
                 <li class="active">
-                    <div th:if="${user}">
+                    <div th:if="${member}">
                         <div class="btn-group" role="group" aria-label="Basic example">
-                            <button type="button" class="btn btn-outline-warning" th:text="'Hi ' + ${user}"></button>
+                            <button type="button" class="btn btn-outline-warning" th:text="'Hi ' + ${member}"></button>
                             <a href="/logout">
                                 <button type="button" class="btn btn-outline-warning">Logout</button>
                             </a>
                         </div>
                         <a href="/soon"><img src="/img/profile.png" alt=""/></a> <!--TODO profile page-->
                     </div>
-                    <div th:unless="${user}">
+                    <div th:unless="${member}">
                         <div class="btn-group" role="group" aria-label="Basic example">
                             <a href="/registration">
                                 <button type="register" class="btn btn-warning">Register</button>

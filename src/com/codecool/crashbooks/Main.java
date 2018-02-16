@@ -5,8 +5,8 @@ import static spark.debug.DebugScreen.enableDebugScreen;
 
 import com.codecool.crashbooks.ORM.PopulateData;
 import com.codecool.crashbooks.controller.BookController;
-import com.codecool.crashbooks.controller.UserController;
-import com.codecool.crashbooks.model.AllUsers;
+import com.codecool.crashbooks.controller.MemberController;
+import com.codecool.crashbooks.model.Member;
 import spark.Request;
 import spark.Response;
 import spark.template.thymeleaf.ThymeleafTemplateEngine;
@@ -37,37 +37,37 @@ public class Main {
         });
 
         get("/login", (Request req, Response res) -> {
-            return new ThymeleafTemplateEngine().render(UserController.login(req, res));
+            return new ThymeleafTemplateEngine().render(MemberController.login(req, res));
         });
 
         post("/login", (Request req, Response res) ->{
-            AllUsers user = AllUsers.getUserByName(emf, req.queryParams("name"));
-            if (user.getPassword().equals(req.queryParams("password"))) {
+            Member member = Member.getMemberByName(emf, req.queryParams("name"));
+            if (member.getPassword().equals(req.queryParams("password"))) {
                 req.session(true);
-                req.session().attribute("name", user.getName());
-                req.session().attribute("id", user.getId());
+                req.session().attribute("name", member.getName());
+                req.session().attribute("id", member.getId());
                 res.redirect("/");
             } else {
-                return new ThymeleafTemplateEngine().render(UserController.errorPage(req, res, "Login Failed!"));
+                return new ThymeleafTemplateEngine().render(MemberController.errorPage(req, res, "Login Failed!"));
             }
             return null;
 
         });
         get("/registration", (Request req, Response res) -> {
-            return new ThymeleafTemplateEngine().render(UserController.registration(req, res));
+            return new ThymeleafTemplateEngine().render(MemberController.registration(req, res));
         });
 
         post("/registration", (Request req, Response res) -> {
             System.out.println(req.queryParams("name"));
-            if (UserController.userNameIsValid(emf, req.queryParams("name"))) {
-                UserController.saveUser(req, emf);
-                AllUsers user = AllUsers.getUserByName(emf, req.queryParams("name"));
+            if (MemberController.memberNameIsValid(emf, req.queryParams("name"))) {
+                MemberController.saveMember(req, emf);
+                Member member = Member.getMemberByName(emf, req.queryParams("name"));
                 req.session(true);
                 req.session().attribute("name",req.queryParams("name"));
-                req.session().attribute("id", user.getId());
+                req.session().attribute("id", member.getId());
                 res.redirect("/");
             } else {
-                return new ThymeleafTemplateEngine().render(UserController.errorPage(req, res, "Registration failed!"));
+                return new ThymeleafTemplateEngine().render(MemberController.errorPage(req, res, "Registration failed!"));
             }
             return "";
         });
