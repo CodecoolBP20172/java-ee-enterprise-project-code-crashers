@@ -46,14 +46,7 @@ public class Member {
     public static Member getMemberById(EntityManagerFactory emf, int id) {
         EntityManager em = emf.createEntityManager();
 
-        CriteriaBuilder cb = em.getCriteriaBuilder();
-        CriteriaQuery<Member> cq = cb.createQuery(Member.class);
-
-        Root<Member> memberRoot = cq.from(Member.class);
-        cq.where(cb.equal(memberRoot.get("id"), id));
-
-        TypedQuery<Member> query = em.createQuery(cq);
-        Member result = query.getSingleResult();
+        Member result = em.find(Member.class, id);
 
         em.close();
         return result;
