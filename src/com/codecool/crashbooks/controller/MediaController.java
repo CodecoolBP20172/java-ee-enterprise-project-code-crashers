@@ -37,27 +37,24 @@ public class MediaController {
         Map<String, Object> params = new HashMap<>();
         int genreId = Integer.parseInt(request.queryParams("genre"));
         int categoryId = Integer.parseInt(request.queryParams("category"));
-        params.put("member", request.session().attribute("name"));
+
+        Genre genre = genreId == 0 ? null : Genre.getGenreById(emf, genreId);
+        Category category = categoryId == 0 ? null : Category.getCategoryById(emf, categoryId);
+
         if (genreId == 0 && categoryId == 0) {
             response.redirect("/");
         } else if (genreId == 0) {
-            Category category = Category.getCategoryById(emf, categoryId);
-            params.put("category", category);
             params.put("medialist", Media.getMediaBy(emf, category));
         } else if (categoryId == 0) {
-            Genre genre = Genre.getGenreById(emf, genreId);
-            params.put("genre", genre);
-            params.put("category", new Category());
             params.put("medialist", Media.getMediaBy(emf, genre));
         } else {
-            Category category = Category.getCategoryById(emf, categoryId);
-            Genre genre = Genre.getGenreById(emf, genreId);
-            params.put("category", category);
-            params.put("genre", genre);
             params.put("medialist", Media.getMediaBy(emf, genre, category));
         }
+        params.put("genre", genre);
         params.put("genres", Genre.getAllGenre(emf));
+        params.put("category", category);
         params.put("categories", Category.getAllCategory(emf));
+        params.put("member", request.session().attribute("name"));
         return new ModelAndView(params, "book/index");
     }
 

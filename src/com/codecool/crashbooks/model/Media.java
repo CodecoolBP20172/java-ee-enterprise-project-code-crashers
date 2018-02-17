@@ -5,6 +5,7 @@ import com.codecool.crashbooks.model.mediaproperty.Category;
 import com.codecool.crashbooks.model.mediaproperty.Genre;
 
 import javax.persistence.*;
+import javax.persistence.criteria.*;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -13,8 +14,6 @@ import java.util.Set;
         @NamedQuery(name = "Media.getAllMedia", query = "SELECT m FROM Media m"),
         @NamedQuery(name = "Media.getMediaByGenre", query = "SELECT m FROM Media m JOIN m.genres bg " +
                 " WHERE bg.id = :id"),
-        @NamedQuery(name = "Media.getMediaByGenreAndCategory", query = "SELECT m FROM Media m JOIN m.genres bg " +
-                " WHERE bg.id = :genreId AND category_id = :categoryId"),
         @NamedQuery(name = "Media.getMediaByCategory", query = "SELECT m FROM Media m WHERE category_id = :id"),
         @NamedQuery(name = "Media.getMediaByAuthor", query = "SELECT m FROM Media m WHERE author_id = :id")})
 @Entity
@@ -90,10 +89,22 @@ public class Media {
 
     public static List<Media> getMediaBy(EntityManagerFactory emf, Genre genre, Category category) {
         EntityManager em = emf.createEntityManager();
-        List<Media> mediaList = em.createNamedQuery("Media.getMediaByGenreAndCategory", Media.class)
-                .setParameter("genreId", genre.getId())
-                .setParameter("categoryId", category.getId())
-                .getResultList();
+        CriteriaBuilder cb = em.getCriteriaBuilder();
+
+        CriteriaQuery<Media> cq = cb.createQuery(Media.class);
+
+        Root<Media> mediaRoot = cq.from(Media.class);
+        Join<Media, Genre> genreJoin = mediaRoot.join("genres");
+
+        Predicate genreRestriction  = cb.equal(genreJoin.get("id"), genre.getId());
+        Predicate categoryRestriction  = cb.equal(mediaRoot.get("category"), category.getId());
+
+        cq.where(cb.and(genreRestriction, categoryRestriction));
+        cq.orderBy(cb.asc(mediaRoot.get("title")));
+
+        TypedQuery<Media> query = em.createQuery(cq);
+        List<Media> mediaList = query.getResultList();
+
         em.close();
         return mediaList;
     }
