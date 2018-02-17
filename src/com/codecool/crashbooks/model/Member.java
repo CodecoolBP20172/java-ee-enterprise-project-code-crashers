@@ -1,12 +1,10 @@
 package com.codecool.crashbooks.model;
 
 import javax.persistence.*;
-@NamedQueries({
-        @NamedQuery(name="Member.getMemberById", query = "SELECT u FROM Member u WHERE id = :id"),
-        @NamedQuery(name="Member.getMemberByName", query="SELECT u FROM Member u WHERE name = :name"),
-        @NamedQuery(name="Member.getMembersByMembership", query="SELECT u FROM Member u WHERE membership = :membership"),
-        @NamedQuery(name="Member.getAllMember", query="SELECT u FROM Member u")
-})
+import javax.persistence.criteria.CriteriaBuilder;
+import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.Root;
+
 @Entity
 public class Member {
     @Id
@@ -26,7 +24,8 @@ public class Member {
         //this.membership = Membership.FREE;
     }
 
-    public Member(){}
+    public Member() {
+    }
 
     public int getId() {
         return id;
@@ -44,21 +43,39 @@ public class Member {
         this.membership = membership;
     }
 
-    public static Member getMemberById(EntityManagerFactory emf, int id){
+    public static Member getMemberById(EntityManagerFactory emf, int id) {
         EntityManager em = emf.createEntityManager();
-        Member member = em.createNamedQuery("Member.getMemberById", Member.class).setParameter("id", id).getSingleResult();
+
+        CriteriaBuilder cb = em.getCriteriaBuilder();
+        CriteriaQuery<Member> cq = cb.createQuery(Member.class);
+
+        Root<Member> memberRoot = cq.from(Member.class);
+        cq.where(cb.equal(memberRoot.get("id"), id));
+
+        TypedQuery<Member> query = em.createQuery(cq);
+        Member result = query.getSingleResult();
+
         em.close();
-        return member;
+        return result;
     }
 
-    public static Member getMemberByName(EntityManagerFactory emf, String name){
+    public static Member getMemberByName(EntityManagerFactory emf, String name) {
         EntityManager em = emf.createEntityManager();
-        Member member = em.createNamedQuery("Member.getMemberByName", Member.class).setParameter("name", name).getSingleResult();
+
+        CriteriaBuilder cb = em.getCriteriaBuilder();
+        CriteriaQuery<Member> cq = cb.createQuery(Member.class);
+
+        Root<Member> memberRoot = cq.from(Member.class);
+        cq.where(cb.equal(memberRoot.get("name"), name));
+
+        TypedQuery<Member> query = em.createQuery(cq);
+        Member result = query.getSingleResult();
+
         em.close();
-        return member;
+        return result;
     }
 
-    public static void saveMember(EntityManagerFactory emf, String name, String password){
+    public static void saveMember(EntityManagerFactory emf, String name, String password) {
         EntityManager em = emf.createEntityManager();
         EntityTransaction transaction = em.getTransaction();
         Member member = new Member(name, password);
