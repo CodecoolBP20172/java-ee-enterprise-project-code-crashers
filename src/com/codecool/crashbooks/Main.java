@@ -12,6 +12,7 @@ import spark.Response;
 import spark.template.thymeleaf.ThymeleafTemplateEngine;
 
 import javax.persistence.EntityManagerFactory;
+import javax.persistence.NoResultException;
 import javax.persistence.Persistence;
 
 
@@ -44,15 +45,16 @@ public class Main {
         });
 
         post("/login", (Request req, Response res) ->{
-            Member member = Member.getMemberByName(emf, req.queryParams("name"));
-            if (member.getPassword().equals(req.queryParams("password"))) {
-                req.session(true);
-                req.session().attribute("name", member.getName());
-                req.session().attribute("id", member.getId());
-                res.redirect("/");
-            } else {
-                return new ThymeleafTemplateEngine().render(memberController.errorPage(req, res, "Login Failed!"));
-            }
+                Member member = Member.getMemberByName(emf, req.queryParams("name"));
+                if (member != null && member.getPassword().equals(req.queryParams("password"))) {
+                    req.session(true);
+                    req.session().attribute("name", member.getName());
+                    req.session().attribute("id", member.getId());
+                    res.redirect("/");
+                } else {
+                    return new ThymeleafTemplateEngine().render(memberController.errorPage(req, res, "Login Failed! User or Password Invalid!"));
+                }
+
             return null;
 
         });
@@ -62,7 +64,7 @@ public class Main {
 
         post("/registration", (Request req, Response res) -> {
             System.out.println(req.queryParams("name"));
-            if (memberController.memberNameIsValid(emf, req.queryParams("name"))) {
+            if (memberController.memberNameIsNotTaken(emf, req.queryParams("name"))) {
                 memberController.saveMember(req, emf);
                 Member member = Member.getMemberByName(emf, req.queryParams("name"));
                 req.session(true);

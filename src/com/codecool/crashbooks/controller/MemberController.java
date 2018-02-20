@@ -35,7 +35,7 @@ public class MemberController {
         Member.saveMember(emf, req.queryParams("name"), req.queryParams("password"));
     }
 
-    public boolean memberNameIsValid(EntityManagerFactory emf, String name) {
+    public boolean memberNameIsNotTaken(EntityManagerFactory emf, String name) {
         try {
             Member.getMemberByName(emf, name).getName();
         } catch (NoResultException e) {

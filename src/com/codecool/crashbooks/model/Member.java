@@ -59,20 +59,24 @@ public class Member {
         return result;
     }
 
-    public static Member getMemberByName(EntityManagerFactory emf, String name) {
-        EntityManager em = emf.createEntityManager();
+    public static Member getMemberByName(EntityManagerFactory emf, String name){
+        try {
+            EntityManager em = emf.createEntityManager();
 
-        CriteriaBuilder cb = em.getCriteriaBuilder();
-        CriteriaQuery<Member> cq = cb.createQuery(Member.class);
+            CriteriaBuilder cb = em.getCriteriaBuilder();
+            CriteriaQuery<Member> cq = cb.createQuery(Member.class);
 
-        Root<Member> memberRoot = cq.from(Member.class);
-        cq.where(cb.equal(memberRoot.get("name"), name));
+            Root<Member> memberRoot = cq.from(Member.class);
+            cq.where(cb.equal(memberRoot.get("name"), name));
 
-        TypedQuery<Member> query = em.createQuery(cq);
-        Member result = query.getSingleResult();
+            TypedQuery<Member> query = em.createQuery(cq);
+            Member result = query.getSingleResult();
 
-        em.close();
-        return result;
+            em.close();
+            return result;
+        }catch(NoResultException e){
+            return null;
+        }
     }
 
     public static void saveMember(EntityManagerFactory emf, String name, String password) {
