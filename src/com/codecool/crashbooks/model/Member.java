@@ -16,12 +16,12 @@ public class Member {
     private String password;
 
     @Enumerated(EnumType.STRING)
-    private Enum<Membership> membership;
+    private Membership membership;
 
     public Member(String name, String password) {
         this.name = name;
         this.password = password;
-        //this.membership = Membership.FREE;
+        this.membership = Membership.FREE;
     }
 
     public Member() {
@@ -39,7 +39,7 @@ public class Member {
         return password;
     }
 
-    public void setMembership(Enum<Membership> membership) {
+    public void setMembership(Membership membership) {
         this.membership = membership;
     }
 
