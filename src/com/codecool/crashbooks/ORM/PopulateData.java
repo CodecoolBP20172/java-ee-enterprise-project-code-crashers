@@ -3,6 +3,7 @@ package com.codecool.crashbooks.ORM;
 import com.codecool.crashbooks.model.Media;
 import com.codecool.crashbooks.model.Member;
 import com.codecool.crashbooks.model.mediaproperty.*;
+import com.codecool.crashbooks.tools.Password;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
@@ -47,7 +48,7 @@ public class PopulateData {
         Media jurassicPark = new Media("Jurassic Park", crichton, book, fantasy, "book_thumb.png", 1990, "A good book...");
         Media twister = new Media("Twister", crichton, book, drama, "book_thumb.png", 1994, "A good book...");
 
-        Member test = new Member("test", "test");
+        Member test = new Member("test", Password.hashPassword("test"));
         EntityTransaction transaction = em.getTransaction();
 
         transaction.begin();
