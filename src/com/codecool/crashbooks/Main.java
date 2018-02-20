@@ -7,6 +7,7 @@ import com.codecool.crashbooks.ORM.PopulateData;
 import com.codecool.crashbooks.controller.MediaController;
 import com.codecool.crashbooks.controller.MemberController;
 import com.codecool.crashbooks.model.Member;
+import com.codecool.crashbooks.tools.Password;
 import spark.Request;
 import spark.Response;
 import spark.template.thymeleaf.ThymeleafTemplateEngine;
@@ -45,7 +46,7 @@ public class Main {
 
         post("/login", (Request req, Response res) ->{
             Member member = Member.getMemberByName(emf, req.queryParams("name"));
-            if (member.getPassword().equals(req.queryParams("password"))) {
+            if (Password.checkPassword(req.queryParams("password"), member.getPassword())) {
                 req.session(true);
                 req.session().attribute("name", member.getName());
                 req.session().attribute("id", member.getId());

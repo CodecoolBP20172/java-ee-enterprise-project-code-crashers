@@ -1,6 +1,7 @@
 package com.codecool.crashbooks.model;
 
 import com.codecool.crashbooks.model.mediaproperty.*;
+import com.codecool.crashbooks.tools.Password;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
@@ -37,7 +38,7 @@ public class PopulateTestDb {
         Media media3 = new Media("testMedia3", testAuthor2, book, adventure, "url/pic.jpg", 1981, "A good book...");
         Media media4 = new Media("testMedia4", testAuthor3, newspaper, realism, "url/pic.jpg", 1965, "A good book...");
 
-        Member testMember = new Member("test1", "test1");
+        Member testMember = new Member("test1", Password.hashPassword("test1"));
         EntityTransaction transaction = em.getTransaction();
 
         transaction.begin();

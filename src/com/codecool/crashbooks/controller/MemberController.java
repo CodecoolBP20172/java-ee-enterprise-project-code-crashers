@@ -1,6 +1,7 @@
 package com.codecool.crashbooks.controller;
 
 import com.codecool.crashbooks.model.Member;
+import com.codecool.crashbooks.tools.Password;
 import spark.ModelAndView;
 import spark.Request;
 import spark.Response;
@@ -32,7 +33,7 @@ public class MemberController {
     }
 
     public void saveMember(Request req, EntityManagerFactory emf) {
-        Member.saveMember(emf, req.queryParams("name"), req.queryParams("password"));
+        Member.saveMember(emf, req.queryParams("name"), Password.hashPassword(req.queryParams("password")));
     }
 
     public boolean memberNameIsValid(EntityManagerFactory emf, String name) {
