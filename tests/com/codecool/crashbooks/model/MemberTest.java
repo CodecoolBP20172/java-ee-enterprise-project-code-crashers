@@ -34,9 +34,7 @@ class MemberTest extends SetupAndTearDown {
     @Test
     @DisplayName("Get Member by name, INVALID")
     public void testGetMemberByNameInvalid(){
-        assertThrows(NoResultException.class, () -> {
-            Member.getMemberByName(emf, "anything");
-        });
+        assertEquals(null, Member.getMemberByName(emf, "anything"));
     }
 
     @Test
