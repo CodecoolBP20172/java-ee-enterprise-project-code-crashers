@@ -20,8 +20,8 @@ public class Main {
     public static void main(String[] args) {
         EntityManagerFactory emf = Persistence.createEntityManagerFactory("CrashBooks");
 
-        MemberService memberService = new MemberService();
-        MediaService mediaService = new MediaService();
+        MemberService memberService = new MemberService(emf);
+        MediaService mediaService = new MediaService(emf);
         AuthorService authorService = new AuthorService(emf);
         CategoryService categoryService = new CategoryService(emf);
         GenreService genreService = new GenreService(emf);
