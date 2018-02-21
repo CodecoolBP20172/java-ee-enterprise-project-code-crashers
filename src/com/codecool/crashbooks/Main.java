@@ -63,10 +63,7 @@ public class Main {
         });
 
         get("/logout", (Request req, Response res) -> {
-            req.session().removeAttribute("name");
-            req.session().removeAttribute("id");
-            res.redirect("/");
-            return null; //TODO move to memberController
+            return new ThymeleafTemplateEngine().render(memberController.logout(req, res));
         });
 
         get("/soon", (Request req, Response res) -> {

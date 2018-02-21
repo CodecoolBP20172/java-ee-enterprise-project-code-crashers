@@ -67,4 +67,11 @@ public class MemberController {
         params.put("error", errorMessage);
         return new ModelAndView(params, "book/error");
     }
+
+    public ModelAndView logout(Request req, Response res) {
+        req.session().removeAttribute("name");
+        req.session().removeAttribute("id");
+        res.redirect("/");
+        return null;
+    }
 }
