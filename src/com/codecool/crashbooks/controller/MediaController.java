@@ -30,7 +30,7 @@ public class MediaController {
         Map<String, Object> params = new HashMap<>();
         params.put("medialist", mediaService.getAllMedia(emf));
         params.put("genres", genreService.getAllGenre(emf));
-        params.put("categories", categoryService.getAllCategory(emf));
+        params.put("categories", categoryService.getAllCategory());
         params.put("member", request.session().attribute("name"));
         return new ModelAndView(params, "book/index");
     }
@@ -41,7 +41,7 @@ public class MediaController {
         int categoryId = Integer.parseInt(request.queryParams("category"));
 
         Genre genre = genreId == 0 ? null : genreService.getGenreById(emf, genreId);
-        Category category = categoryId == 0 ? null : categoryService.getCategoryById(emf, categoryId);
+        Category category = categoryId == 0 ? null : categoryService.getCategoryById(categoryId);
 
         if (genreId == 0 && categoryId == 0) {
             response.redirect("/");
@@ -55,7 +55,7 @@ public class MediaController {
         params.put("genre", genre);
         params.put("genres", genreService.getAllGenre(emf));
         params.put("category", category);
-        params.put("categories", categoryService.getAllCategory(emf));
+        params.put("categories", categoryService.getAllCategory());
         params.put("member", request.session().attribute("name"));
         return new ModelAndView(params, "book/index");
     }
