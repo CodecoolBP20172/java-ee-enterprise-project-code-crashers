@@ -28,33 +28,35 @@ public class MemberController {
         return new ModelAndView(new HashMap<>(), "book/login");
     }
 
-    public ModelAndView loginLogic(Request req, Response res, EntityManagerFactory emf, MediaController mediaController) {
+    public ModelAndView loginLogic(Request req, Response res, EntityManagerFactory emf) {
         Member member = Member.getMemberByName(emf, req.queryParams("name"));
         if (member != null && Password.checkPassword(req.queryParams("password"), member.getPassword())) {
             req.session(true);
             req.session().attribute("name", member.getName());
             req.session().attribute("id", member.getId());
-            return mediaController.renderAllBooks(req, res, emf);  //TODO stays on the /login
+            res.redirect("/");
         } else {
             return errorPage(req, res, "Login Failed! User or Password Invalid!");
         }
+        return null;
     }
 
     public ModelAndView registrationPage(Request req, Response res) {
         return new ModelAndView(new HashMap<>(), "book/registration");
     }
 
-    public ModelAndView registrationLogic(Request req, Response res, EntityManagerFactory emf, MediaController mediaController) {
+    public ModelAndView registrationLogic(Request req, Response res, EntityManagerFactory emf) {
         if (memberNameIsNotTaken(emf, req.queryParams("name"))) {
             saveMember(req, emf);
             Member member = Member.getMemberByName(emf, req.queryParams("name"));
             req.session(true);
             req.session().attribute("name",req.queryParams("name"));
             req.session().attribute("id", member.getId());
-            return mediaController.renderAllBooks(req, res, emf);  //TODO stays on the /registration
+            res.redirect("/");
         } else {
             return errorPage(req, res, "Registration failed!");
         }
+        return null;
     }
 
     public void saveMember(Request req, EntityManagerFactory emf) {

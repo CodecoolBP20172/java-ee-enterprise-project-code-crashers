@@ -46,7 +46,7 @@ public class Main {
         });
 
         post("/login", (Request req, Response res) ->{
-            return new ThymeleafTemplateEngine().render(memberController.loginLogic(req, res, emf, mediaController));
+            return new ThymeleafTemplateEngine().render(memberController.loginLogic(req, res, emf));
         });
 
         get("/registration", (Request req, Response res) -> {
@@ -54,7 +54,7 @@ public class Main {
         });
 
         post("/registration", (Request req, Response res) -> {
-            return new ThymeleafTemplateEngine().render(memberController.registrationLogic(req, res, emf, mediaController));
+            return new ThymeleafTemplateEngine().render(memberController.registrationLogic(req, res, emf));
         });
 
         get("/logout", (Request req, Response res) -> {
