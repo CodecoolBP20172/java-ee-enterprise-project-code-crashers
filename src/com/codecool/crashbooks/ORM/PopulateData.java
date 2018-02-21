@@ -37,15 +37,16 @@ public class PopulateData {
         Genre adventure = new Genre(GenreType.ADVENTURE);
         Genre realism = new Genre(GenreType.REALISM);
 
-        Media vuk = new Media("Vuk", fekete, book, adventure, "book_thumb.png", 1965, "A good book...");
-        Media tuskevar = new Media("Tüskevár", fekete, book, realism, "book_thumb.png", 1957, "A good book...");
-        Media potter1 = new Media("Harry Potter", rowling, book, fantasy, "book_thumb.png", 1997, "A good book...");
+        Media vuk = new Media("Vuk", fekete, book, adventure, "vuk.jpg", 1965, "A good book...");
+        Media tuskevar = new Media("Tüskevár", fekete, book, realism, "tuskevar.jpg", 1957, "A good book...");
+        Media potter1 = new Media("Harry Potter", rowling, book, fantasy, "harrypotter1.jpg", 1997, "A good book...");
         potter1.setGenres(adventure);
-        Media lordOfTheRings1 = new Media("Lord of the Rings", tolkien, book, fantasy, "book_thumb.png", 1954, "A good book...");
-        Media gOfThrones1 = new Media("Game of Thrones", martin, book, fantasy, "book_thumb.png", 1996, "A good book...");
-        Media it = new Media("It", king, book, horror, "book_thumb.png", 1986, "A good book...");
-        Media jurassicPark = new Media("Jurassic Park", crichton, book, fantasy, "book_thumb.png", 1990, "A good book...");
-        Media twister = new Media("Twister", crichton, book, drama, "book_thumb.png", 1994, "A good book...");
+        Media lordOfTheRings1 = new Media("Lord of the Rings", tolkien, book, fantasy, "lordoftherings.jpg", 1954, "A good book...");
+        Media gOfThrones1 = new Media("Game of Thrones", martin, book, fantasy, "gameofthrones.jpg", 1996, "A good book...");
+        Media it = new Media("It", king, book, horror, "it.jpg", 1986, "A good book...");
+        Media jurassicPark = new Media("Jurassic Park", crichton, book, fantasy, "jurassicpark.jpg", 1990, "A good book...");
+        Media twister = new Media("Twister", crichton, book, drama, "twister.jpg", 1994, "A good book...");
+        Media natgeo = new Media("National Geographic 167/6", null, magazine, realism, "natgeo167-6.jpg", 1985, "A good magazine...");
 
         Member test = new Member("test", "test");
         EntityTransaction transaction = em.getTransaction();
@@ -83,6 +84,7 @@ public class PopulateData {
         em.persist(it);
         em.persist(jurassicPark);
         em.persist(twister);
+        em.persist(natgeo);
 
         em.persist(test);
 
