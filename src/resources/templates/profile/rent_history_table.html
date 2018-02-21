@@ -1,0 +1,41 @@
+<!doctype html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="head :: copy"></head>
+<body>
+
+<div class="container" th:fragment="copy">
+    <div class="breadcrumb">
+        <div class="breadcrumb-item">
+            Rent history Table
+        </div>
+    </div>
+
+
+    <table>
+        <tr>
+            <th>
+                Rent ID
+            </th>
+            <th>
+                Title
+            </th>
+            <th>
+                Copy
+            </th>
+        </tr>
+        <tr th:each="rent,iterStat : ${rentlist}">
+            <td th:text="${rent.rentid}">
+
+            </td>
+            <td th:text="${rent.title}">
+
+            </td>
+            <td th:text="${rent.copyid}">
+
+            </td>
+        </tr>
+    </table>
+
+</div>
+</body>
+</html>

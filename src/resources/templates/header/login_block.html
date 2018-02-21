@@ -1,0 +1,31 @@
+<!doctype html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<body>
+
+<ul class="nav navbar-nav" th:fragment="copy">
+    <li class="active">
+        <div th:if="${user}">
+            <div class="btn-group" role="group" aria-label="Basic example">
+                <button type="button" class="btn btn-outline-warning" th:text="'Hi ' + ${user}"></button>
+                <a href="/logout">
+                    <button type="button" class="btn btn-outline-warning">Logout</button>
+                </a>
+            </div>
+            <a href="/soon"><img src="/img/profile.png" alt=""/></a> <!--TODO profile page-->
+        </div>
+        <div th:unless="${user}">
+            <div class="btn-group" role="group" aria-label="Basic example">
+                <a href="/registration">
+                    <button type="register" class="btn btn-warning">Register</button>
+                </a>
+                <a href="/login">
+                    <button type="login" class="btn btn-warning">Login</button>
+                </a>
+            </div>
+        </div>
+    </li>
+</ul>
+
+</body>
+</html>
+
