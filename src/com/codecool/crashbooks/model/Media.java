@@ -2,10 +2,11 @@ package com.codecool.crashbooks.model;
 
 import com.codecool.crashbooks.model.mediaproperty.Author;
 import com.codecool.crashbooks.model.mediaproperty.Category;
+import com.codecool.crashbooks.model.mediaproperty.Copy;
 import com.codecool.crashbooks.model.mediaproperty.Genre;
 
 import javax.persistence.*;
-import javax.persistence.criteria.*;
+import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -26,15 +27,22 @@ public class Media {
     private int id;
 
     private String title;
+
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "author_id")
     private Author author;
+
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "category_id")
     private Category category;
+
     @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(name = "book_genres")
     private Set<Genre> genres = new HashSet<>();
+
+    @OneToMany(mappedBy = "media", fetch = FetchType.LAZY)
+    private List<Copy> copies = new ArrayList<>();
+
     private String pictureUrl;
     private int year;
     private String description;
