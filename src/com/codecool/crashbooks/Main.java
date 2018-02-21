@@ -23,8 +23,8 @@ public class Main {
         MediaService mediaService = new MediaService();
         MemberService memberService = new MemberService(emf);
         AuthorService authorService = new AuthorService(emf);
-        CategoryService categoryService = new CategoryService();
-        GenreService genreService = new GenreService();
+        CategoryService categoryService = new CategoryService(emf);
+        GenreService genreService = new GenreService(emf);
 
         MediaController mediaController = new MediaController(mediaService, genreService, categoryService );
         MemberController memberController = new MemberController(memberService);

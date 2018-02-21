@@ -8,35 +8,46 @@ import javax.persistence.NoResultException;
 import java.util.List;
 
 public class CategoryService {
+    EntityManagerFactory emf;
 
-    public List<Category> getAllCategory(EntityManagerFactory emf) {
+    public CategoryService(EntityManagerFactory emf) {
+        this.emf = emf;
+    }
+
+    public List<Category> getAllCategory() {
         EntityManager em = emf.createEntityManager();
         List<Category> categoryList = em.createNamedQuery("Category.getAllCategory", Category.class).getResultList();
         em.close();
         return categoryList;
     }
 
-    public Category getCategoryById(EntityManagerFactory emf, int id){
+    public Category getCategoryById(int id){
+        EntityManager em = emf.createEntityManager();
         try {
-            EntityManager em = emf.createEntityManager();
             Category category = em.createNamedQuery("Category.getById", Category.class)
                     .setParameter("id", id).getSingleResult();
-            em.close();
             return category;
         }catch(NoResultException e){
             return null;
+        } finally {
+            if(em != null) {
+                em.close();
+            }
         }
     }
 
-    public Category getCategoryByType(EntityManagerFactory emf, String type){
+    public Category getCategoryByType(String type){
+        EntityManager em = emf.createEntityManager();
         try {
-            EntityManager em = emf.createEntityManager();
             Category category = em.createNamedQuery("Category.getByType", Category.class)
                     .setParameter("type", type).getSingleResult();
-            em.close();
             return category;
         } catch(NoResultException e){
             return null;
+        } finally {
+            if(em != null) {
+                em.close();
+            }
         }
     }
 

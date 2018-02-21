@@ -8,34 +8,45 @@ import javax.persistence.NoResultException;
 import java.util.List;
 
 public class GenreService {
+    EntityManagerFactory emf;
 
-    public List<Genre> getAllGenre(EntityManagerFactory emf) {
+    public GenreService(EntityManagerFactory emf) {
+        this.emf = emf;
+    }
+
+    public List<Genre> getAllGenre() {
         EntityManager em = emf.createEntityManager();
         List<Genre> genreList = em.createNamedQuery("Genre.getAllGenre", Genre.class).getResultList();
         em.close();
         return genreList;
     }
-    public Genre getGenreById(EntityManagerFactory emf, int id){
+    public Genre getGenreById(int id){
+        EntityManager em = emf.createEntityManager();
         try {
-            EntityManager em = emf.createEntityManager();
             Genre genre = em.createNamedQuery("Genre.getById", Genre.class)
                     .setParameter("id", id).getSingleResult();
-            em.close();
             return genre;
         } catch(NoResultException e){
             return null;
+        } finally {
+            if(em != null) {
+                em.close();
+            }
         }
     }
 
     public Genre getGenreByType(EntityManagerFactory emf, String type){
+        EntityManager em = emf.createEntityManager();
         try {
-            EntityManager em = emf.createEntityManager();
             Genre genre = em.createNamedQuery("Genre.getByType", Genre.class)
                     .setParameter("type", type).getSingleResult();
-            em.close();
             return genre;
         }catch(NoResultException e){
             return null;
+        } finally {
+            if(em != null) {
+                em.close();
+            }
         }
     }
-}
+    }

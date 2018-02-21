@@ -29,8 +29,8 @@ public class MediaController {
     public ModelAndView renderAllBooks(Request request, Response response, EntityManagerFactory emf) {
         Map<String, Object> params = new HashMap<>();
         params.put("medialist", mediaService.getAllMedia(emf));
-        params.put("genres", genreService.getAllGenre(emf));
-        params.put("categories", categoryService.getAllCategory(emf));
+        params.put("genres", genreService.getAllGenre());
+        params.put("categories", categoryService.getAllCategory());
         params.put("member", request.session().attribute("name"));
         return new ModelAndView(params, "book/index");
     }
@@ -40,8 +40,8 @@ public class MediaController {
         int genreId = Integer.parseInt(request.queryParams("genre"));
         int categoryId = Integer.parseInt(request.queryParams("category"));
 
-        Genre genre = genreId == 0 ? null : genreService.getGenreById(emf, genreId);
-        Category category = categoryId == 0 ? null : categoryService.getCategoryById(emf, categoryId);
+        Genre genre = genreId == 0 ? null : genreService.getGenreById(genreId);
+        Category category = categoryId == 0 ? null : categoryService.getCategoryById(categoryId);
 
         if (genreId == 0 && categoryId == 0) {
             response.redirect("/");
@@ -53,9 +53,9 @@ public class MediaController {
             params.put("medialist", mediaService.getMediaBy(emf, genre, category));
         }
         params.put("genre", genre);
-        params.put("genres", genreService.getAllGenre(emf));
+        params.put("genres", genreService.getAllGenre());
         params.put("category", category);
-        params.put("categories", categoryService.getAllCategory(emf));
+        params.put("categories", categoryService.getAllCategory());
         params.put("member", request.session().attribute("name"));
         return new ModelAndView(params, "book/index");
     }
