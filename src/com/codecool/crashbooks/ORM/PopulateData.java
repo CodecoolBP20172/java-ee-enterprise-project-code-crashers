@@ -1,8 +1,9 @@
 package com.codecool.crashbooks.ORM;
 
 import com.codecool.crashbooks.model.Media;
-import com.codecool.crashbooks.model.AllUsers;
-import com.codecool.crashbooks.model.bookproperty.*;
+import com.codecool.crashbooks.model.Member;
+import com.codecool.crashbooks.model.mediaproperty.*;
+import com.codecool.crashbooks.utility.Password;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
@@ -21,33 +22,34 @@ public class PopulateData {
         Author crichton = new Author("Michael Crichton");
 
 
-        Category book = new Category(Categories.BOOK);
-        Category magazine = new Category(Categories.MAGAZINE);
-        Category newspaper = new Category(Categories.NEWSPAPER);
+        Category book = new Category(CategoryType.BOOK);
+        Category magazine = new Category(CategoryType.MAGAZINE);
+        Category newspaper = new Category(CategoryType.NEWSPAPER);
 
-        Genre comedy = new Genre(Genres.COMEDY);
-        Genre drama = new Genre(Genres.DRAMA);
-        Genre horror = new Genre(Genres.HORROR);
-        Genre romance = new Genre(Genres.ROMANCE);
-        Genre satire = new Genre(Genres.SATIRE);
-        Genre tragedy = new Genre(Genres.TRAGEDY);
-        Genre fantasy = new Genre(Genres.FANTASY);
-        Genre mythology = new Genre(Genres.MYTHOLOGY);
-        Genre tragicomedy = new Genre(Genres.TRAGICOMEDY);
-        Genre adventure = new Genre(Genres.ADVENTURE);
-        Genre realism = new Genre(Genres.REALISM);
+        Genre comedy = new Genre(GenreType.COMEDY);
+        Genre drama = new Genre(GenreType.DRAMA);
+        Genre horror = new Genre(GenreType.HORROR);
+        Genre romance = new Genre(GenreType.ROMANCE);
+        Genre satire = new Genre(GenreType.SATIRE);
+        Genre tragedy = new Genre(GenreType.TRAGEDY);
+        Genre fantasy = new Genre(GenreType.FANTASY);
+        Genre mythology = new Genre(GenreType.MYTHOLOGY);
+        Genre tragicomedy = new Genre(GenreType.TRAGICOMEDY);
+        Genre adventure = new Genre(GenreType.ADVENTURE);
+        Genre realism = new Genre(GenreType.REALISM);
 
-        Media vuk = new Media("Vuk", fekete, book, adventure, "book_thumb.png", 1965, "A good book...");
-        Media tuskevar = new Media("Tüskevár", fekete, book, realism, "book_thumb.png", 1957, "A good book...");
-        Media potter1 = new Media("Harry Potter", rowling, book, fantasy, "book_thumb.png", 1997, "A good book...");
+        Media vuk = new Media("Vuk", fekete, book, adventure, "vuk.jpg", 1965, "A good book...");
+        Media tuskevar = new Media("Tüskevár", fekete, book, realism, "tuskevar.jpg", 1957, "A good book...");
+        Media potter1 = new Media("Harry Potter", rowling, book, fantasy, "harrypotter1.jpg", 1997, "A good book...");
         potter1.setGenres(adventure);
-        Media lordOfTheRings1 = new Media("Lord of the Rings", tolkien, book, fantasy, "book_thumb.png", 1954, "A good book...");
-        Media gOfThrones1 = new Media("Game of Thrones", martin, book, fantasy, "book_thumb.png", 1996, "A good book...");
-        Media it = new Media("It", king, book, horror, "book_thumb.png", 1986, "A good book...");
-        Media jurassicPark = new Media("Jurassic Park", crichton, book, fantasy, "book_thumb.png", 1990, "A good book...");
-        Media twister = new Media("Twister", crichton, book, drama, "book_thumb.png", 1994, "A good book...");
+        Media lordOfTheRings1 = new Media("Lord of the Rings", tolkien, book, fantasy, "lordoftherings.jpg", 1954, "A good book...");
+        Media gOfThrones1 = new Media("Game of Thrones", martin, book, fantasy, "gameofthrones.jpg", 1996, "A good book...");
+        Media it = new Media("It", king, book, horror, "it.jpg", 1986, "A good book...");
+        Media jurassicPark = new Media("Jurassic Park", crichton, book, fantasy, "jurassicpark.jpg", 1990, "A good book...");
+        Media twister = new Media("Twister", crichton, book, drama, "twister.jpg", 1994, "A good book...");
+        Media natgeo = new Media("National Geographic 167/6", null, magazine, realism, "natgeo167-6.jpg", 1985, "A good magazine...");
 
-        AllUsers test = new AllUsers("test", "test");
+        Member test = new Member("test", Password.hashPassword("test"));
         EntityTransaction transaction = em.getTransaction();
 
         transaction.begin();
@@ -83,6 +85,7 @@ public class PopulateData {
         em.persist(it);
         em.persist(jurassicPark);
         em.persist(twister);
+        em.persist(natgeo);
 
         em.persist(test);
 
