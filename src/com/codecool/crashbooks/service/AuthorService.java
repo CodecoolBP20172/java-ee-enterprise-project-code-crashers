@@ -17,7 +17,6 @@ public class AuthorService {
     public List<Author> getAllAuthor() {
         EntityManager em = emf.createEntityManager();
         List<Author> authorList = em.createNamedQuery("Author.getAllAuthor", Author.class).getResultList();
-        em.close();
         return authorList;
     }
 
@@ -26,7 +25,6 @@ public class AuthorService {
         try {
             Author author = em.createNamedQuery("Author.getById", Author.class)
                     .setParameter("id", id).getSingleResult();
-            em.close();
             return author;
         } catch(NoResultException e){
             return null;
@@ -42,7 +40,6 @@ public class AuthorService {
         try {
             Author author = em.createNamedQuery("Author.getByName", Author.class)
                     .setParameter("name", name).getSingleResult();
-            em.close();
             return author;
         }catch(NoResultException e){
             return null;

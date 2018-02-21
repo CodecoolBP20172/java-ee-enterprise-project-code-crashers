@@ -13,7 +13,7 @@ import java.util.Map;
 
 public class MemberController {
 
-    MemberService memberService;
+    private MemberService memberService;
 
     public MemberController(MemberService memberService) {
         this.memberService = memberService;
@@ -24,7 +24,7 @@ public class MemberController {
     }
 
     public ModelAndView loginLogic(Request req, Response res, EntityManagerFactory emf) {
-        Member member = memberService.getMemberByName(emf, req.queryParams("name"));
+        Member member = memberService.getMemberByName(req.queryParams("name"));
         if (member != null && Password.checkPassword(req.queryParams("password"), member.getPassword())) {
             req.session(true);
             req.session().attribute("name", member.getName());
@@ -41,9 +41,9 @@ public class MemberController {
     }
 
     public ModelAndView registrationLogic(Request req, Response res, EntityManagerFactory emf) {
-        if (memberNameIsNotTaken(emf, req.queryParams("name"))) {
-            saveMember(req, emf);
-            Member member = memberService.getMemberByName(emf, req.queryParams("name"));
+        if (memberNameIsNotTaken(req.queryParams("name"))) {
+            saveMember(req);
+            Member member = memberService.getMemberByName(req.queryParams("name"));
             req.session(true);
             req.session().attribute("name",req.queryParams("name"));
             req.session().attribute("id", member.getId());
@@ -54,12 +54,12 @@ public class MemberController {
         return null;
     }
 
-    public void saveMember(Request req, EntityManagerFactory emf) {
-        memberService.saveMember(emf, req.queryParams("name"), Password.hashPassword(req.queryParams("password")));
+    public void saveMember(Request req) {
+        memberService.saveMember(req.queryParams("name"), Password.hashPassword(req.queryParams("password")));
     }
 
-    public boolean memberNameIsNotTaken(EntityManagerFactory emf, String name) {
-        return (memberService.getMemberByName(emf, name) == null);
+    public boolean memberNameIsNotTaken(String name) {
+        return (memberService.getMemberByName(name) == null);
     }
 
     public ModelAndView errorPage(Request req, Response res, String errorMessage) {

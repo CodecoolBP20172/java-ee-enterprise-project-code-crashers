@@ -21,7 +21,7 @@ public class Main {
         EntityManagerFactory emf = Persistence.createEntityManagerFactory("CrashBooks");
 
         MediaService mediaService = new MediaService();
-        MemberService memberService = new MemberService();
+        MemberService memberService = new MemberService(emf);
         AuthorService authorService = new AuthorService(emf);
         CategoryService categoryService = new CategoryService();
         GenreService genreService = new GenreService();

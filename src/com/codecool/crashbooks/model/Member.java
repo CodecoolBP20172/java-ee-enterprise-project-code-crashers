@@ -5,8 +5,15 @@ import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
 
+@NamedQueries({
+        @NamedQuery(name = "Member.getMemberById", query = "SELECT m FROM Member m WHERE id =:id"),
+        @NamedQuery(name = "Member.getMemberByName", query = "SELECT m FROM Member m WHERE name = :name")
+
+})
+
 @Entity
 public class Member {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;

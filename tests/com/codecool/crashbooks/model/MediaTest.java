@@ -19,7 +19,7 @@ class MediaTest extends SetupAndTearDown {
     MediaService mediaService = new MediaService();
     GenreService genreService = new GenreService();
     CategoryService categoryService = new CategoryService();
-    AuthorService authorService = new AuthorService();
+    AuthorService authorService = new AuthorService(emf);
 
     @Test
     @DisplayName("All media")

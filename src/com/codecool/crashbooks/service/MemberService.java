@@ -8,49 +8,41 @@ import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
 
 public class MemberService {
+    private EntityManagerFactory emf;
 
-
-    public Member getMemberById(EntityManagerFactory emf, int id) {
-        try{
-            EntityManager em = emf.createEntityManager();
-
-            CriteriaBuilder cb = em.getCriteriaBuilder();
-            CriteriaQuery<Member> cq = cb.createQuery(Member.class);
-
-            Root<Member> memberRoot = cq.from(Member.class);
-            cq.where(cb.equal(memberRoot.get("id"), id));
-
-            TypedQuery<Member> query = em.createQuery(cq);
-            Member result = query.getSingleResult();
-
-            em.close();
-            return result;
-        }catch(NoResultException e){
-            return null;
-        }
+    public MemberService(EntityManagerFactory emf) {
+        this.emf = emf;
     }
 
-    public Member getMemberByName(EntityManagerFactory emf, String name){
+    public Member getMemberById(int id) {
+        EntityManager em = emf.createEntityManager();
         try {
-            EntityManager em = emf.createEntityManager();
-
-            CriteriaBuilder cb = em.getCriteriaBuilder();
-            CriteriaQuery<Member> cq = cb.createQuery(Member.class);
-
-            Root<Member> memberRoot = cq.from(Member.class);
-            cq.where(cb.equal(memberRoot.get("name"), name));
-
-            TypedQuery<Member> query = em.createQuery(cq);
-            Member result = query.getSingleResult();
-
-            em.close();
-            return result;
-        }catch(NoResultException e){
+            return em.createNamedQuery("Member.getMemberById", Member.class)
+                    .setParameter("id", id).getSingleResult();
+        } catch (NoResultException e) {
             return null;
+        } finally {
+            if (em != null) {
+                em.close();
+            }
         }
     }
 
-    public void saveMember(EntityManagerFactory emf, String name, String password) {
+    public Member getMemberByName(String name) {
+        EntityManager em = emf.createEntityManager();
+        try {
+            return em.createNamedQuery("Member.getMemberByName", Member.class)
+                    .setParameter("name", name).getSingleResult();
+        } catch (NoResultException e) {
+            return null;
+        } finally {
+            if (em != null) {
+                em.close();
+            }
+        }
+    }
+
+    public void saveMember(String name, String password) {
         EntityManager em = emf.createEntityManager();
         EntityTransaction transaction = em.getTransaction();
         Member member = new Member(name, password);
