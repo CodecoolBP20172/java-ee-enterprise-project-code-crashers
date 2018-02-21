@@ -17,9 +17,9 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class MediaTest extends SetupAndTearDown {
     MediaService mediaService = new MediaService();
-    GenreService genreService = new GenreService();
-    CategoryService categoryService = new CategoryService();
-    AuthorService authorService = new AuthorService();
+    GenreService genreService = new GenreService(emf);
+    CategoryService categoryService = new CategoryService(emf);
+    AuthorService authorService = new AuthorService(emf);
 
     @Test
     @DisplayName("All media")
@@ -56,7 +56,7 @@ class MediaTest extends SetupAndTearDown {
     @Test
     @DisplayName("Check for valid type, ADVENTURE")
     public void testGetMediaByAdventureGenreValidType() {
-        Genre genre = genreService.getGenreById(emf, 10);
+        Genre genre = genreService.getGenreById(10);
         assertTrue(mediaService.getMediaBy(emf, genre).get(0)
                 .getGenres()
                 .contains(genre));  //TODO rethink to use mock
@@ -65,7 +65,7 @@ class MediaTest extends SetupAndTearDown {
     @Test
     @DisplayName("Check for valid type, MYTHOLOGY")
     public void testGetMediaByMythologyGenreValidType() {
-        Genre genre = genreService.getGenreById(emf, 9);
+        Genre genre = genreService.getGenreById(9);
         assertTrue(mediaService.getMediaBy(emf, genre).get(0)
                 .getGenres()
                 .contains(genre)); //TODO rethink to use mock
