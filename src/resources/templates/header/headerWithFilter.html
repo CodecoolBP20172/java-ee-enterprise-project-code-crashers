@@ -15,7 +15,7 @@
                             <option value="0">ALL</option>
                             <option th:each="cat : ${categories}"
                                     th:value="${cat.getId()}"
-                                    th:text="${cat.getName()}"></option>
+                                    th:text="${cat.getType()}"></option>
                         </select>
                     </div>
 
@@ -24,16 +24,13 @@
                             <option value="0">ALL</option>
                             <option th:each="gen : ${genres}"
                                     th:value="${gen.getId()}"
-                                    th:text="${gen.getName()}"></option>
+                                    th:text="${gen.getType()}"></option>
                         </select>
                     </div>
                     <button type="selectCategory" class="btn btn-warning">Filter</button>
                 </form>
             </div>
-
-
             <div th:replace="header/login_block :: copy"></div>
-
 
         </div>
     </div>

@@ -1,19 +1,30 @@
 package com.codecool.crashbooks.model;
 
-import com.codecool.crashbooks.model.bookproperty.Author;
-import com.codecool.crashbooks.model.bookproperty.Category;
-import com.codecool.crashbooks.model.bookproperty.Genre;
+import com.codecool.crashbooks.model.mediaproperty.Author;
+import com.codecool.crashbooks.model.mediaproperty.Category;
+import com.codecool.crashbooks.model.mediaproperty.CategoryType;
+import com.codecool.crashbooks.model.mediaproperty.Genre;
+import com.codecool.crashbooks.service.AuthorService;
+import com.codecool.crashbooks.service.CategoryService;
+import com.codecool.crashbooks.service.GenreService;
+import com.codecool.crashbooks.service.MediaService;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
+import org.mockito.Mock;
+import org.mockito.Mockito;
 
 import static org.junit.jupiter.api.Assertions.*;
 
 class MediaTest extends SetupAndTearDown {
+    MediaService mediaService = new MediaService();
+    GenreService genreService = new GenreService();
+    CategoryService categoryService = new CategoryService();
+    AuthorService authorService = new AuthorService();
 
     @Test
     @DisplayName("All media")
     public void testGetAllMedia() {
-        assertEquals(4, (Media.getAllMedia(emf)).size());
+        assertEquals(4, (mediaService.getAllMedia(emf)).size());
     }
 
     //Genre tests
@@ -22,55 +33,59 @@ class MediaTest extends SetupAndTearDown {
     public void testGetMediaByGenreForInvalidGenre() {
         Genre genre = null;
         assertThrows(NullPointerException.class, () -> {
-            Media.getMediaBy(emf, genre).size();
+            mediaService.getMediaBy(emf, genre).size();
         });
     }
 
     @Test
     @DisplayName("Size check for allMediaByGenre, ADVENTURE")
     public void testGetMediaByGenreValidSizeForAdventure() {
-        Genre genre = Genre.getGenreById(emf, 10);
-        assertEquals(2, Media.getMediaBy(emf, genre).size());
+        Genre genreMock = Mockito.mock(Genre.class);
+        Mockito.when(genreMock.getId()).thenReturn(10);
+        assertEquals(2, mediaService.getMediaBy(emf, genreMock).size());
     }
 
     @Test
     @DisplayName("Size check for allMediaByGenre, MYTHOLOGY")
     public void testGetMediaByGenreValidSizeForMythology() {
-        Genre genre = Genre.getGenreById(emf, 9);
-        assertEquals(1, Media.getMediaBy(emf, genre).size());
+        Genre genreMock = Mockito.mock(Genre.class);
+        Mockito.when(genreMock.getId()).thenReturn(9);
+        assertEquals(1, mediaService.getMediaBy(emf, genreMock).size());
     }
 
     @Test
     @DisplayName("Check for valid type, ADVENTURE")
     public void testGetMediaByAdventureGenreValidType() {
-        Genre genre = Genre.getGenreById(emf, 10);
-        assertTrue(Media.getMediaBy(emf, genre).get(0)
+        Genre genre = genreService.getGenreById(emf, 10);
+        assertTrue(mediaService.getMediaBy(emf, genre).get(0)
                 .getGenres()
-                .contains(genre));
+                .contains(genre));  //TODO rethink to use mock
     }
 
     @Test
     @DisplayName("Check for valid type, MYTHOLOGY")
     public void testGetMediaByMythologyGenreValidType() {
-        Genre genre = Genre.getGenreById(emf, 9);
-        assertTrue(Media.getMediaBy(emf, genre).get(0)
+        Genre genre = genreService.getGenreById(emf, 9);
+        assertTrue(mediaService.getMediaBy(emf, genre).get(0)
                 .getGenres()
-                .contains(genre));
+                .contains(genre)); //TODO rethink to use mock
     }
 
     //Category tests
     @Test
     @DisplayName("Size check for allMediaByCategory, BOOK")
     public void testGetAllMediaByCategoryValidSizeForBooks() {
-        Category category = Category.getCategoryById(emf, 1);
-        assertEquals(2, Media.getMediaBy(emf, category).size());
+        Category categoryMock = Mockito.mock(Category.class);
+        Mockito.when(categoryMock.getId()).thenReturn(1);
+        assertEquals(2, mediaService.getMediaBy(emf, categoryMock).size());
     }
 
     @Test
     @DisplayName("Size check for allMediaByCategory, MAGAZINE")
     public void testGetAllMediaByCategoryValidSizeForMagazines() {
-        Category category = Category.getCategoryById(emf, 2);
-        assertEquals(1, Media.getMediaBy(emf, category).size());
+        Category categoryMock = Mockito.mock(Category.class);
+        Mockito.when(categoryMock.getId()).thenReturn(2);
+        assertEquals(1, mediaService.getMediaBy(emf, categoryMock).size());
     }
 
     @Test
@@ -78,31 +93,30 @@ class MediaTest extends SetupAndTearDown {
     public void testGetAllMediaByCategoryForInvalidCategory() {
         Category category = null;
         assertThrows(NullPointerException.class, () -> {
-            Media.getMediaBy(emf, category);
+            mediaService.getMediaBy(emf, category);
         });
     }
 
     @Test
     @DisplayName("Check for valid type, MAGAZINE")
     public void testGetAllMediaByCategoryForMagazineType() {
-        Category exceptedCategory = Category.getCategoryById(emf, 2);
-        Category realCategory = Media.getAllMedia(emf).get(0).getCategory();
-        assertEquals(exceptedCategory.getName(), realCategory.getName());
+        Category realCategory = mediaService.getAllMedia(emf).get(0).getCategory();
+        assertEquals(CategoryType.MAGAZINE, realCategory.getType());
     }
 
     @Test
     @DisplayName("Check for valid type, Book")
     public void testGetAllMediaByCategoryForBookType() {
-        Category exceptedCategory = Category.getCategoryById(emf, 1);
-        Category realCategory = Media.getAllMedia(emf).get(1).getCategory();
-        assertEquals(exceptedCategory.getName(), realCategory.getName());
+        Category realCategory = mediaService.getAllMedia(emf).get(1).getCategory();
+        assertEquals(CategoryType.BOOK, realCategory.getType());
     }
 
     //Author tests
     @Test
-    @DisplayName("Size check for allMediaByaUTHOR, testAuthor1")
+    @DisplayName("Size check for allMediaByAuthor, testAuthor1")
     public void testGetAllMediaByCategoryForTestAuthor1() {
-        Author author = Author.getAuthorById(emf, 1);
-        assertEquals(2, Media.getMediaBy(emf, author).size());
+        Author authorMock = Mockito.mock(Author.class);
+        Mockito.when(authorMock.getId()).thenReturn(1);
+        assertEquals(2, mediaService.getMediaBy(emf, authorMock).size());
     }
 }
