@@ -5,6 +5,12 @@ import com.codecool.crashbooks.model.Media;
 import javax.persistence.*;
 import java.util.List;
 
+@NamedQueries({
+        @NamedQuery(name = "Copy.getById", query = "SELECT a FROM Copy a WHERE id = :id"),
+        @NamedQuery(name = "Copy.getByStatus", query = "SELECT a FROM Copy a WHERE status = :status"),
+        //@NamedQuery(name = "Copy.getByRent", query = "SELECT a FROM Copy a WHERE rent_id = :id"),
+        @NamedQuery(name = "Copy.getAllCopy", query = "SELECT a FROM Copy a")
+})
 @Entity
 public class Copy {
 
@@ -15,6 +21,9 @@ public class Copy {
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "media_id")
     private Media media;
+
+    @OneToMany(mappedBy = "copy", fetch = FetchType.LAZY)
+    private List<Rent> rents;
 
     @Enumerated(EnumType.STRING)
     @Column(unique = true)
@@ -46,5 +55,13 @@ public class Copy {
 
     public void setMedia(Media media) {
         this.media = media;
+    }
+
+    public List<Rent> getRents() {
+        return rents;
+    }
+
+    public void setRents(List<Rent> rents) {
+        this.rents = rents;
     }
 }
