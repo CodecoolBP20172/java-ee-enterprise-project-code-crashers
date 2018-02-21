@@ -3,7 +3,7 @@ package com.codecool.crashbooks.ORM;
 import com.codecool.crashbooks.model.Media;
 import com.codecool.crashbooks.model.Member;
 import com.codecool.crashbooks.model.mediaproperty.*;
-import com.codecool.crashbooks.tools.Password;
+import com.codecool.crashbooks.utility.Password;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;

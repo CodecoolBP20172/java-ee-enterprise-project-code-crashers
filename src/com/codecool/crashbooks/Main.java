@@ -6,23 +6,28 @@ import static spark.debug.DebugScreen.enableDebugScreen;
 import com.codecool.crashbooks.ORM.PopulateData;
 import com.codecool.crashbooks.controller.MediaController;
 import com.codecool.crashbooks.controller.MemberController;
-import com.codecool.crashbooks.model.Member;
-import com.codecool.crashbooks.tools.Password;
+import com.codecool.crashbooks.service.*;
 import spark.Request;
 import spark.Response;
 import spark.template.thymeleaf.ThymeleafTemplateEngine;
 
 import javax.persistence.EntityManagerFactory;
-import javax.persistence.NoResultException;
 import javax.persistence.Persistence;
 
 
 public class Main {
+
     public static void main(String[] args) {
         EntityManagerFactory emf = Persistence.createEntityManagerFactory("CrashBooks");
 
-        MediaController mediaController = MediaController.getInstance();
-        MemberController memberController = MemberController.getInstance();
+        MediaService mediaService = new MediaService();
+        MemberService memberService = new MemberService();
+        AuthorService authorService = new AuthorService();
+        CategoryService categoryService = new CategoryService();
+        GenreService genreService = new GenreService();
+
+        MediaController mediaController = new MediaController(mediaService, genreService, categoryService );
+        MemberController memberController = new MemberController(memberService);
 
         //Populate Data
         PopulateData.populateDB(emf);
@@ -61,7 +66,7 @@ public class Main {
             req.session().removeAttribute("name");
             req.session().removeAttribute("id");
             res.redirect("/");
-            return null;
+            return null; //TODO move to memberController
         });
 
         get("/soon", (Request req, Response res) -> {

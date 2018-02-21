@@ -1,7 +1,7 @@
 package com.codecool.crashbooks.model;
 
 import com.codecool.crashbooks.model.mediaproperty.*;
-import com.codecool.crashbooks.tools.Password;
+import com.codecool.crashbooks.utility.Password;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;

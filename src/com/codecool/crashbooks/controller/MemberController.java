@@ -1,27 +1,22 @@
 package com.codecool.crashbooks.controller;
 
 import com.codecool.crashbooks.model.Member;
-import com.codecool.crashbooks.tools.Password;
+import com.codecool.crashbooks.service.MemberService;
+import com.codecool.crashbooks.utility.Password;
 import spark.ModelAndView;
 import spark.Request;
 import spark.Response;
 
 import javax.persistence.EntityManagerFactory;
-import javax.persistence.NoResultException;
 import java.util.HashMap;
 import java.util.Map;
 
 public class MemberController {
 
-    private MemberController() {
-    }
+    MemberService memberService;
 
-    private static class LazyHolder {
-        static final MemberController INSTANCE = new MemberController();
-    }
-
-    public static MemberController getInstance() {
-        return LazyHolder.INSTANCE;
+    public MemberController(MemberService memberService) {
+        this.memberService = memberService;
     }
 
     public ModelAndView loginPage(Request req, Response res) {
@@ -29,7 +24,7 @@ public class MemberController {
     }
 
     public ModelAndView loginLogic(Request req, Response res, EntityManagerFactory emf) {
-        Member member = Member.getMemberByName(emf, req.queryParams("name"));
+        Member member = memberService.getMemberByName(emf, req.queryParams("name"));
         if (member != null && Password.checkPassword(req.queryParams("password"), member.getPassword())) {
             req.session(true);
             req.session().attribute("name", member.getName());
@@ -48,7 +43,7 @@ public class MemberController {
     public ModelAndView registrationLogic(Request req, Response res, EntityManagerFactory emf) {
         if (memberNameIsNotTaken(emf, req.queryParams("name"))) {
             saveMember(req, emf);
-            Member member = Member.getMemberByName(emf, req.queryParams("name"));
+            Member member = memberService.getMemberByName(emf, req.queryParams("name"));
             req.session(true);
             req.session().attribute("name",req.queryParams("name"));
             req.session().attribute("id", member.getId());
@@ -60,11 +55,11 @@ public class MemberController {
     }
 
     public void saveMember(Request req, EntityManagerFactory emf) {
-        Member.saveMember(emf, req.queryParams("name"), Password.hashPassword(req.queryParams("password")));
+        memberService.saveMember(emf, req.queryParams("name"), Password.hashPassword(req.queryParams("password")));
     }
 
     public boolean memberNameIsNotTaken(EntityManagerFactory emf, String name) {
-        return (Member.getMemberByName(emf, name) == null);
+        return (memberService.getMemberByName(emf, name) == null);
     }
 
     public ModelAndView errorPage(Request req, Response res, String errorMessage) {

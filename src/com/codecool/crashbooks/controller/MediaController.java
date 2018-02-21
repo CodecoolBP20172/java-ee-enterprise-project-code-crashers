@@ -3,6 +3,9 @@ package com.codecool.crashbooks.controller;
 import com.codecool.crashbooks.model.Media;
 import com.codecool.crashbooks.model.mediaproperty.Category;
 import com.codecool.crashbooks.model.mediaproperty.Genre;
+import com.codecool.crashbooks.service.CategoryService;
+import com.codecool.crashbooks.service.GenreService;
+import com.codecool.crashbooks.service.MediaService;
 import spark.ModelAndView;
 import spark.Request;
 import spark.Response;
@@ -13,22 +16,21 @@ import java.util.Map;
 
 public class MediaController {
 
-    private MediaController() {
-    }
+    private MediaService mediaService;
+    private GenreService genreService;
+    private CategoryService categoryService;
 
-    private static class LazyHolder {
-        static final MediaController INSTANCE = new MediaController();
-    }
-
-    public static MediaController getInstance() {
-        return MediaController.LazyHolder.INSTANCE;
+    public MediaController(MediaService mediaService, GenreService genreService, CategoryService categoryService) {
+        this.mediaService = mediaService;
+        this.genreService = genreService;
+        this.categoryService = categoryService;
     }
 
     public ModelAndView renderAllBooks(Request request, Response response, EntityManagerFactory emf) {
         Map<String, Object> params = new HashMap<>();
-        params.put("medialist", Media.getAllMedia(emf));
-        params.put("genres", Genre.getAllGenre(emf));
-        params.put("categories", Category.getAllCategory(emf));
+        params.put("medialist", mediaService.getAllMedia(emf));
+        params.put("genres", genreService.getAllGenre(emf));
+        params.put("categories", categoryService.getAllCategory(emf));
         params.put("member", request.session().attribute("name"));
         return new ModelAndView(params, "book/index");
     }
@@ -38,22 +40,22 @@ public class MediaController {
         int genreId = Integer.parseInt(request.queryParams("genre"));
         int categoryId = Integer.parseInt(request.queryParams("category"));
 
-        Genre genre = genreId == 0 ? null : Genre.getGenreById(emf, genreId);
-        Category category = categoryId == 0 ? null : Category.getCategoryById(emf, categoryId);
+        Genre genre = genreId == 0 ? null : genreService.getGenreById(emf, genreId);
+        Category category = categoryId == 0 ? null : categoryService.getCategoryById(emf, categoryId);
 
         if (genreId == 0 && categoryId == 0) {
             response.redirect("/");
         } else if (genreId == 0) {
-            params.put("medialist", Media.getMediaBy(emf, category));
+            params.put("medialist", mediaService.getMediaBy(emf, category));
         } else if (categoryId == 0) {
-            params.put("medialist", Media.getMediaBy(emf, genre));
+            params.put("medialist", mediaService.getMediaBy(emf, genre));
         } else {
-            params.put("medialist", Media.getMediaBy(emf, genre, category));
+            params.put("medialist", mediaService.getMediaBy(emf, genre, category));
         }
         params.put("genre", genre);
-        params.put("genres", Genre.getAllGenre(emf));
+        params.put("genres", genreService.getAllGenre(emf));
         params.put("category", category);
-        params.put("categories", Category.getAllCategory(emf));
+        params.put("categories", categoryService.getAllCategory(emf));
         params.put("member", request.session().attribute("name"));
         return new ModelAndView(params, "book/index");
     }

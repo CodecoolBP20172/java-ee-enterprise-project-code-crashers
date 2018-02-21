@@ -37,26 +37,4 @@ public class Category {
     public CategoryType getType() {
         return type;
     }
-
-    public static List<Category> getAllCategory(EntityManagerFactory emf) {
-        EntityManager em = emf.createEntityManager();
-        List<Category> categoryList = em.createNamedQuery("Category.getAllCategory", Category.class).getResultList();
-        em.close();
-        return categoryList;
-    }
-
-    public static Category getCategoryById(EntityManagerFactory emf, int id){
-        EntityManager em = emf.createEntityManager();
-        Category category = em.createNamedQuery("Category.getById", Category.class).setParameter("id", id).getSingleResult();
-        em.close();
-        return category;
-    }
-
-    public static Category getCategoryByType(EntityManagerFactory emf, String type){
-        EntityManager em = emf.createEntityManager();
-        Category category = em.createNamedQuery("Category.getByType", Category.class).setParameter("type", type).getSingleResult();
-        em.close();
-        return category;
-    }
-
 }

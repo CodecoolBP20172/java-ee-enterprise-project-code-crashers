@@ -1,4 +1,4 @@
-package com.codecool.crashbooks.tools;
+package com.codecool.crashbooks.utility;
 
 import org.mindrot.jbcrypt.BCrypt;
 
