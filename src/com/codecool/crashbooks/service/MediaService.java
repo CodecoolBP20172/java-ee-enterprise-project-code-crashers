@@ -22,21 +22,24 @@ public class MediaService {
 
     public List<Media> getMediaBy(EntityManagerFactory emf, Genre genre) {
         EntityManager em = emf.createEntityManager();
-        List<Media> mediaList = em.createNamedQuery("Media.getMediaByGenre", Media.class).setParameter("id", genre.getId()).getResultList();
+        List<Media> mediaList = em.createNamedQuery("Media.getMediaByGenre", Media.class)
+                .setParameter("id", genre.getId()).getResultList();
         em.close();
         return mediaList;
     }
 
     public List<Media> getMediaBy(EntityManagerFactory emf, Category category) {
         EntityManager em = emf.createEntityManager();
-        List<Media> mediaList = em.createNamedQuery("Media.getMediaByCategory", Media.class).setParameter("id", category.getId()).getResultList();
+        List<Media> mediaList = em.createNamedQuery("Media.getMediaByCategory", Media.class)
+                .setParameter("id", category.getId()).getResultList();
         em.close();
         return mediaList;
     }
 
     public List<Media> getMediaBy(EntityManagerFactory emf, Author author) {
         EntityManager em = emf.createEntityManager();
-        List<Media> mediaList = em.createNamedQuery("Media.getMediaByAuthor", Media.class).setParameter("id", author.getId()).getResultList();
+        List<Media> mediaList = em.createNamedQuery("Media.getMediaByAuthor", Media.class)
+                .setParameter("id", author.getId()).getResultList();
         em.close();
         return mediaList;
     }

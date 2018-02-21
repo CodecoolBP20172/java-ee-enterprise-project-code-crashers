@@ -4,6 +4,7 @@ import com.codecool.crashbooks.model.mediaproperty.Category;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
+import javax.persistence.NoResultException;
 import java.util.List;
 
 public class CategoryService {
@@ -16,17 +17,27 @@ public class CategoryService {
     }
 
     public Category getCategoryById(EntityManagerFactory emf, int id){
-        EntityManager em = emf.createEntityManager();
-        Category category = em.createNamedQuery("Category.getById", Category.class).setParameter("id", id).getSingleResult();
-        em.close();
-        return category;
+        try {
+            EntityManager em = emf.createEntityManager();
+            Category category = em.createNamedQuery("Category.getById", Category.class)
+                    .setParameter("id", id).getSingleResult();
+            em.close();
+            return category;
+        }catch(NoResultException e){
+            return null;
+        }
     }
 
     public Category getCategoryByType(EntityManagerFactory emf, String type){
-        EntityManager em = emf.createEntityManager();
-        Category category = em.createNamedQuery("Category.getByType", Category.class).setParameter("type", type).getSingleResult();
-        em.close();
-        return category;
+        try {
+            EntityManager em = emf.createEntityManager();
+            Category category = em.createNamedQuery("Category.getByType", Category.class)
+                    .setParameter("type", type).getSingleResult();
+            em.close();
+            return category;
+        } catch(NoResultException e){
+            return null;
+        }
     }
 
 }

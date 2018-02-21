@@ -4,6 +4,7 @@ import com.codecool.crashbooks.model.mediaproperty.Genre;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
+import javax.persistence.NoResultException;
 import java.util.List;
 
 public class GenreService {
@@ -15,16 +16,26 @@ public class GenreService {
         return genreList;
     }
     public Genre getGenreById(EntityManagerFactory emf, int id){
-        EntityManager em = emf.createEntityManager();
-        Genre genre = em.createNamedQuery("Genre.getById", Genre.class).setParameter("id", id).getSingleResult();
-        em.close();
-        return genre;
+        try {
+            EntityManager em = emf.createEntityManager();
+            Genre genre = em.createNamedQuery("Genre.getById", Genre.class)
+                    .setParameter("id", id).getSingleResult();
+            em.close();
+            return genre;
+        } catch(NoResultException e){
+            return null;
+        }
     }
 
     public Genre getGenreByType(EntityManagerFactory emf, String type){
-        EntityManager em = emf.createEntityManager();
-        Genre genre = em.createNamedQuery("Genre.getByType", Genre.class).setParameter("type", type).getSingleResult();
-        em.close();
-        return genre;
+        try {
+            EntityManager em = emf.createEntityManager();
+            Genre genre = em.createNamedQuery("Genre.getByType", Genre.class)
+                    .setParameter("type", type).getSingleResult();
+            em.close();
+            return genre;
+        }catch(NoResultException e){
+            return null;
+        }
     }
 }

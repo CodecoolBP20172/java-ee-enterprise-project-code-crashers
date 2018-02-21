@@ -11,19 +11,23 @@ public class MemberService {
 
 
     public Member getMemberById(EntityManagerFactory emf, int id) {
-        EntityManager em = emf.createEntityManager();
+        try{
+            EntityManager em = emf.createEntityManager();
 
-        CriteriaBuilder cb = em.getCriteriaBuilder();
-        CriteriaQuery<Member> cq = cb.createQuery(Member.class);
+            CriteriaBuilder cb = em.getCriteriaBuilder();
+            CriteriaQuery<Member> cq = cb.createQuery(Member.class);
 
-        Root<Member> memberRoot = cq.from(Member.class);
-        cq.where(cb.equal(memberRoot.get("id"), id));
+            Root<Member> memberRoot = cq.from(Member.class);
+            cq.where(cb.equal(memberRoot.get("id"), id));
 
-        TypedQuery<Member> query = em.createQuery(cq);
-        Member result = query.getSingleResult();
+            TypedQuery<Member> query = em.createQuery(cq);
+            Member result = query.getSingleResult();
 
-        em.close();
-        return result;
+            em.close();
+            return result;
+        }catch(NoResultException e){
+            return null;
+        }
     }
 
     public Member getMemberByName(EntityManagerFactory emf, String name){
