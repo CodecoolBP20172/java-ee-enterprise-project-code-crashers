@@ -8,34 +8,48 @@ import javax.persistence.NoResultException;
 import java.util.List;
 
 public class AuthorService {
+    private EntityManagerFactory emf;
 
-    public List<Author> getAllAuthor(EntityManagerFactory emf) {
+    public AuthorService(EntityManagerFactory emf) {
+        this.emf = emf;
+    }
+
+    public List<Author> getAllAuthor() {
         EntityManager em = emf.createEntityManager();
         List<Author> authorList = em.createNamedQuery("Author.getAllAuthor", Author.class).getResultList();
         em.close();
         return authorList;
     }
-    public Author getAuthorById(EntityManagerFactory emf, int id){
+
+    public Author getAuthorById(int id){
+        EntityManager em = emf.createEntityManager();
         try {
-            EntityManager em = emf.createEntityManager();
             Author author = em.createNamedQuery("Author.getById", Author.class)
                     .setParameter("id", id).getSingleResult();
             em.close();
             return author;
-        }catch(NoResultException e){
+        } catch(NoResultException e){
             return null;
+        } finally {
+            if(em != null) {
+                em.close();
+            }
         }
     }
 
-    public Author getAuthorByName(EntityManagerFactory emf, String name){
+    public Author getAuthorByName(String name){
+        EntityManager em = emf.createEntityManager();
         try {
-            EntityManager em = emf.createEntityManager();
             Author author = em.createNamedQuery("Author.getByName", Author.class)
                     .setParameter("name", name).getSingleResult();
             em.close();
             return author;
         }catch(NoResultException e){
             return null;
+        }finally {
+            if(em != null) {
+                em.close();
+            }
         }
     }
 }

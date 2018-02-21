@@ -22,7 +22,7 @@ public class Main {
 
         MediaService mediaService = new MediaService();
         MemberService memberService = new MemberService();
-        AuthorService authorService = new AuthorService();
+        AuthorService authorService = new AuthorService(emf);
         CategoryService categoryService = new CategoryService();
         GenreService genreService = new GenreService();
 
