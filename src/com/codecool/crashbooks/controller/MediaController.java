@@ -1,6 +1,5 @@
 package com.codecool.crashbooks.controller;
 
-import com.codecool.crashbooks.model.Media;
 import com.codecool.crashbooks.model.mediaproperty.Category;
 import com.codecool.crashbooks.model.mediaproperty.Genre;
 import com.codecool.crashbooks.service.CategoryService;
@@ -28,7 +27,7 @@ public class MediaController {
 
     public ModelAndView renderAllBooks(Request request, Response response, EntityManagerFactory emf) {
         Map<String, Object> params = new HashMap<>();
-        params.put("medialist", mediaService.getAllMedia(emf));
+        params.put("medialist", mediaService.getAllMedia());
         params.put("genres", genreService.getAllGenre());
         params.put("categories", categoryService.getAllCategory());
         params.put("member", request.session().attribute("name"));
@@ -46,11 +45,11 @@ public class MediaController {
         if (genreId == 0 && categoryId == 0) {
             response.redirect("/");
         } else if (genreId == 0) {
-            params.put("medialist", mediaService.getMediaBy(emf, category));
+            params.put("medialist", mediaService.getMediaBy(category));
         } else if (categoryId == 0) {
-            params.put("medialist", mediaService.getMediaBy(emf, genre));
+            params.put("medialist", mediaService.getMediaBy(genre));
         } else {
-            params.put("medialist", mediaService.getMediaBy(emf, genre, category));
+            params.put("medialist", mediaService.getMediaBy(genre, category));
         }
         params.put("genre", genre);
         params.put("genres", genreService.getAllGenre());

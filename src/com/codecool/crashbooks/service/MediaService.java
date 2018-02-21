@@ -12,15 +12,20 @@ import javax.persistence.criteria.*;
 import java.util.List;
 
 public class MediaService {
+    EntityManagerFactory emf;
 
-    public List<Media> getAllMedia(EntityManagerFactory emf) {
+    public MediaService(EntityManagerFactory emf) {
+        this.emf = emf;
+    }
+
+    public List<Media> getAllMedia() {
         EntityManager em = emf.createEntityManager();
         List<Media> mediaList = em.createNamedQuery("Media.getAllMedia", Media.class).getResultList();
         em.close();
         return mediaList;
     }
 
-    public List<Media> getMediaBy(EntityManagerFactory emf, Genre genre) {
+    public List<Media> getMediaBy(Genre genre) {
         EntityManager em = emf.createEntityManager();
         List<Media> mediaList = em.createNamedQuery("Media.getMediaByGenre", Media.class)
                 .setParameter("id", genre.getId()).getResultList();
@@ -28,7 +33,7 @@ public class MediaService {
         return mediaList;
     }
 
-    public List<Media> getMediaBy(EntityManagerFactory emf, Category category) {
+    public List<Media> getMediaBy(Category category) {
         EntityManager em = emf.createEntityManager();
         List<Media> mediaList = em.createNamedQuery("Media.getMediaByCategory", Media.class)
                 .setParameter("id", category.getId()).getResultList();
@@ -36,7 +41,7 @@ public class MediaService {
         return mediaList;
     }
 
-    public List<Media> getMediaBy(EntityManagerFactory emf, Author author) {
+    public List<Media> getMediaBy(Author author) {
         EntityManager em = emf.createEntityManager();
         List<Media> mediaList = em.createNamedQuery("Media.getMediaByAuthor", Media.class)
                 .setParameter("id", author.getId()).getResultList();
@@ -44,23 +49,12 @@ public class MediaService {
         return mediaList;
     }
 
-    public List<Media> getMediaBy(EntityManagerFactory emf, Genre genre, Category category) {
+    public List<Media> getMediaBy(Genre genre, Category category) {
         EntityManager em = emf.createEntityManager();
-        CriteriaBuilder cb = em.getCriteriaBuilder();
-
-        CriteriaQuery<Media> cq = cb.createQuery(Media.class);
-
-        Root<Media> mediaRoot = cq.from(Media.class);
-        Join<Media, Genre> genreJoin = mediaRoot.join("genres");
-
-        Predicate genreRestriction  = cb.equal(genreJoin.get("id"), genre.getId());
-        Predicate categoryRestriction  = cb.equal(mediaRoot.get("category"), category.getId());
-
-        cq.where(cb.and(genreRestriction, categoryRestriction));
-        cq.orderBy(cb.asc(mediaRoot.get("title")));
-
-        TypedQuery<Media> query = em.createQuery(cq);
-        List<Media> mediaList = query.getResultList();
+        List<Media> mediaList = em.createNamedQuery("Media.getMediaByGenreAndCategory", Media.class)
+                .setParameter("genreId", genre.getId())
+                .setParameter("categoryId", category.getId())
+                .getResultList();
 
         em.close();
         return mediaList;
