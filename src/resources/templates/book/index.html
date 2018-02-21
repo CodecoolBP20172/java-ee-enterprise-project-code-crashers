@@ -19,8 +19,8 @@
                     <div class="thumbnail">
                         <img class="group list-group-image" src="/img/book_thumb.png" th:src="${media.pictureUrl} != null ? '/img/' + ${media.pictureUrl} " alt="" />
                         <div class="caption">
+                            <h4 class="group inner list-group-item-heading" th:text="${media.getAuthor().getName()}">Author</h4>
                             <h4 class="group inner list-group-item-heading" th:text="${media.getTitle()}">Product name</h4>
-                            <h4 class="group inner list-group-item-heading" th:text="${media.getDescription()}">description</h4>
                             <div class="row">
                                 <div class="col-6">
                                     <p class="lead">X left</p>

@@ -24,21 +24,18 @@ public class Media {
     private int id;
 
     private String title;
-
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "author_id")
     private Author author;
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "category_id")
     private Category category;
-
     @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(name = "book_genres")
     private Set<Genre> genres = new HashSet<>();
     private String pictureUrl;
     private int year;
     private String description;
-
     public Media() {
     }
 
@@ -59,14 +56,12 @@ public class Media {
         this.pictureUrl = "book_thumb.png";
     }
 
-
+    public Author getAuthor() {
+        return author;
+    }
 
     public Category getCategory() {
         return category;
-    }
-
-    public void setGenres(Genre genres) {
-        this.genres.add(genres);
     }
 
     public String getTitle() {
@@ -83,6 +78,10 @@ public class Media {
 
     public Set<Genre> getGenres() {
         return genres;
+    }
+
+    public void setGenres(Genre genres) {
+        this.genres.add(genres);
     }
 }
 

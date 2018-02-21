@@ -20,6 +20,7 @@ public class PopulateData {
         Author martin = new Author("George R. R. Martin");
         Author king = new Author("Stephen King");
         Author crichton = new Author("Michael Crichton");
+        Author noAuthor = new Author("No Author");
 
 
         Category book = new Category(CategoryType.BOOK);
@@ -47,7 +48,7 @@ public class PopulateData {
         Media it = new Media("It", king, book, horror, "it.jpg", 1986, "A good book...");
         Media jurassicPark = new Media("Jurassic Park", crichton, book, fantasy, "jurassicpark.jpg", 1990, "A good book...");
         Media twister = new Media("Twister", crichton, book, drama, "twister.jpg", 1994, "A good book...");
-        Media natgeo = new Media("National Geographic 167/6", null, magazine, realism, "natgeo167-6.jpg", 1985, "A good magazine...");
+        Media natgeo = new Media("National Geographic 167/6", noAuthor, magazine, realism, "natgeo167-6.jpg", 1985, "A good magazine...");
 
         Member test = new Member("test", Password.hashPassword("test"));
         EntityTransaction transaction = em.getTransaction();
@@ -60,6 +61,7 @@ public class PopulateData {
         em.persist(martin);
         em.persist(king);
         em.persist(crichton);
+        em.persist(noAuthor);
 
         em.persist(book);
         em.persist(magazine);
