@@ -3,7 +3,14 @@ package com.codecool.crashbooks.model.mediaproperty;
 import com.codecool.crashbooks.model.Member;
 
 import javax.persistence.*;
+import java.util.Calendar;
+import java.util.Date;
 
+@NamedQueries({
+        @NamedQuery(name = "Rent.getById", query = "SELECT r FROM Rent r WHERE id = :id"),
+        @NamedQuery(name = "Rent.getByMemberIdAndStatus", query = "SELECT r FROM Rent r WHERE member_id = :id AND "),
+        @NamedQuery(name = "Rent.getAllAuthor", query = "SELECT r FROM Rent r")
+})
 @Entity
 public class Rent {
     @Id
@@ -18,10 +25,10 @@ public class Rent {
     @JoinColumn(name = "copy_id")
     private Copy copy;
 
-    public Rent(Member member, Copy copy) {
-        this.member = member;
-        this.copy = copy;
-    }
+    Date dateStart;
+    Date dateEnd;
+    Date dateReturned;
+    double fine;
 
     public int getId() {
         return id;
@@ -41,6 +48,26 @@ public class Rent {
 
     public void setCopy(Copy copy) {
         this.copy = copy;
+    }
+
+    public Date getDateStart() {
+        return dateStart;
+    }
+
+    public void setRentPeriod() {
+        this.dateStart = new Date();
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTime(dateStart);
+        calendar.add(Calendar.MONTH, 1);
+        this.dateEnd = calendar.getTime();
+    }
+
+    public Date getDateEnd() {
+        return dateEnd;
+    }
+
+    public void setDateReturned() {
+        this.dateReturned = new Date();
     }
 
 }
