@@ -30,6 +30,9 @@ public class Rent {
     private Date dateReturned;
     private double fine;
 
+    public Rent() {
+    }
+
     public Rent(Member member, Copy copy) {
         this.member = member;
         this.copy = copy;

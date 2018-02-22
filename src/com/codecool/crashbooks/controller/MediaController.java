@@ -2,9 +2,11 @@ package com.codecool.crashbooks.controller;
 
 import com.codecool.crashbooks.model.mediaproperty.Category;
 import com.codecool.crashbooks.model.mediaproperty.Genre;
+import com.codecool.crashbooks.model.mediaproperty.StatusType;
 import com.codecool.crashbooks.service.CategoryService;
 import com.codecool.crashbooks.service.GenreService;
 import com.codecool.crashbooks.service.MediaService;
+import com.codecool.crashbooks.service.RentService;
 import spark.ModelAndView;
 import spark.Request;
 import spark.Response;
@@ -17,12 +19,15 @@ public class MediaController {
     private MediaService mediaService;
     private GenreService genreService;
     private CategoryService categoryService;
+    private RentService rentService;
 
 
-    public MediaController(MediaService mediaService, GenreService genreService, CategoryService categoryService) {
+    public MediaController(MediaService mediaService, GenreService genreService, CategoryService categoryService,
+                           RentService rentService) {
         this.mediaService = mediaService;
         this.genreService = genreService;
         this.categoryService = categoryService;
+        this.rentService = rentService;
     }
 
     public ModelAndView renderAllMedia(Request request, Response response) {
@@ -62,6 +67,8 @@ public class MediaController {
     public ModelAndView renderProfile(Request request, Response response) {
         Map<String, Object> params = new HashMap<>();
         params.put("member", request.session().attribute("name"));
+        params.put("rentList", rentService.getRentByMemberIdAndStatus(request.session()
+                .attribute("id"), StatusType.PENDING));
         return new ModelAndView(params, "profile/main_profile");
     }
 

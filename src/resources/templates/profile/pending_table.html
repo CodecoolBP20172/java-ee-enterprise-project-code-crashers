@@ -12,26 +12,14 @@
 
     <table>
         <tr>
-            <th>
-                Rent ID
-            </th>
-            <th>
-                Title
-            </th>
-            <th>
-                Copy
-            </th>
+            <th>Rent ID</th>
+            <th>Title</th>
+            <th>Copy ID</th>
         </tr>
-        <tr th:each="rent,iterStat : ${rentlist}">
-            <td th:text="${rent.rentid}">
-
-            </td>
-            <td th:text="${rent.title}">
-
-            </td>
-            <td th:text="${rent.copyid}">
-
-            </td>
+        <tr th:each="rent,iterStat : ${rentList}">
+            <td th:text="${rent.getId()}"></td>
+            <td th:text="${rent.getCopy().getMedia().getTitle()}"></td>
+            <td th:text="${rent.getCopy().getId()}"></td>
         </tr>
     </table>
 

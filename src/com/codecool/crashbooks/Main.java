@@ -28,7 +28,7 @@ public class Main {
         CopyService copyService = new CopyService(emf);
         RentService rentService = new RentService(emf, copyService);
 
-        MediaController mediaController = new MediaController(mediaService, genreService, categoryService);
+        MediaController mediaController = new MediaController(mediaService, genreService, categoryService, rentService);
         MemberController memberController = new MemberController(memberService);
         RentController rentController = new RentController(rentService, memberService, copyService);
 
