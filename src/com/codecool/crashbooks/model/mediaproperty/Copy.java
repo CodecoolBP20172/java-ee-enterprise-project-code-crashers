@@ -8,7 +8,7 @@ import java.util.List;
 @NamedQueries({
         @NamedQuery(name = "Copy.getById", query = "SELECT a FROM Copy a WHERE id = :id"),
         @NamedQuery(name = "Copy.getByStatus", query = "SELECT a FROM Copy a WHERE status = :status"),
-        @NamedQuery(name = "Copy.getAvailableCopyByMediaId", query = "SELECT a FROM Copy a WHERE media_id = :id AND status = AVAILABLE"),
+        @NamedQuery(name = "Copy.getAvailableCopyByMediaId", query = "SELECT a FROM Copy a WHERE media_id = :id AND status = 'AVAILABLE'"),
         @NamedQuery(name = "Copy.getAllCopy", query = "SELECT a FROM Copy a")
 })
 @Entity

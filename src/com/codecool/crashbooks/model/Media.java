@@ -33,7 +33,7 @@ public class Media {
     @JoinTable(name = "media_genres")
     private Set<Genre> genres = new HashSet<>();
 
-    @OneToMany(mappedBy = "media", fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "media", fetch = FetchType.EAGER)
     private Set<Copy> copies = new HashSet<>();
 
     private String pictureUrl;
@@ -91,8 +91,7 @@ public class Media {
     }
 
     public boolean isCopyAvailable() {
-        long result =  copies.stream().filter(copy -> StatusType.AVAILABLE.equals(copy.getStatus())).count();
-        return result > 0;
+        return copies.stream().anyMatch(copy -> StatusType.AVAILABLE.equals(copy.getStatus()));
     }
 }
 

@@ -7,7 +7,6 @@ import com.codecool.crashbooks.ORM.PopulateData;
 import com.codecool.crashbooks.controller.MediaController;
 import com.codecool.crashbooks.controller.MemberController;
 import com.codecool.crashbooks.controller.RentController;
-import com.codecool.crashbooks.model.mediaproperty.Copy;
 import com.codecool.crashbooks.service.*;
 import spark.Request;
 import spark.Response;
@@ -24,15 +23,14 @@ public class Main {
 
         MemberService memberService = new MemberService(emf);
         MediaService mediaService = new MediaService(emf);
-        AuthorService authorService = new AuthorService(emf);
         CategoryService categoryService = new CategoryService(emf);
         GenreService genreService = new GenreService(emf);
-        RentService rentService = new RentService(emf);
         CopyService copyService = new CopyService(emf);
+        RentService rentService = new RentService(emf, copyService);
 
         MediaController mediaController = new MediaController(mediaService, genreService, categoryService);
         MemberController memberController = new MemberController(memberService);
-        RentController rentController = new RentController(rentService,memberService,copyService);
+        RentController rentController = new RentController(rentService, memberService, copyService);
 
         //Populate Data
         PopulateData.populateDB(emf);
@@ -55,7 +53,7 @@ public class Main {
             return new ThymeleafTemplateEngine().render(memberController.loginPage(req, res));
         });
 
-        post("/login", (Request req, Response res) ->{
+        post("/login", (Request req, Response res) -> {
             return new ThymeleafTemplateEngine().render(memberController.loginLogic(req, res));
         });
 
@@ -79,7 +77,7 @@ public class Main {
             return new ThymeleafTemplateEngine().render(mediaController.soon(req, res));
         });
 
-        post("/rent", (Request req,Response res) ->{
+        post("/rent", (Request req, Response res) -> {
             return new ThymeleafTemplateEngine().render(rentController.renderRent(req, res));
         });
 

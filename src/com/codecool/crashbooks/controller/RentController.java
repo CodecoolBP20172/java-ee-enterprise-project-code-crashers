@@ -22,10 +22,14 @@ public class RentController {
         this.copyService = copyService;
     }
 
-    public ModelAndView renderRent(Request request, Response response){
+    public ModelAndView renderRent(Request request, Response response) {
         Map<String, Object> params = new HashMap<>();
-        rentService.createNewRent(memberService.getMemberByName(request.session().attribute("name")), copyService.getSingleAvailableCopy(Integer.parseInt(request.queryParams("media_id"))));
-    response.redirect("/");
+        if (request.session().attribute("name") != null) {
+            rentService.createNewRent(memberService.getMemberByName(request.session().attribute("name")), copyService.getSingleAvailableCopy(Integer.parseInt(request.queryParams("media_id"))));
+        } else {
+            response.redirect("/");
+        }
+        response.redirect("/");
         params.put("member", request.session().attribute("name"));
         return new ModelAndView(params, "book/index");
     }

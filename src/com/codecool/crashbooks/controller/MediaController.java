@@ -1,6 +1,5 @@
 package com.codecool.crashbooks.controller;
 
-import com.codecool.crashbooks.model.Media;
 import com.codecool.crashbooks.model.mediaproperty.Category;
 import com.codecool.crashbooks.model.mediaproperty.Genre;
 import com.codecool.crashbooks.service.CategoryService;
@@ -11,7 +10,6 @@ import spark.Request;
 import spark.Response;
 
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 public class MediaController {

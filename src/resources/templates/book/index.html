@@ -23,12 +23,17 @@
                             <h4 class="group inner list-group-item-heading" th:text="${media.getTitle()}">Product name</h4>
                             <div class="row">
                                 <div class="col-6">
-                                    <p class="lead" th:text="${copies}">X left</p>
+                                    <p class="lead" th:text="${media.getAvailableCopiesNumber()} + ' left'">X left</p>
                                 </div>
                                 <div class="col-6">
                                     <form action="/rent" method="post">
-                                        <input type="hidden" th:name="media_id" th:value="${media.id}"/>
-                                        <input class="btn btn-warning" type="submit" value ="Rent"/>
+                                        <input type="hidden" th:name="media_id" th:value="${media.id}" />
+                                        <div th:if="${media.isCopyAvailable()}">
+                                            <input class="btn btn-warning" type="submit" value ="Rent"/>
+                                        </div>
+                                        <div th:unless="${media.isCopyAvailable()}">
+                                            <input class="btn btn-secondary" type="submit" value ="Rent" disabled=""/>
+                                        </div>
                                     </form>
                                 </div>
                             </div>

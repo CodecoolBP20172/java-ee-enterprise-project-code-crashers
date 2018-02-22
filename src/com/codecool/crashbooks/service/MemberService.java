@@ -3,9 +3,6 @@ package com.codecool.crashbooks.service;
 import com.codecool.crashbooks.model.Member;
 
 import javax.persistence.*;
-import javax.persistence.criteria.CriteriaBuilder;
-import javax.persistence.criteria.CriteriaQuery;
-import javax.persistence.criteria.Root;
 
 public class MemberService {
     private EntityManagerFactory emf;
