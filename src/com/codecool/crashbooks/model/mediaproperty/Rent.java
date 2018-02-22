@@ -8,32 +8,37 @@ import java.util.Date;
 
 @NamedQueries({
         @NamedQuery(name = "Rent.getById", query = "SELECT r FROM Rent r WHERE id = :id"),
-        @NamedQuery(name = "Rent.getByMemberIdAndStatus", query = "SELECT r FROM Rent r WHERE member_id = :id AND "),
+        //@NamedQuery(name = "Rent.getByMemberIdAndStatus", query = "SELECT r FROM Rent r WHERE member_id = :id AND "),
         @NamedQuery(name = "Rent.getAllAuthor", query = "SELECT r FROM Rent r")
 })
 @Entity
 public class Rent {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
-
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "member_id")
     private Member member;
-
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "copy_id")
     private Copy copy;
 
-    Date dateStart;
-    Date dateEnd;
-    Date dateReturned;
-    double fine;
+    private Date dateStart;
+    private Date dateEnd;
+    private Date dateReturned;
+    private double fine;
+
+    public Rent(Member member, Copy copy) {
+        this.member = member;
+        this.copy = copy;
+        copy.setStatus(StatusType.PENDING);
+    }
 
     public int getId() {
         return id;
     }
-    
+
     public Member getMember() {
         return member;
     }
@@ -60,6 +65,7 @@ public class Rent {
         calendar.setTime(dateStart);
         calendar.add(Calendar.MONTH, 1);
         this.dateEnd = calendar.getTime();
+        copy.setStatus(StatusType.RENTED);
     }
 
     public Date getDateEnd() {
@@ -68,6 +74,11 @@ public class Rent {
 
     public void setDateReturned() {
         this.dateReturned = new Date();
+        copy.setStatus(StatusType.AVAILABLE);
     }
 
+    public Date getDateReturned() {
+        return dateReturned;
+
+    }
 }
