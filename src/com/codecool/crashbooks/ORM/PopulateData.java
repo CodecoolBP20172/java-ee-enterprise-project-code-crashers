@@ -70,10 +70,14 @@ public class PopulateData {
         Copy copy1 = new Copy(it);
         Copy copy2 = new Copy(it);
         Copy copy3 = new Copy(lordOfTheRings1);
-        copy2.setStatus(StatusType.PENDING);
+        copy3.setStatus(StatusType.PENDING);
         copy1.setStatus(StatusType.PENDING);
 
         Rent rent1 = new Rent(test, copy1);
+        rent1.setDateManuallytoHistory();
+
+        Rent rent2 = new Rent(test, copy3);
+        rent2.setDateManuallytoRented();
 
         EntityTransaction transaction = em.getTransaction();
 
@@ -158,6 +162,7 @@ public class PopulateData {
         em.persist(copy3);
 
         em.persist(rent1);
+        em.persist(rent2);
 
         transaction.commit();
 

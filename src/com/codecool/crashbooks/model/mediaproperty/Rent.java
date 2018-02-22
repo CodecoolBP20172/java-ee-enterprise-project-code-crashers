@@ -85,4 +85,16 @@ public class Rent {
         return dateReturned;
 
     }
+
+    public void setDateManuallytoRented() {
+        this.dateStart = new Date();
+    }
+
+    public void setDateManuallytoHistory() {
+        this.dateStart = new Date();
+        this.dateEnd = new Date();
+        this.dateReturned = new Date();
+    }
+
+
 }
