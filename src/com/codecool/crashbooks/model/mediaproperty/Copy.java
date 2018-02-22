@@ -17,25 +17,23 @@ public class Copy {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
-
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "media_id")
     private Media media;
-
     @OneToMany(mappedBy = "copy", fetch = FetchType.LAZY)
     private List<Rent> rents;
-
     @Enumerated(EnumType.STRING)
     @Column(unique = true)
     private StatusType status;
 
-
     public Copy() {
     }
 
-    public Copy(StatusType status) {
-        this.status = status;
+    public Copy(Media media) {
+        this.media = media;
+        this.status = StatusType.AVAILABLE;
     }
+
 
     public int getId() {
         return id;
@@ -47,14 +45,6 @@ public class Copy {
 
     public void setStatus(StatusType status) {
         this.status = status;
-    }
-
-    public Media getMedia() {
-        return media;
-    }
-
-    public void setMedia(Media media) {
-        this.media = media;
     }
 
     public List<Rent> getRents() {
