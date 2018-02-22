@@ -10,7 +10,6 @@ import com.codecool.crashbooks.service.GenreService;
 import com.codecool.crashbooks.service.MediaService;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
-import org.mockito.Mock;
 import org.mockito.Mockito;
 
 import static org.junit.jupiter.api.Assertions.*;

@@ -41,6 +41,9 @@ public class PopulateTestDb {
         Member testMember = new Member("test1", Password.hashPassword("test1"));
         EntityTransaction transaction = em.getTransaction();
 
+        Copy copy1 = new Copy(media1);
+        Copy copy2 = new Copy();
+
         transaction.begin();
 
         em.persist(testAuthor1);
@@ -70,6 +73,10 @@ public class PopulateTestDb {
         em.persist(media4);
 
         em.persist(testMember);
+
+        em.persist(copy1);
+        em.persist(copy2);
+
 
         transaction.commit();
 
