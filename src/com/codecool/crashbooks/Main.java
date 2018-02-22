@@ -49,19 +49,19 @@ public class Main {
         });
 
         get("/login", (Request req, Response res) -> {
-            return new ThymeleafTemplateEngine().render(memberController.loginPage(req, res));
+            return new ThymeleafTemplateEngine().render(memberController.renderLoginPage(req, res));
         });
 
         post("/login", (Request req, Response res) -> {
-            return new ThymeleafTemplateEngine().render(memberController.loginLogic(req, res));
+            return new ThymeleafTemplateEngine().render(memberController.login(req, res));
         });
 
         get("/registration", (Request req, Response res) -> {
-            return new ThymeleafTemplateEngine().render(memberController.registrationPage(req, res));
+            return new ThymeleafTemplateEngine().render(memberController.renderRegistrationPage(req, res));
         });
 
         post("/registration", (Request req, Response res) -> {
-            return new ThymeleafTemplateEngine().render(memberController.registrationLogic(req, res));
+            return new ThymeleafTemplateEngine().render(memberController.register(req, res));
         });
 
         get("/logout", (Request req, Response res) -> {
@@ -77,7 +77,7 @@ public class Main {
         });
 
         post("/rent", (Request req, Response res) -> {
-            return new ThymeleafTemplateEngine().render(rentController.renderRent(req, res));
+            return new ThymeleafTemplateEngine().render(rentController.rentCopy(req, res));
         });
 
         enableDebugScreen();

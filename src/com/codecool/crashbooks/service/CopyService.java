@@ -36,13 +36,13 @@ public class CopyService {
         }
     }
 
-    public List<Copy> getCopyByStatus(String status) {
+    public List<Copy> getCopiesByStatus(String status) {
         EntityManager em = emf.createEntityManager();
         return em.createNamedQuery("Copy.getByStatus", Copy.class)
                 .setParameter("status", status).getResultList();
     }
 
-    private List<Copy> getCopyByMediaId(int mediaId) {
+    private List<Copy> getCopiesByMediaId(int mediaId) {
         EntityManager em = emf.createEntityManager();
         return em.createNamedQuery("Copy.getAvailableCopyByMediaId", Copy.class)
                 .setParameter("id", mediaId)
@@ -50,7 +50,7 @@ public class CopyService {
     }
 
     public Copy getFirstAvailableCopy(int mediaId) {
-        return getCopyByMediaId(mediaId).get(0);
+        return getCopiesByMediaId(mediaId).get(0);
     }
 
 }

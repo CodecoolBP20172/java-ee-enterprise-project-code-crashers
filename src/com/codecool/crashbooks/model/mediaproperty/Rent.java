@@ -13,7 +13,7 @@ import java.util.Date;
         @NamedQuery(name = "Rent.getByMemberIdAndStatus", query = "SELECT r FROM Rent r JOIN r.copy c WHERE member_id = :id AND c.status = :status"),
         @NamedQuery(name = "Rent.getPendingByMemberId", query = "SELECT r FROM Rent r WHERE member_id = :id AND datestart IS NULL"),
         @NamedQuery(name = "Rent.getRentedByMemberId", query = "SELECT r FROM Rent r WHERE member_id = :id AND datestart IS NOT NULL AND datereturned IS NULL"),
-        @NamedQuery(name = "Rent.getHistoryByMemberId", query = "SELECT r FROM Rent r WHERE member_id = :id AND datereturned IS NOT NULL"),
+        @NamedQuery(name = "Rent.getReturnedByMemberId", query = "SELECT r FROM Rent r WHERE member_id = :id AND datereturned IS NOT NULL"),
         @NamedQuery(name = "Rent.getByMemberId", query = "SELECT r FROM Rent r WHERE member_id = :id"),
         @NamedQuery(name = "Rent.getByCopyId", query = "SELECT r FROM Rent r WHERE copy_id = :id"),
 })
@@ -43,7 +43,6 @@ public class Rent {
     public Rent(Member member, Copy copy) {
         this.member = member;
         this.copy = copy;
-        copy.setStatus(StatusType.PENDING);
     }
 
     public int getId() {
@@ -77,7 +76,6 @@ public class Rent {
         calendar.setTime(dateStart);
         calendar.add(Calendar.MONTH, 1);
         this.dateEnd = calendar.getTime();
-        copy.setStatus(StatusType.RENTED);
     }
 
     public String getDateEnd() {
@@ -87,7 +85,6 @@ public class Rent {
 
     public void setDateReturned() {
         this.dateReturned = new Date();
-        copy.setStatus(StatusType.AVAILABLE);
     }
 
     public String getDateReturned() {

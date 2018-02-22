@@ -23,7 +23,7 @@ public class MediaService {
         return mediaList;
     }
 
-    public List<Media> getMediaBy(Genre genre) {
+    public List<Media> getMediasBy(Genre genre) {
         EntityManager em = emf.createEntityManager();
         List<Media> mediaList = em.createNamedQuery("Media.getMediaByGenre", Media.class)
                 .setParameter("id", genre.getId()).getResultList();
@@ -31,7 +31,7 @@ public class MediaService {
         return mediaList;
     }
 
-    public List<Media> getMediaBy(Category category) {
+    public List<Media> getMediasBy(Category category) {
         EntityManager em = emf.createEntityManager();
         List<Media> mediaList = em.createNamedQuery("Media.getMediaByCategory", Media.class)
                 .setParameter("id", category.getId()).getResultList();
@@ -39,7 +39,7 @@ public class MediaService {
         return mediaList;
     }
 
-    public List<Media> getMediaBy(Author author) {
+    public List<Media> getMediasBy(Author author) {
         EntityManager em = emf.createEntityManager();
         List<Media> mediaList = em.createNamedQuery("Media.getMediaByAuthor", Media.class)
                 .setParameter("id", author.getId()).getResultList();
@@ -47,7 +47,7 @@ public class MediaService {
         return mediaList;
     }
 
-    public List<Media> getMediaBy(Genre genre, Category category) {
+    public List<Media> getMediasBy(Genre genre, Category category) {
         EntityManager em = emf.createEntityManager();
         List<Media> mediaList = em.createNamedQuery("Media.getMediaByGenreAndCategory", Media.class)
                 .setParameter("genreId", genre.getId())

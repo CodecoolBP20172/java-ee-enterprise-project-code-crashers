@@ -22,9 +22,8 @@ public class RentService {
         this.copyService = copyService;
     }
 
-    public void createNewRent(Member member, Copy copy) {
+    public void createRent(Member member, Copy copy) {
         if (member.getId() != 0) {
-//            copyService.updateCopyStatus(copy, StatusType.PENDING);
             EntityManager em = emf.createEntityManager();
 
             Rent rent = new Rent(member, copy);
@@ -53,37 +52,37 @@ public class RentService {
         }
     }
 
-    public List<Rent> getRentByMemberIdAndStatus(int id, StatusType status) {
+    public List<Rent> getRentsByMemberIdAndStatus(int id, StatusType status) {
         EntityManager em = emf.createEntityManager();
         return em.createNamedQuery("Rent.getByMemberIdAndStatus", Rent.class)
                 .setParameter("id", id).setParameter("status", status).getResultList();
     }
 
-    public List<Rent> getRentByMemberId(int id) {
+    public List<Rent> getRentsByMemberId(int id) {
         EntityManager em = emf.createEntityManager();
         return em.createNamedQuery("Rent.getByMemberId", Rent.class)
                 .setParameter("id", id).getResultList();
     }
 
-    public List<Rent> getPendingByMemberId(int id) {
+    public List<Rent> getPendingRentsByMemberId(int id) {
         EntityManager em = emf.createEntityManager();
         return em.createNamedQuery("Rent.getPendingByMemberId", Rent.class)
                 .setParameter("id", id).getResultList();
     }
 
-    public List<Rent> getRentedByMemberId(int id) {
+    public List<Rent> getRentedRentsByMemberId(int id) {
         EntityManager em = emf.createEntityManager();
         return em.createNamedQuery("Rent.getRentedByMemberId", Rent.class)
                 .setParameter("id", id).getResultList();
     }
 
-    public List<Rent> getHistoryByMemberId(int id) {
+    public List<Rent> getReturnedRentsByMemberId(int id) {
         EntityManager em = emf.createEntityManager();
-        return em.createNamedQuery("Rent.getHistoryByMemberId", Rent.class)
+        return em.createNamedQuery("Rent.getReturnedByMemberId", Rent.class)
                 .setParameter("id", id).getResultList();
     }
 
-    public List<Rent> getRentByCopyId(int id) {
+    public List<Rent> getRentsByCopyId(int id) {
         EntityManager em = emf.createEntityManager();
         return em.createNamedQuery("Rent.getByCopyId", Rent.class)
                 .setParameter("id", id).getResultList();

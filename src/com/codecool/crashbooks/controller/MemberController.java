@@ -18,11 +18,11 @@ public class MemberController {
         this.memberService = memberService;
     }
 
-    public ModelAndView loginPage(Request req, Response res) {
+    public ModelAndView renderLoginPage(Request req, Response res) {
         return new ModelAndView(new HashMap<>(), "book/login");
     }
 
-    public ModelAndView loginLogic(Request req, Response res) {
+    public ModelAndView login(Request req, Response res) {
         Member member = memberService.getMemberByName(req.queryParams("name"));
         if (member != null && Password.checkPassword(req.queryParams("password"), member.getPassword())) {
             req.session(true);
@@ -30,17 +30,17 @@ public class MemberController {
             req.session().attribute("id", member.getId());
             res.redirect("/");
         } else {
-            return errorPage(req, res, "Login Failed! User or Password Invalid!");
+            return renderErrorPage(req, res, "Login Failed! User or Password Invalid!");
         }
         return null;
     }
 
-    public ModelAndView registrationPage(Request req, Response res) {
+    public ModelAndView renderRegistrationPage(Request req, Response res) {
         return new ModelAndView(new HashMap<>(), "book/registration");
     }
 
-    public ModelAndView registrationLogic(Request req, Response res) {
-        if (memberNameIsNotTaken(req.queryParams("name"))) {
+    public ModelAndView register(Request req, Response res) {
+        if (checkIsMemberNameFree(req.queryParams("name"))) {
             saveMember(req);
             Member member = memberService.getMemberByName(req.queryParams("name"));
             req.session(true);
@@ -48,7 +48,7 @@ public class MemberController {
             req.session().attribute("id", member.getId());
             res.redirect("/");
         } else {
-            return errorPage(req, res, "Registration failed!");
+            return renderErrorPage(req, res, "Registration failed!");
         }
         return null;
     }
@@ -57,11 +57,11 @@ public class MemberController {
         memberService.saveMember(req.queryParams("name"), Password.hashPassword(req.queryParams("password")));
     }
 
-    private boolean memberNameIsNotTaken(String name) {
+    private boolean checkIsMemberNameFree(String name) {
         return (memberService.getMemberByName(name) == null);
     }
 
-    private ModelAndView errorPage(Request req, Response res, String errorMessage) {
+    private ModelAndView renderErrorPage(Request req, Response res, String errorMessage) {
         Map params = new HashMap();
         params.put("error", errorMessage);
         return new ModelAndView(params, "book/error");

@@ -24,9 +24,8 @@ public class GenreService {
     public Genre getGenreById(int id) {
         EntityManager em = emf.createEntityManager();
         try {
-            Genre genre = em.createNamedQuery("Genre.getById", Genre.class)
+            return em.createNamedQuery("Genre.getById", Genre.class)
                     .setParameter("id", id).getSingleResult();
-            return genre;
         } catch (NoResultException e) {
             return null;
         } finally {
