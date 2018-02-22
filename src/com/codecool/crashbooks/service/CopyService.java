@@ -1,7 +1,6 @@
 package com.codecool.crashbooks.service;
 
 import com.codecool.crashbooks.model.mediaproperty.Copy;
-import com.codecool.crashbooks.model.mediaproperty.StatusType;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
