@@ -38,11 +38,30 @@ public class PopulateTestDb {
         Media media3 = new Media("testMedia3", testAuthor2, book, adventure, "url/pic.jpg", 1981, "A good book...");
         Media media4 = new Media("testMedia4", testAuthor3, newspaper, realism, "url/pic.jpg", 1965, "A good book...");
 
-        Member testMember = new Member("test1", Password.hashPassword("test1"));
-        EntityTransaction transaction = em.getTransaction();
+        Member testMember1 = new Member("test", Password.hashPassword("test"));
+        Member testMember2 = new Member("test1", Password.hashPassword("test1"));
 
         Copy copy1 = new Copy(media1);
         Copy copy2 = new Copy();
+        Copy copy3 = new Copy(media1);
+        Copy copy4 = new Copy(media3);
+        Copy copy5 = new Copy(media3);
+        copy1.setStatus(StatusType.RENTED);
+        copy2.setStatus(StatusType.AVAILABLE);
+        copy3.setStatus(StatusType.PENDING);
+        copy4.setStatus(StatusType.PENDING);
+
+        Rent rent1 = new Rent(testMember1, copy1);
+        rent1.setRentPeriod();
+
+        Rent rent2 = new Rent(testMember1, copy3);
+        rent2.setRentPeriod();
+        rent2.setDateReturned();
+
+        Rent rent3 = new Rent(testMember2, copy4);
+        Rent rent4 = new Rent(testMember2, copy5);
+
+        EntityTransaction transaction = em.getTransaction();
 
         transaction.begin();
 
@@ -72,11 +91,19 @@ public class PopulateTestDb {
         em.persist(media3);
         em.persist(media4);
 
-        em.persist(testMember);
+        em.persist(testMember1);
+        em.persist(testMember2);
 
         em.persist(copy1);
         em.persist(copy2);
+        em.persist(copy3);
+        em.persist(copy4);
+        em.persist(copy5);
 
+        em.persist(rent1);
+        em.persist(rent2);
+        em.persist(rent3);
+        em.persist(rent4);
 
         transaction.commit();
 

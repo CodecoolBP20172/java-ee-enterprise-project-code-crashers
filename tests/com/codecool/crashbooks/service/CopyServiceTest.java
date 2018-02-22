@@ -16,7 +16,7 @@ class CopyServiceTest extends SetupAndTearDownForServices{
     @Test
     @DisplayName("Get All copy")
     public void testGetAllCopy(){
-        assertEquals(2, copyService.getAllCopy().size());
+        assertEquals(5, copyService.getAllCopy().size());
     }
 
     @Test
@@ -28,13 +28,13 @@ class CopyServiceTest extends SetupAndTearDownForServices{
     @Test
     @DisplayName("Get copy by Status")
     public void testGetCopyByStatus(){
-        assertEquals(1, copyService.getCopiesByStatus(StatusType.AVAILABLE).size());
+        assertEquals(2, copyService.getCopiesByStatus(StatusType.AVAILABLE).size());
     }
 
     @Test
     @DisplayName("Get the first available copy")
     public void testGetFirstAvailableCopy(){
-        assertEquals("testMedia1", copyService.getFirstAvailableCopy(1).getMedia().getTitle());
+        assertEquals("testMedia3", copyService.getFirstAvailableCopy(3).getMedia().getTitle());
     }
 
 }
