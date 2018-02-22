@@ -51,4 +51,8 @@ public class CopyService {
                 .getResultList();
     }
 
+    public Copy getSingleAvailableCopy(int mediaId){
+        return getCopyByMediaId(mediaId).get(0);
+    }
+
 }

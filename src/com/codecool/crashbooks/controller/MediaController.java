@@ -73,11 +73,4 @@ public class MediaController {
         return new ModelAndView(params, "book/index");
     }
 
-    public ModelAndView renderRent(Request request, Response response){
-        Map<String, Object> params = new HashMap<>();
-
-        response.redirect("/");
-        params.put("member", request.session().attribute("name"));
-        return new ModelAndView(params, "book/index");
-    }
 }

@@ -26,8 +26,8 @@
                                     <p class="lead" th:text="${copies}">X left</p>
                                 </div>
                                 <div class="col-6">
-                                    <form action="/soon" method="post">
-                                        <!--<input type="hidden" th:name="mediaId" th:value="${media.id}" />-->
+                                    <form action="/rent" method="post">
+                                        <input type="hidden" th:name="media_id" th:value="${media.id}"/>
                                         <input class="btn btn-warning" type="submit" value ="Rent"/>
                                     </form>
                                 </div>

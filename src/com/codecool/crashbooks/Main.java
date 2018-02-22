@@ -6,6 +6,8 @@ import static spark.debug.DebugScreen.enableDebugScreen;
 import com.codecool.crashbooks.ORM.PopulateData;
 import com.codecool.crashbooks.controller.MediaController;
 import com.codecool.crashbooks.controller.MemberController;
+import com.codecool.crashbooks.controller.RentController;
+import com.codecool.crashbooks.model.mediaproperty.Copy;
 import com.codecool.crashbooks.service.*;
 import spark.Request;
 import spark.Response;
@@ -25,9 +27,12 @@ public class Main {
         AuthorService authorService = new AuthorService(emf);
         CategoryService categoryService = new CategoryService(emf);
         GenreService genreService = new GenreService(emf);
+        RentService rentService = new RentService(emf);
+        CopyService copyService = new CopyService(emf);
 
         MediaController mediaController = new MediaController(mediaService, genreService, categoryService);
         MemberController memberController = new MemberController(memberService);
+        RentController rentController = new RentController(rentService,memberService,copyService);
 
         //Populate Data
         PopulateData.populateDB(emf);
@@ -75,7 +80,7 @@ public class Main {
         });
 
         post("/rent", (Request req,Response res) ->{
-            return new ThymeleafTemplateEngine().render(mediaController.renderRent(req, res));
+            return new ThymeleafTemplateEngine().render(rentController.renderRent(req, res));
         });
 
         enableDebugScreen();

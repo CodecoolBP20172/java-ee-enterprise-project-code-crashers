@@ -1,10 +1,13 @@
 package com.codecool.crashbooks.service;
 
 
+import com.codecool.crashbooks.model.Member;
+import com.codecool.crashbooks.model.mediaproperty.Copy;
 import com.codecool.crashbooks.model.mediaproperty.Rent;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
+import javax.persistence.EntityTransaction;
 import javax.persistence.NoResultException;
 import java.util.List;
 
@@ -16,9 +19,15 @@ public class RentService {
         this.emf = emf;
     }
 
-//    @NamedQuery(name = "Rent.getById", query = "SELECT r FROM Rent r WHERE id = :id"),
-//    //@NamedQuery(name = "Rent.getByMemberIdAndStatus", query = "SELECT r FROM Rent r WHERE member_id = :id AND "),
-//    @NamedQuery(name = "Rent.getAllAuthor", query = "SELECT r FROM Rent r")
+    public void createNewRent(Member member, Copy copy){
+        EntityManager em = emf.createEntityManager();
+        Rent rent = new Rent(member, copy);
+        EntityTransaction transaction = em.getTransaction();
+        transaction.begin();
+        em.persist(rent);
+        transaction.commit();
+        em.close();
+    }
 
     public Rent getRentById(int id){
         EntityManager em = emf.createEntityManager();
