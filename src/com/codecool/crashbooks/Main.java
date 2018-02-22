@@ -74,6 +74,10 @@ public class Main {
             return new ThymeleafTemplateEngine().render(mediaController.soon(req, res));
         });
 
+        post("/rent", (Request req,Response res) ->{
+            return new ThymeleafTemplateEngine().render(mediaController.renderRent(req, res));
+        });
+
         enableDebugScreen();
         //TODO all route should check status code 200 if not should redirect to an error page.
     }

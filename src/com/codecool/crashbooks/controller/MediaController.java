@@ -1,5 +1,6 @@
 package com.codecool.crashbooks.controller;
 
+import com.codecool.crashbooks.model.Media;
 import com.codecool.crashbooks.model.mediaproperty.Category;
 import com.codecool.crashbooks.model.mediaproperty.Genre;
 import com.codecool.crashbooks.service.CategoryService;
@@ -10,6 +11,7 @@ import spark.Request;
 import spark.Response;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 public class MediaController {
@@ -59,15 +61,23 @@ public class MediaController {
         return new ModelAndView(params, "book/index");
     }
 
-    public ModelAndView renderProfile(Request req, Response res) {
+    public ModelAndView renderProfile(Request request, Response response) {
         Map<String, Object> params = new HashMap<>();
-        params.put("member", req.session().attribute("name"));
+        params.put("member", request.session().attribute("name"));
         return new ModelAndView(params, "profile/main_profile");
     }
 
-    public ModelAndView soon(Request req, Response res) {
+    public ModelAndView soon(Request request, Response response) {
         Map<String, Object> params = new HashMap<>();
-        params.put("member", req.session().attribute("name"));
+        params.put("member", request.session().attribute("name"));
+        return new ModelAndView(params, "book/index");
+    }
+
+    public ModelAndView renderRent(Request request, Response response){
+        Map<String, Object> params = new HashMap<>();
+
+        response.redirect("/");
+        params.put("member", request.session().attribute("name"));
         return new ModelAndView(params, "book/index");
     }
 }
