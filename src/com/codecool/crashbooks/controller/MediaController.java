@@ -67,8 +67,9 @@ public class MediaController {
     public ModelAndView renderProfile(Request request, Response response) {
         Map<String, Object> params = new HashMap<>();
         params.put("member", request.session().attribute("name"));
-        params.put("rentList", rentService.getRentByMemberIdAndStatus(request.session()
-                .attribute("id"), StatusType.PENDING));
+        params.put("pendingList", rentService.getPendingByMemberId(request.session().attribute("id")));
+        params.put("rentedList", rentService.getRentedByMemberId(request.session().attribute("id")));
+        params.put("historyList", rentService.getHistoryByMemberId(request.session().attribute("id")));
         return new ModelAndView(params, "profile/main_profile");
     }
 

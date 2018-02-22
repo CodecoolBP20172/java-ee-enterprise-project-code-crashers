@@ -64,12 +64,32 @@ public class RentService {
         return rent;
     }
 
+    public List<Rent> getPendingByMemberId(int id) {
+        EntityManager em = emf.createEntityManager();
+        List<Rent> rent = em.createNamedQuery("Rent.getPendingByMemberId", Rent.class)
+                .setParameter("id", id).getResultList();
+        return rent;
+    }
+
+    public List<Rent> getRentedByMemberId(int id) {
+        EntityManager em = emf.createEntityManager();
+        List<Rent> rent = em.createNamedQuery("Rent.getRentedByMemberId", Rent.class)
+                .setParameter("id", id).getResultList();
+        return rent;
+    }
+
+    public List<Rent> getHistoryByMemberId(int id) {
+        EntityManager em = emf.createEntityManager();
+        List<Rent> rent = em.createNamedQuery("Rent.getHistoryByMemberId", Rent.class)
+                .setParameter("id", id).getResultList();
+        return rent;
+    }
+
     public List<Rent> getRentByCopyId(int id) {
         EntityManager em = emf.createEntityManager();
         List<Rent> rent = em.createNamedQuery("Rent.getByCopyId", Rent.class)
                 .setParameter("id", id).getResultList();
         return rent;
     }
-
 
 }

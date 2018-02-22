@@ -9,6 +9,9 @@ import java.util.Date;
 @NamedQueries({
         @NamedQuery(name = "Rent.getById", query = "SELECT r FROM Rent r WHERE id = :id"),
         @NamedQuery(name = "Rent.getByMemberIdAndStatus", query = "SELECT r FROM Rent r JOIN r.copy c WHERE member_id = :id AND c.status = :status"),
+        @NamedQuery(name = "Rent.getPendingByMemberId", query = "SELECT r FROM Rent r WHERE member_id = :id AND datestart IS NULL"),
+        @NamedQuery(name = "Rent.getRentedByMemberId", query = "SELECT r FROM Rent r WHERE member_id = :id AND datestart IS NOT NULL AND datereturned IS NULL"),
+        @NamedQuery(name = "Rent.getHistoryByMemberId", query = "SELECT r FROM Rent r WHERE member_id = :id AND datereturned IS NOT NULL"),
         @NamedQuery(name = "Rent.getByMemberId", query = "SELECT r FROM Rent r WHERE member_id = :id"),
         @NamedQuery(name = "Rent.getByCopyId", query = "SELECT r FROM Rent r WHERE copy_id = :id"),
 })
@@ -84,5 +87,9 @@ public class Rent {
     public Date getDateReturned() {
         return dateReturned;
 
+    }
+
+    public double getFine() {
+        return fine;
     }
 }
