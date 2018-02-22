@@ -28,7 +28,7 @@ class CopyServiceTest extends SetupAndTearDownForServices{
     @Test
     @DisplayName("Get copy by Status")
     public void testGetCopyByStatus(){
-        assertEquals(1, copyService.getCopyByStatus(StatusType.AVAILABLE).size());
+        assertEquals(1, copyService.getCopiesByStatus(StatusType.AVAILABLE).size());
     }
 
     @Test

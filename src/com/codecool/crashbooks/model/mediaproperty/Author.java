@@ -20,7 +20,7 @@ public class Author {
     private String name;
 
     @OneToMany(mappedBy = "author", fetch = FetchType.LAZY)
-    private List<Media> media;
+    private List<Media> medias;
 
     public Author(String name) {
         this.name = name;

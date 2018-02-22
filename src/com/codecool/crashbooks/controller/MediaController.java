@@ -48,11 +48,11 @@ public class MediaController {
         if (genreId == 0 && categoryId == 0) {
             response.redirect("/");
         } else if (genreId == 0) {
-            params.put("medialist", mediaService.getMediaBy(category));
+            params.put("medialist", mediaService.getMediasBy(category));
         } else if (categoryId == 0) {
-            params.put("medialist", mediaService.getMediaBy(genre));
+            params.put("medialist", mediaService.getMediasBy(genre));
         } else {
-            params.put("medialist", mediaService.getMediaBy(genre, category));
+            params.put("medialist", mediaService.getMediasBy(genre, category));
         }
         params.put("genre", genre);
         params.put("genres", genreService.getAllGenre());
@@ -65,9 +65,9 @@ public class MediaController {
     public ModelAndView renderProfile(Request request, Response response) {
         Map<String, Object> params = new HashMap<>();
         params.put("member", request.session().attribute("name"));
-        params.put("pendingList", rentService.getPendingByMemberId(request.session().attribute("id")));
-        params.put("rentedList", rentService.getRentedByMemberId(request.session().attribute("id")));
-        params.put("historyList", rentService.getHistoryByMemberId(request.session().attribute("id")));
+        params.put("pendingList", rentService.getPendingRentsByMemberId(request.session().attribute("id")));
+        params.put("rentedList", rentService.getRentedRentsByMemberId(request.session().attribute("id")));
+        params.put("returnedList", rentService.getReturnedRentsByMemberId(request.session().attribute("id")));
         return new ModelAndView(params, "profile/main_profile");
     }
 
