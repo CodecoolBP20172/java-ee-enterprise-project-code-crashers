@@ -66,6 +66,11 @@ public class PopulateData {
         Media times = new Media("1969.07.21", nytimes, newspaper, science, "nytimes.jpg", 1969, "A good newspaper...");
 
         Member test = new Member("test", Password.hashPassword("test"));
+
+        Copy copy1 = new Copy(it);
+
+        Rent rent1 = new Rent(test, copy1);
+
         EntityTransaction transaction = em.getTransaction();
 
         transaction.begin();
@@ -114,8 +119,11 @@ public class PopulateData {
         em.persist(nemzetiSport);
         em.persist(times);
 
-
         em.persist(test);
+
+        em.persist(copy1);
+
+        em.persist(rent1);
 
         transaction.commit();
 

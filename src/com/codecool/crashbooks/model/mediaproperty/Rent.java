@@ -18,6 +18,11 @@ public class Rent {
     @JoinColumn(name = "copy_id")
     private Copy copy;
 
+    public Rent(Member member, Copy copy) {
+        this.member = member;
+        this.copy = copy;
+    }
+
     public int getId() {
         return id;
     }

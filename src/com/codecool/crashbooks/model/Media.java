@@ -25,30 +25,23 @@ public class Media {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
-
     private String title;
-
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "author_id")
     private Author author;
-
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "category_id")
     private Category category;
-
     @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(name = "media_genres")
     private Set<Genre> genres = new HashSet<>();
-
     @OneToMany(mappedBy = "media", fetch = FetchType.LAZY)
     private List<Copy> copies = new ArrayList<>();
-
     private String pictureUrl;
     private int year;
     private String description;
     public Media() {
     }
-
     public Media(String title, Author author, Category category, Genre genre, String pictureUrl, int year, String description) {
         this.title = title;
         this.author = author;
@@ -64,6 +57,10 @@ public class Media {
         this.title = title;
         this.description = description;
         this.pictureUrl = "book_thumb.png";
+    }
+
+    public int getId() {
+        return id;
     }
 
     public Author getAuthor() {
