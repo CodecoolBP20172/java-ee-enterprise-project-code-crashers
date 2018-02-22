@@ -20,7 +20,12 @@ public class PopulateData {
         Author martin = new Author("George R. R. Martin");
         Author king = new Author("Stephen King");
         Author crichton = new Author("Michael Crichton");
-        Author noAuthor = new Author("No Author");
+        Author natgeo = new Author("National Geography");
+        Author kepessport = new Author("Képes Sport");
+        Author nemzetisport = new Author("Nemzeti Sport");
+        Author nytimes = new Author("The New York Times");
+
+
 
 
         Category book = new Category(CategoryType.BOOK);
@@ -38,17 +43,27 @@ public class PopulateData {
         Genre tragicomedy = new Genre(GenreType.TRAGICOMEDY);
         Genre adventure = new Genre(GenreType.ADVENTURE);
         Genre realism = new Genre(GenreType.REALISM);
+        Genre science = new Genre(GenreType.SCIENCE);
+        Genre sport = new Genre(GenreType.SPORT);
+
 
         Media vuk = new Media("Vuk", fekete, book, adventure, "vuk.jpg", 1965, "A good book...");
         Media tuskevar = new Media("Tüskevár", fekete, book, realism, "tuskevar.jpg", 1957, "A good book...");
-        Media potter1 = new Media("Harry Potter", rowling, book, fantasy, "harrypotter1.jpg", 1997, "A good book...");
+        Media potter1 = new Media("Harry Potter and the Philosopher's Stone", rowling, book, fantasy, "harrypotter1.jpg", 1997, "A good book...");
         potter1.setGenres(adventure);
+        Media potter2 = new Media("Harry Potter and the Chamber of Secrets", rowling, book, fantasy, "nobook.jpg", 1998, "A good book...");
+        potter2.setGenres(adventure);
         Media lordOfTheRings1 = new Media("Lord of the Rings", tolkien, book, fantasy, "lordoftherings.jpg", 1954, "A good book...");
         Media gOfThrones1 = new Media("Game of Thrones", martin, book, fantasy, "gameofthrones.jpg", 1996, "A good book...");
         Media it = new Media("It", king, book, horror, "it.jpg", 1986, "A good book...");
         Media jurassicPark = new Media("Jurassic Park", crichton, book, fantasy, "jurassicpark.jpg", 1990, "A good book...");
         Media twister = new Media("Twister", crichton, book, drama, "twister.jpg", 1994, "A good book...");
-        Media natgeo = new Media("National Geographic 167/6", noAuthor, magazine, realism, "natgeo167-6.jpg", 1985, "A good magazine...");
+
+        Media natgeo167 = new Media("Vol. 167/ No. 6", natgeo, magazine, science, "natgeo167-6.jpg", 1985, "A good magazine...");
+        Media kepesSport = new Media("2017 Nyári különszám", kepessport, magazine, sport, "kepessport.jpg", 2017, "A good magazine...");
+
+        Media nemzetiSport = new Media("2015.05.13", nemzetisport, newspaper, sport, "nemzetisport.jpg", 2015, "A good newspaper...");
+        Media times = new Media("1969.07.21", nytimes, newspaper, science, "nytimes.jpg", 1969, "A good newspaper...");
 
         Member test = new Member("test", Password.hashPassword("test"));
         EntityTransaction transaction = em.getTransaction();
@@ -61,7 +76,10 @@ public class PopulateData {
         em.persist(martin);
         em.persist(king);
         em.persist(crichton);
-        em.persist(noAuthor);
+        em.persist(natgeo);
+        em.persist(kepessport);
+        em.persist(nemzetisport);
+        em.persist(nytimes);
 
         em.persist(book);
         em.persist(magazine);
@@ -78,16 +96,24 @@ public class PopulateData {
         em.persist(mythology);
         em.persist(adventure);
         em.persist(realism);
+        em.persist(sport);
+        em.persist(science);
+
 
         em.persist(vuk);
         em.persist(tuskevar);
         em.persist(potter1);
+        em.persist(potter2);
         em.persist(lordOfTheRings1);
         em.persist(gOfThrones1);
         em.persist(it);
         em.persist(jurassicPark);
         em.persist(twister);
-        em.persist(natgeo);
+        em.persist(natgeo167);
+        em.persist(kepesSport);
+        em.persist(nemzetiSport);
+        em.persist(times);
+
 
         em.persist(test);
 
