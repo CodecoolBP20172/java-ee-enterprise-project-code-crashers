@@ -110,18 +110,46 @@ public class PopulateData {
 
 
         em.persist(vuk);
+        em.persist(new Copy(vuk));
+        em.persist(new Copy(vuk));
         em.persist(tuskevar);
+        em.persist(new Copy(tuskevar));
+        em.persist(new Copy(tuskevar));
+        em.persist(new Copy(tuskevar));
         em.persist(potter1);
+        em.persist(new Copy(potter1));
+        em.persist(new Copy(potter1));
+        em.persist(new Copy(potter1));
+        em.persist(new Copy(potter1));
         em.persist(potter2);
+        em.persist(new Copy(potter2));
         em.persist(lordOfTheRings1);
+        em.persist(new Copy(lordOfTheRings1));
+        em.persist(new Copy(lordOfTheRings1));
+        em.persist(new Copy(lordOfTheRings1));
+        em.persist(new Copy(lordOfTheRings1));
+        em.persist(new Copy(lordOfTheRings1));
         em.persist(gOfThrones1);
+        em.persist(new Copy(gOfThrones1));
         em.persist(it);
         em.persist(jurassicPark);
+        em.persist(new Copy(jurassicPark));
+        em.persist(new Copy(jurassicPark));
         em.persist(twister);
+        em.persist(new Copy(twister));
         em.persist(natgeo167);
+        em.persist(new Copy(natgeo167));
+        em.persist(new Copy(natgeo167));
+        em.persist(new Copy(natgeo167));
         em.persist(kepesSport);
+        em.persist(new Copy(kepesSport));
         em.persist(nemzetiSport);
+        em.persist(new Copy(nemzetiSport));
+        em.persist(new Copy(nemzetiSport));
+        em.persist(new Copy(nemzetiSport));
         em.persist(times);
+        em.persist(new Copy(times));
+        em.persist(new Copy(times));
 
         em.persist(test);
 
