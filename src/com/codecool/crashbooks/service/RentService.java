@@ -52,10 +52,10 @@ public class RentService {
         }
     }
 
-    public List<Rent> getRentsByMemberIdAndStatus(int id, StatusType status) {
-        EntityManager em = emf.createEntityManager();
-        return em.createNamedQuery("Rent.getByMemberIdAndStatus", Rent.class)
-                .setParameter("id", id).setParameter("status", status).getResultList();
+    public List<Rent> getRentsByStatus( StatusType status) {
+            EntityManager em = emf.createEntityManager();
+        return em.createNamedQuery("Rent.getByStatus", Rent.class)
+                .setParameter("status", status).getResultList();
     }
 
     public List<Rent> getRentsByMemberId(int id) {

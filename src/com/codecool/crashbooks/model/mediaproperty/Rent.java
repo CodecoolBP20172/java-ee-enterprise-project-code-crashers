@@ -10,7 +10,7 @@ import java.util.Date;
 
 @NamedQueries({
         @NamedQuery(name = "Rent.getById", query = "SELECT r FROM Rent r WHERE id = :id"),
-        @NamedQuery(name = "Rent.getByMemberIdAndStatus", query = "SELECT r FROM Rent r JOIN r.copy c WHERE member_id = :id AND c.status = :status"),
+        @NamedQuery(name = "Rent.getByStatus", query = "SELECT r FROM Rent r JOIN r.copy c WHERE c.status = :status"),
         @NamedQuery(name = "Rent.getPendingByMemberId", query = "SELECT r FROM Rent r WHERE member_id = :id AND datestart IS NULL"),
         @NamedQuery(name = "Rent.getRentedByMemberId", query = "SELECT r FROM Rent r WHERE member_id = :id AND datestart IS NOT NULL AND datereturned IS NULL"),
         @NamedQuery(name = "Rent.getReturnedByMemberId", query = "SELECT r FROM Rent r WHERE member_id = :id AND datereturned IS NOT NULL"),
