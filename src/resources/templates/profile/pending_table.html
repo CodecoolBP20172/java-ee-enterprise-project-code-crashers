@@ -5,23 +5,25 @@
 
 <div class="container" th:fragment="copy">
     <div class="breadcrumb">
-        <div class="breadcrumb-item">
+        <strong class="breadcrumb-item">
             Pending Table
-        </div>
+        </strong>
     </div>
 
     <table class="table">
-        <thead class="thead-dark">
+        <thead class="thead-primary">
             <tr>
                 <th scope="col">Rent ID</th>
                 <th scope="col">Title</th>
+                <th scope="col">Author</th>
                 <th scope="col">Copy ID</th>
             </tr>
         </thead>
         <tbody>
-            <tr th:each="rent,iterStat : ${rentList}">
+            <tr th:each="rent,iterStat : ${pendingList}">
                 <td th:text="${rent.getId()}"></td>
                 <td th:text="${rent.getCopy().getMedia().getTitle()}"></td>
+                <td th:text="${rent.getCopy().getMedia().getAuthor().getName()}"></td>
                 <td th:text="${rent.getCopy().getId()}"></td>
             </tr>
         </tbody>
