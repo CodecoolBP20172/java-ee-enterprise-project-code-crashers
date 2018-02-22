@@ -74,10 +74,11 @@ public class PopulateData {
         copy1.setStatus(StatusType.PENDING);
 
         Rent rent1 = new Rent(test, copy1);
-        rent1.setDateManuallytoHistory();
+        rent1.setRentPeriod();
 
         Rent rent2 = new Rent(test, copy3);
-        rent2.setDateManuallytoRented();
+        rent2.setRentPeriod();
+        rent2.setDateReturned();
 
         EntityTransaction transaction = em.getTransaction();
 

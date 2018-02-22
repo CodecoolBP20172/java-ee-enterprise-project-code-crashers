@@ -3,6 +3,8 @@ package com.codecool.crashbooks.model.mediaproperty;
 import com.codecool.crashbooks.model.Member;
 
 import javax.persistence.*;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 
@@ -62,8 +64,9 @@ public class Rent {
         this.copy = copy;
     }
 
-    public Date getDateStart() {
-        return dateStart;
+    public String getDateStart() {
+        DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd");
+        return dateStart != null ? dateFormat.format(dateStart) : "";
     }
 
     public void setRentPeriod() {
@@ -75,8 +78,9 @@ public class Rent {
         copy.setStatus(StatusType.RENTED);
     }
 
-    public Date getDateEnd() {
-        return dateEnd;
+    public String getDateEnd() {
+        DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd");
+        return dateEnd != null ? dateFormat.format(dateEnd) : "";
     }
 
     public void setDateReturned() {
@@ -84,21 +88,12 @@ public class Rent {
         copy.setStatus(StatusType.AVAILABLE);
     }
 
-    public Date getDateReturned() {
-        return dateReturned;
-
+    public String getDateReturned() {
+        DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd");
+        return dateReturned != null ? dateFormat.format(dateReturned) : "";
     }
 
     public double getFine() {
         return fine;
-    }
-    public void setDateManuallytoRented() {
-        this.dateStart = new Date();
-    }
-
-    public void setDateManuallytoHistory() {
-        this.dateStart = new Date();
-        this.dateEnd = new Date();
-        this.dateReturned = new Date();
     }
 }
