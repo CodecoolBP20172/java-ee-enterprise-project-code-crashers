@@ -66,13 +66,14 @@ public class Main {
             return new ThymeleafTemplateEngine().render(memberController.logout(req, res));
         });
 
-        get("/soon", (Request req, Response res) -> {
-            return new ThymeleafTemplateEngine().render(mediaController.soon(req, res));
+        get("/profile", (Request req, Response res) -> {
+            return new ThymeleafTemplateEngine().render(mediaController.renderProfile(req, res));
         });
 
         post("/soon", (Request req, Response res) -> {
             return new ThymeleafTemplateEngine().render(mediaController.soon(req, res));
         });
+
         enableDebugScreen();
         //TODO all route should check status code 200 if not should redirect to an error page.
     }

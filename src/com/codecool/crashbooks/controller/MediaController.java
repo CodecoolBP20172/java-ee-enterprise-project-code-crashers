@@ -59,9 +59,15 @@ public class MediaController {
         return new ModelAndView(params, "book/index");
     }
 
-    public ModelAndView soon(Request req, Response res) {
+    public ModelAndView renderProfile(Request req, Response res) {
         Map<String, Object> params = new HashMap<>();
         params.put("member", req.session().attribute("name"));
         return new ModelAndView(params, "profile/main_profile");
+    }
+
+    public ModelAndView soon(Request req, Response res) {
+        Map<String, Object> params = new HashMap<>();
+        params.put("member", req.session().attribute("name"));
+        return new ModelAndView(params, "book/index");
     }
 }
