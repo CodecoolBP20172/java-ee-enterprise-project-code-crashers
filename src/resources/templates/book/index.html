@@ -23,7 +23,7 @@
                             <h4 class="group inner list-group-item-heading" th:text="${media.getTitle()}">Product name</h4>
                             <div class="row">
                                 <div class="col-6">
-                                    <p class="lead">X left</p>
+                                    <p class="lead" th:text="${copies}">X left</p>
                                 </div>
                                 <div class="col-6">
                                     <form action="/soon" method="post">

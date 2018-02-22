@@ -23,7 +23,7 @@ public class MemberController {
         return new ModelAndView(new HashMap<>(), "book/login");
     }
 
-    public ModelAndView loginLogic(Request req, Response res, EntityManagerFactory emf) {
+    public ModelAndView loginLogic(Request req, Response res) {
         Member member = memberService.getMemberByName(req.queryParams("name"));
         if (member != null && Password.checkPassword(req.queryParams("password"), member.getPassword())) {
             req.session(true);
@@ -40,7 +40,7 @@ public class MemberController {
         return new ModelAndView(new HashMap<>(), "book/registration");
     }
 
-    public ModelAndView registrationLogic(Request req, Response res, EntityManagerFactory emf) {
+    public ModelAndView registrationLogic(Request req, Response res) {
         if (memberNameIsNotTaken(req.queryParams("name"))) {
             saveMember(req);
             Member member = memberService.getMemberByName(req.queryParams("name"));

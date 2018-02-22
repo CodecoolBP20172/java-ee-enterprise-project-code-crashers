@@ -44,12 +44,11 @@ public class CopyService {
 
     }
 
-    public List<Copy> getCopyByMediaId(int mediaId, String status) {
+    public List<Copy> getCopyByMediaId(int mediaId) {
         EntityManager em = emf.createEntityManager();
         return em.createNamedQuery("Copy.getAvailableCopyByMediaId", Copy.class)
                 .setParameter("id", mediaId)
                 .getResultList();
-
-
     }
+
 }

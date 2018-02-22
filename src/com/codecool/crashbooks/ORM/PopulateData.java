@@ -68,6 +68,10 @@ public class PopulateData {
         Member test = new Member("test", Password.hashPassword("test"));
 
         Copy copy1 = new Copy(it);
+        Copy copy2 = new Copy(it);
+        Copy copy3 = new Copy(lordOfTheRings1);
+        copy2.setStatus(StatusType.PENDING);
+        copy1.setStatus(StatusType.PENDING);
 
         Rent rent1 = new Rent(test, copy1);
 
@@ -122,6 +126,8 @@ public class PopulateData {
         em.persist(test);
 
         em.persist(copy1);
+        em.persist(copy2);
+        em.persist(copy3);
 
         em.persist(rent1);
 

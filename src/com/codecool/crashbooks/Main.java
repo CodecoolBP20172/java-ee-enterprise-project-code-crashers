@@ -26,7 +26,7 @@ public class Main {
         CategoryService categoryService = new CategoryService(emf);
         GenreService genreService = new GenreService(emf);
 
-        MediaController mediaController = new MediaController(mediaService, genreService, categoryService );
+        MediaController mediaController = new MediaController(mediaService, genreService, categoryService);
         MemberController memberController = new MemberController(memberService);
 
         //Populate Data
@@ -39,11 +39,11 @@ public class Main {
         get("/hello", (req, res) -> "Hello Crashers!!!");
 
         get("/", (Request req, Response res) -> {
-            return new ThymeleafTemplateEngine().render(mediaController.renderAllMedia(req, res, emf));
+            return new ThymeleafTemplateEngine().render(mediaController.renderAllMedia(req, res));
         });
 
         get("/filter", (Request req, Response res) -> {
-            return new ThymeleafTemplateEngine().render(mediaController.renderMediaByFilter(req, res, emf));
+            return new ThymeleafTemplateEngine().render(mediaController.renderMediaByFilter(req, res));
         });
 
         get("/login", (Request req, Response res) -> {
@@ -51,7 +51,7 @@ public class Main {
         });
 
         post("/login", (Request req, Response res) ->{
-            return new ThymeleafTemplateEngine().render(memberController.loginLogic(req, res, emf));
+            return new ThymeleafTemplateEngine().render(memberController.loginLogic(req, res));
         });
 
         get("/registration", (Request req, Response res) -> {
@@ -59,7 +59,7 @@ public class Main {
         });
 
         post("/registration", (Request req, Response res) -> {
-            return new ThymeleafTemplateEngine().render(memberController.registrationLogic(req, res, emf));
+            return new ThymeleafTemplateEngine().render(memberController.registrationLogic(req, res));
         });
 
         get("/logout", (Request req, Response res) -> {

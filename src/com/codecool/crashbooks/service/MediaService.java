@@ -3,12 +3,14 @@ package com.codecool.crashbooks.service;
 import com.codecool.crashbooks.model.Media;
 import com.codecool.crashbooks.model.mediaproperty.Author;
 import com.codecool.crashbooks.model.mediaproperty.Category;
+import com.codecool.crashbooks.model.mediaproperty.Copy;
 import com.codecool.crashbooks.model.mediaproperty.Genre;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.TypedQuery;
 import javax.persistence.criteria.*;
+import java.util.HashMap;
 import java.util.List;
 
 public class MediaService {
@@ -55,7 +57,6 @@ public class MediaService {
                 .setParameter("genreId", genre.getId())
                 .setParameter("categoryId", category.getId())
                 .getResultList();
-
         em.close();
         return mediaList;
     }

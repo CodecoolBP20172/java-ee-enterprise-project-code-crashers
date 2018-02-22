@@ -9,7 +9,6 @@ import spark.ModelAndView;
 import spark.Request;
 import spark.Response;
 
-import javax.persistence.EntityManagerFactory;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -19,13 +18,14 @@ public class MediaController {
     private GenreService genreService;
     private CategoryService categoryService;
 
+
     public MediaController(MediaService mediaService, GenreService genreService, CategoryService categoryService) {
         this.mediaService = mediaService;
         this.genreService = genreService;
         this.categoryService = categoryService;
     }
 
-    public ModelAndView renderAllMedia(Request request, Response response, EntityManagerFactory emf) {
+    public ModelAndView renderAllMedia(Request request, Response response) {
         Map<String, Object> params = new HashMap<>();
         params.put("medialist", mediaService.getAllMedia());
         params.put("genres", genreService.getAllGenre());
@@ -34,7 +34,7 @@ public class MediaController {
         return new ModelAndView(params, "book/index");
     }
 
-    public ModelAndView renderMediaByFilter(Request request, Response response, EntityManagerFactory emf) {
+    public ModelAndView renderMediaByFilter(Request request, Response response) {
         Map<String, Object> params = new HashMap<>();
         int genreId = Integer.parseInt(request.queryParams("genre"));
         int categoryId = Integer.parseInt(request.queryParams("category"));

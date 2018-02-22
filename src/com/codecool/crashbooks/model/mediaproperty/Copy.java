@@ -23,9 +23,7 @@ public class Copy {
     @OneToMany(mappedBy = "copy", fetch = FetchType.LAZY)
     private List<Rent> rents;
     @Enumerated(EnumType.STRING)
-    @Column(unique = true)
     private StatusType status;
-
     public Copy() {
     }
 
@@ -34,6 +32,9 @@ public class Copy {
         this.status = StatusType.AVAILABLE;
     }
 
+    public Media getMedia() {
+        return media;
+    }
 
     public int getId() {
         return id;
