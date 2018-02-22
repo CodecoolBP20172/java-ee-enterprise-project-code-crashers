@@ -12,13 +12,13 @@ class MemberTest extends SetupAndTearDown {
     @Test
     @DisplayName("Get Member by ID, VALID")
     public void testGetMemberByIdValid(){
-        assertEquals("test1", memberService.getMemberById(1).getName());
+        assertEquals("test", memberService.getMemberById(1).getName());
     }
 
     @Test
     @DisplayName("Get Member by ID, INVALID")
     public void testGetMemberByIdInvalid(){
-        assertEquals(null, memberService.getMemberById(3));
+        assertEquals(null, memberService.getMemberById(100));
     }
 
     @Test

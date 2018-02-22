@@ -1,16 +1,13 @@
-package com.codecool.crashbooks.service;
+package com.codecool.crashbooks.model;
 
-import com.codecool.crashbooks.model.SetupAndTearDown;
-import com.codecool.crashbooks.model.mediaproperty.Copy;
 import com.codecool.crashbooks.model.mediaproperty.StatusType;
+import com.codecool.crashbooks.service.CopyService;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.when;
 
-class CopyServiceTest extends SetupAndTearDownForServices{
+class CopyServiceTest extends SetupAndTearDown {
     private CopyService copyService = new CopyService(emf);
 
     @Test

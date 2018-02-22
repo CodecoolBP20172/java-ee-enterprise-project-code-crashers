@@ -2,15 +2,15 @@ package com.codecool.crashbooks.model;
 
 import com.codecool.crashbooks.model.mediaproperty.StatusType;
 import com.codecool.crashbooks.service.CopyService;
-import com.codecool.crashbooks.service.MemberService;
 import com.codecool.crashbooks.service.RentService;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
+import org.mockito.Mockito;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 class RentTest extends SetupAndTearDown {
-    private CopyService copyService = new CopyService(emf);
+    private CopyService copyService = Mockito.mock(CopyService.class);
     private RentService rentService = new RentService(emf, copyService);
 
 
