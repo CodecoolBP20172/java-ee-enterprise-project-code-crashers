@@ -11,5 +11,7 @@ public enum GenreType {
     FANTASY,
     MYTHOLOGY,
     ADVENTURE,
-    REALISM
+    REALISM,
+    SPORT,
+    SCIENCE
 }
