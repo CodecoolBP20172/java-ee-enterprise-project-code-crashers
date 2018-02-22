@@ -7,13 +7,12 @@ import spark.ModelAndView;
 import spark.Request;
 import spark.Response;
 
-import javax.persistence.EntityManagerFactory;
 import java.util.HashMap;
 import java.util.Map;
 
 public class MemberController {
 
-    private MemberService memberService;
+    private final MemberService memberService;
 
     public MemberController(MemberService memberService) {
         this.memberService = memberService;
@@ -45,7 +44,7 @@ public class MemberController {
             saveMember(req);
             Member member = memberService.getMemberByName(req.queryParams("name"));
             req.session(true);
-            req.session().attribute("name",req.queryParams("name"));
+            req.session().attribute("name", req.queryParams("name"));
             req.session().attribute("id", member.getId());
             res.redirect("/");
         } else {
@@ -54,15 +53,15 @@ public class MemberController {
         return null;
     }
 
-    public void saveMember(Request req) {
+    private void saveMember(Request req) {
         memberService.saveMember(req.queryParams("name"), Password.hashPassword(req.queryParams("password")));
     }
 
-    public boolean memberNameIsNotTaken(String name) {
+    private boolean memberNameIsNotTaken(String name) {
         return (memberService.getMemberByName(name) == null);
     }
 
-    public ModelAndView errorPage(Request req, Response res, String errorMessage) {
+    private ModelAndView errorPage(Request req, Response res, String errorMessage) {
         Map params = new HashMap();
         params.put("error", errorMessage);
         return new ModelAndView(params, "book/error");

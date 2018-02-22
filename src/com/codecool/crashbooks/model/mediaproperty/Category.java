@@ -4,10 +4,11 @@ import com.codecool.crashbooks.model.Media;
 
 import javax.persistence.*;
 import java.util.List;
+
 @NamedQueries({
-        @NamedQuery(name="Category.getById", query="SELECT c FROM Category c WHERE id = :id"),
-        @NamedQuery(name="Category.getByType", query="SELECT c FROM Category c WHERE type = :type"),
-        @NamedQuery(name="Category.getAllCategory", query="SELECT c FROM Category c")
+        @NamedQuery(name = "Category.getById", query = "SELECT c FROM Category c WHERE id = :id"),
+        @NamedQuery(name = "Category.getByType", query = "SELECT c FROM Category c WHERE type = :type"),
+        @NamedQuery(name = "Category.getAllCategory", query = "SELECT c FROM Category c")
 })
 @Entity
 public class Category {

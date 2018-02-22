@@ -1,8 +1,5 @@
 package com.codecool.crashbooks;
 
-import static spark.Spark.*;
-import static spark.debug.DebugScreen.enableDebugScreen;
-
 import com.codecool.crashbooks.ORM.PopulateData;
 import com.codecool.crashbooks.controller.MediaController;
 import com.codecool.crashbooks.controller.MemberController;
@@ -15,6 +12,8 @@ import spark.template.thymeleaf.ThymeleafTemplateEngine;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
 
+import static spark.Spark.*;
+import static spark.debug.DebugScreen.enableDebugScreen;
 
 public class Main {
 
@@ -84,6 +83,5 @@ public class Main {
         enableDebugScreen();
         //TODO all route should check status code 200 if not should redirect to an error page.
     }
-
 
 }

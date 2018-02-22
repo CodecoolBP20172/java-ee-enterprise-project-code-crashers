@@ -26,8 +26,6 @@ public class PopulateData {
         Author nytimes = new Author("The New York Times");
 
 
-
-
         Category book = new Category(CategoryType.BOOK);
         Category magazine = new Category(CategoryType.MAGAZINE);
         Category newspaper = new Category(CategoryType.NEWSPAPER);

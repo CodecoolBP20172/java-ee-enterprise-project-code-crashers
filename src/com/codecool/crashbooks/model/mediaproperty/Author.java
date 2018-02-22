@@ -16,7 +16,9 @@ public class Author {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
+
     private String name;
+
     @OneToMany(mappedBy = "author", fetch = FetchType.LAZY)
     private List<Media> media;
 
@@ -28,7 +30,7 @@ public class Author {
     }
 
     public String getName() {
-            return name;
+        return name;
     }
 
     public int getId() {

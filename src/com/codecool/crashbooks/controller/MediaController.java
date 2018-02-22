@@ -2,7 +2,6 @@ package com.codecool.crashbooks.controller;
 
 import com.codecool.crashbooks.model.mediaproperty.Category;
 import com.codecool.crashbooks.model.mediaproperty.Genre;
-import com.codecool.crashbooks.model.mediaproperty.StatusType;
 import com.codecool.crashbooks.service.CategoryService;
 import com.codecool.crashbooks.service.GenreService;
 import com.codecool.crashbooks.service.MediaService;
@@ -16,11 +15,10 @@ import java.util.Map;
 
 public class MediaController {
 
-    private MediaService mediaService;
-    private GenreService genreService;
-    private CategoryService categoryService;
-    private RentService rentService;
-
+    private final MediaService mediaService;
+    private final GenreService genreService;
+    private final CategoryService categoryService;
+    private final RentService rentService;
 
     public MediaController(MediaService mediaService, GenreService genreService, CategoryService categoryService,
                            RentService rentService) {

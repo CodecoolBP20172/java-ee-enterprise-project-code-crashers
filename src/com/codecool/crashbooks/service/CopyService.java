@@ -9,7 +9,7 @@ import javax.persistence.NoResultException;
 import java.util.List;
 
 public class CopyService {
-    private EntityManagerFactory emf;
+    private final EntityManagerFactory emf;
 
     public CopyService(EntityManagerFactory emf) {
         this.emf = emf;
@@ -26,9 +26,8 @@ public class CopyService {
     public Copy getCopyById(int id) {
         EntityManager em = emf.createEntityManager();
         try {
-            Copy copy = em.createNamedQuery("Copy.getById", Copy.class)
+            return em.createNamedQuery("Copy.getById", Copy.class)
                     .setParameter("id", id).getSingleResult();
-            return copy;
         } catch (NoResultException e) {
             return null;
         } finally {
@@ -42,28 +41,17 @@ public class CopyService {
         EntityManager em = emf.createEntityManager();
         return em.createNamedQuery("Copy.getByStatus", Copy.class)
                 .setParameter("status", status).getResultList();
-
     }
 
-    public List<Copy> getCopyByMediaId(int mediaId) {
+    private List<Copy> getCopyByMediaId(int mediaId) {
         EntityManager em = emf.createEntityManager();
         return em.createNamedQuery("Copy.getAvailableCopyByMediaId", Copy.class)
                 .setParameter("id", mediaId)
                 .getResultList();
     }
 
-    public Copy getSingleAvailableCopy(int mediaId) {
+    public Copy getFirstAvailableCopy(int mediaId) {
         return getCopyByMediaId(mediaId).get(0);
-    }
-
-    public void updateCopyStatus(Copy copy, StatusType type) {
-        EntityManager em = emf.createEntityManager();
-        em.getTransaction().begin();
-        em.createQuery("Update Copy c Set c.status = :status Where c.id =:id")
-                .setParameter("id", copy.getId())
-                .setParameter("status", type).executeUpdate();
-        em.getTransaction().commit();
-        em.close();
     }
 
 }

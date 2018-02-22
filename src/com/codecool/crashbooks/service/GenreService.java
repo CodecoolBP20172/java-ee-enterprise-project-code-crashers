@@ -8,7 +8,7 @@ import javax.persistence.NoResultException;
 import java.util.List;
 
 public class GenreService {
-    EntityManagerFactory emf;
+    private final EntityManagerFactory emf;
 
     public GenreService(EntityManagerFactory emf) {
         this.emf = emf;
@@ -20,33 +20,33 @@ public class GenreService {
         em.close();
         return genreList;
     }
-    public Genre getGenreById(int id){
+
+    public Genre getGenreById(int id) {
         EntityManager em = emf.createEntityManager();
         try {
             Genre genre = em.createNamedQuery("Genre.getById", Genre.class)
                     .setParameter("id", id).getSingleResult();
             return genre;
-        } catch(NoResultException e){
+        } catch (NoResultException e) {
             return null;
         } finally {
-            if(em != null) {
+            if (em != null) {
                 em.close();
             }
         }
     }
 
-    public Genre getGenreByType(EntityManagerFactory emf, String type){
+    public Genre getGenreByType(EntityManagerFactory emf, String type) {
         EntityManager em = emf.createEntityManager();
         try {
-            Genre genre = em.createNamedQuery("Genre.getByType", Genre.class)
+            return em.createNamedQuery("Genre.getByType", Genre.class)
                     .setParameter("type", type).getSingleResult();
-            return genre;
-        }catch(NoResultException e){
+        } catch (NoResultException e) {
             return null;
         } finally {
-            if(em != null) {
+            if (em != null) {
                 em.close();
             }
         }
     }
-    }
+}

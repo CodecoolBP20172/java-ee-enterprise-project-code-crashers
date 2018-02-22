@@ -8,7 +8,7 @@ import javax.persistence.NoResultException;
 import java.util.List;
 
 public class CategoryService {
-    EntityManagerFactory emf;
+    private final EntityManagerFactory emf;
 
     public CategoryService(EntityManagerFactory emf) {
         this.emf = emf;
@@ -21,31 +21,29 @@ public class CategoryService {
         return categoryList;
     }
 
-    public Category getCategoryById(int id){
+    public Category getCategoryById(int id) {
         EntityManager em = emf.createEntityManager();
         try {
-            Category category = em.createNamedQuery("Category.getById", Category.class)
+            return em.createNamedQuery("Category.getById", Category.class)
                     .setParameter("id", id).getSingleResult();
-            return category;
-        }catch(NoResultException e){
+        } catch (NoResultException e) {
             return null;
         } finally {
-            if(em != null) {
+            if (em != null) {
                 em.close();
             }
         }
     }
 
-    public Category getCategoryByType(String type){
+    public Category getCategoryByType(String type) {
         EntityManager em = emf.createEntityManager();
         try {
-            Category category = em.createNamedQuery("Category.getByType", Category.class)
+            return em.createNamedQuery("Category.getByType", Category.class)
                     .setParameter("type", type).getSingleResult();
-            return category;
-        } catch(NoResultException e){
+        } catch (NoResultException e) {
             return null;
         } finally {
-            if(em != null) {
+            if (em != null) {
                 em.close();
             }
         }

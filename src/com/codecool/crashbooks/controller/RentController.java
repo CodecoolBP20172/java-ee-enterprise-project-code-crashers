@@ -12,9 +12,9 @@ import java.util.Map;
 
 public class RentController {
 
-    RentService rentService;
-    MemberService memberService;
-    CopyService copyService;
+    private final RentService rentService;
+    private final MemberService memberService;
+    private final CopyService copyService;
 
     public RentController(RentService rentService, MemberService memberService, CopyService copyService) {
         this.rentService = rentService;
@@ -25,7 +25,7 @@ public class RentController {
     public ModelAndView renderRent(Request request, Response response) {
         Map<String, Object> params = new HashMap<>();
         if (request.session().attribute("name") != null) {
-            rentService.createNewRent(memberService.getMemberByName(request.session().attribute("name")), copyService.getSingleAvailableCopy(Integer.parseInt(request.queryParams("media_id"))));
+            rentService.createNewRent(memberService.getMemberByName(request.session().attribute("name")), copyService.getFirstAvailableCopy(Integer.parseInt(request.queryParams("media_id"))));
         } else {
             response.redirect("/");
         }

@@ -14,8 +14,8 @@ import java.util.List;
 
 
 public class RentService {
-    EntityManagerFactory emf;
-    CopyService copyService;
+    private final EntityManagerFactory emf;
+    private final CopyService copyService;
 
     public RentService(EntityManagerFactory emf, CopyService copyService) {
         this.emf = emf;
@@ -24,9 +24,13 @@ public class RentService {
 
     public void createNewRent(Member member, Copy copy) {
         if (member.getId() != 0) {
-            copyService.updateCopyStatus(copy, StatusType.PENDING);
+//            copyService.updateCopyStatus(copy, StatusType.PENDING);
             EntityManager em = emf.createEntityManager();
+
             Rent rent = new Rent(member, copy);
+            Copy rentCopy = em.find(Copy.class, copy.getId());
+            rentCopy.setStatus(StatusType.PENDING);
+
             EntityTransaction transaction = em.getTransaction();
             transaction.begin();
             em.persist(rent);
@@ -38,9 +42,8 @@ public class RentService {
     public Rent getRentById(int id) {
         EntityManager em = emf.createEntityManager();
         try {
-            Rent rent = em.createNamedQuery("Rent.getById", Rent.class)
+            return em.createNamedQuery("Rent.getById", Rent.class)
                     .setParameter("id", id).getSingleResult();
-            return rent;
         } catch (NoResultException e) {
             return null;
         } finally {
@@ -52,44 +55,38 @@ public class RentService {
 
     public List<Rent> getRentByMemberIdAndStatus(int id, StatusType status) {
         EntityManager em = emf.createEntityManager();
-        List<Rent> rent = em.createNamedQuery("Rent.getByMemberIdAndStatus", Rent.class)
+        return em.createNamedQuery("Rent.getByMemberIdAndStatus", Rent.class)
                 .setParameter("id", id).setParameter("status", status).getResultList();
-        return rent;
     }
 
     public List<Rent> getRentByMemberId(int id) {
         EntityManager em = emf.createEntityManager();
-        List<Rent> rent = em.createNamedQuery("Rent.getByMemberId", Rent.class)
+        return em.createNamedQuery("Rent.getByMemberId", Rent.class)
                 .setParameter("id", id).getResultList();
-        return rent;
     }
 
     public List<Rent> getPendingByMemberId(int id) {
         EntityManager em = emf.createEntityManager();
-        List<Rent> rent = em.createNamedQuery("Rent.getPendingByMemberId", Rent.class)
+        return em.createNamedQuery("Rent.getPendingByMemberId", Rent.class)
                 .setParameter("id", id).getResultList();
-        return rent;
     }
 
     public List<Rent> getRentedByMemberId(int id) {
         EntityManager em = emf.createEntityManager();
-        List<Rent> rent = em.createNamedQuery("Rent.getRentedByMemberId", Rent.class)
+        return em.createNamedQuery("Rent.getRentedByMemberId", Rent.class)
                 .setParameter("id", id).getResultList();
-        return rent;
     }
 
     public List<Rent> getHistoryByMemberId(int id) {
         EntityManager em = emf.createEntityManager();
-        List<Rent> rent = em.createNamedQuery("Rent.getHistoryByMemberId", Rent.class)
+        return em.createNamedQuery("Rent.getHistoryByMemberId", Rent.class)
                 .setParameter("id", id).getResultList();
-        return rent;
     }
 
     public List<Rent> getRentByCopyId(int id) {
         EntityManager em = emf.createEntityManager();
-        List<Rent> rent = em.createNamedQuery("Rent.getByCopyId", Rent.class)
+        return em.createNamedQuery("Rent.getByCopyId", Rent.class)
                 .setParameter("id", id).getResultList();
-        return rent;
     }
 
 }

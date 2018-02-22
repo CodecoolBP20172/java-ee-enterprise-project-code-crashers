@@ -17,13 +17,17 @@ public class Copy {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
+
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "media_id")
     private Media media;
+
     @OneToMany(mappedBy = "copy", fetch = FetchType.LAZY)
     private List<Rent> rents;
+
     @Enumerated(EnumType.STRING)
     private StatusType status;
+
     public Copy() {
     }
 

@@ -2,10 +2,13 @@ package com.codecool.crashbooks.service;
 
 import com.codecool.crashbooks.model.Member;
 
-import javax.persistence.*;
+import javax.persistence.EntityManager;
+import javax.persistence.EntityManagerFactory;
+import javax.persistence.EntityTransaction;
+import javax.persistence.NoResultException;
 
 public class MemberService {
-    private EntityManagerFactory emf;
+    private final EntityManagerFactory emf;
 
     public MemberService(EntityManagerFactory emf) {
         this.emf = emf;
