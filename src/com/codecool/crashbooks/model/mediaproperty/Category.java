@@ -21,7 +21,7 @@ public class Category {
     private CategoryType type;
 
     @OneToMany(mappedBy = "category", fetch = FetchType.LAZY)
-    private List<Media> book;
+    private List<Media> media;
 
     public Category(CategoryType type) {
         this.type = type;

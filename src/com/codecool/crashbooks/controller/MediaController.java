@@ -25,7 +25,7 @@ public class MediaController {
         this.categoryService = categoryService;
     }
 
-    public ModelAndView renderAllBooks(Request request, Response response, EntityManagerFactory emf) {
+    public ModelAndView renderAllMedia(Request request, Response response, EntityManagerFactory emf) {
         Map<String, Object> params = new HashMap<>();
         params.put("medialist", mediaService.getAllMedia());
         params.put("genres", genreService.getAllGenre());
@@ -34,7 +34,7 @@ public class MediaController {
         return new ModelAndView(params, "book/index");
     }
 
-    public ModelAndView renderBooksByFilter(Request request, Response response, EntityManagerFactory emf) {
+    public ModelAndView renderMediaByFilter(Request request, Response response, EntityManagerFactory emf) {
         Map<String, Object> params = new HashMap<>();
         int genreId = Integer.parseInt(request.queryParams("genre"));
         int categoryId = Integer.parseInt(request.queryParams("category"));

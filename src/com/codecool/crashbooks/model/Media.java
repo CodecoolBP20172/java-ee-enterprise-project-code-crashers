@@ -37,7 +37,7 @@ public class Media {
     private Category category;
 
     @ManyToMany(fetch = FetchType.EAGER)
-    @JoinTable(name = "book_genres")
+    @JoinTable(name = "media_genres")
     private Set<Genre> genres = new HashSet<>();
 
     @OneToMany(mappedBy = "media", fetch = FetchType.LAZY)

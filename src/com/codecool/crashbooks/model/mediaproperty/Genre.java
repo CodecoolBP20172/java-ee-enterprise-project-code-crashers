@@ -23,7 +23,7 @@ public class Genre {
     private GenreType type;
 
     @ManyToMany(mappedBy = "genres", fetch = FetchType.EAGER)
-    private Set<Media> book;
+    private Set<Media> media;
 
     public Genre(GenreType type) {
         this.type = type;

@@ -39,11 +39,11 @@ public class Main {
         get("/hello", (req, res) -> "Hello Crashers!!!");
 
         get("/", (Request req, Response res) -> {
-            return new ThymeleafTemplateEngine().render(mediaController.renderAllBooks(req, res, emf));
+            return new ThymeleafTemplateEngine().render(mediaController.renderAllMedia(req, res, emf));
         });
 
         get("/filter", (Request req, Response res) -> {
-            return new ThymeleafTemplateEngine().render(mediaController.renderBooksByFilter(req, res, emf));
+            return new ThymeleafTemplateEngine().render(mediaController.renderMediaByFilter(req, res, emf));
         });
 
         get("/login", (Request req, Response res) -> {

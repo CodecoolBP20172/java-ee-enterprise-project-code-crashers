@@ -18,7 +18,7 @@ public class Author {
     private int id;
     private String name;
     @OneToMany(mappedBy = "author", fetch = FetchType.LAZY)
-    private List<Media> book;
+    private List<Media> media;
 
     public Author(String name) {
         this.name = name;
