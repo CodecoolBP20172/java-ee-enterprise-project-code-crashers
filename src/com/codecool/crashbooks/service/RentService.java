@@ -50,7 +50,7 @@ public class RentService {
         }
     }
 
-    public List<Rent> getRentByMemberIdAndStatus(int id, String status) {
+    public List<Rent> getRentByMemberIdAndStatus(int id, StatusType status) {
         EntityManager em = emf.createEntityManager();
         List<Rent> rent = em.createNamedQuery("Rent.getByMemberIdAndStatus", Rent.class)
                 .setParameter("id", id).setParameter("status", status).getResultList();
