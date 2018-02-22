@@ -3,7 +3,6 @@ package com.codecool.crashbooks.model.mediaproperty;
 import com.codecool.crashbooks.model.Member;
 
 import javax.persistence.*;
-import java.util.Date;
 
 @Entity
 public class Rent {
@@ -18,9 +17,6 @@ public class Rent {
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "copy_id")
     private Copy copy;
-
-    Date dateStart;
-    Date dateEnd;
 
     public int getId() {
         return id;
@@ -42,19 +38,4 @@ public class Rent {
         this.copy = copy;
     }
 
-    public Date getDateStart() {
-        return dateStart;
-    }
-
-    public void setDateStart(Date dateStart) {
-        this.dateStart = dateStart;
-    }
-
-    public Date getDateEnd() {
-        return dateEnd;
-    }
-
-    public void setDateEnd(Date dateEnd) {
-        this.dateEnd = dateEnd;
-    }
 }
