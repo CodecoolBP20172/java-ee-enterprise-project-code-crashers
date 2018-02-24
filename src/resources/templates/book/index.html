@@ -3,16 +3,15 @@
     <head th:replace="head :: copy"></head>
     <body>
 
-        <div th:replace="headerWithFilter :: copy"></div>
+        <div th:replace="header/headerWithFilter :: copy"></div>
 
         <div class="container">
 
             <div class="breadcrumb">
-                <!--todo dropdown should stay on the chosen filter, so a user should see whet did he searched for-->
                 Category&nbsp;
-                <strong th:text="${category} != null ? ${category.getName()} : 'ALL'">Category Title</strong>
+                <strong th:text="${category} != null ? ${category.getType()} : 'ALL'">Category Title</strong>
                 &nbsp;Genre&nbsp;
-                <strong th:text="${genre} != null ? ${genre.getName()} : 'ALL'">Genre Title</strong>
+                <strong th:text="${genre} != null ? ${genre.getType()} : 'ALL'">Genre Title</strong>
             </div>
             <div id="products" class="row list-group">
 
@@ -20,16 +19,21 @@
                     <div class="thumbnail">
                         <img class="group list-group-image" src="/img/book_thumb.png" th:src="${media.pictureUrl} != null ? '/img/' + ${media.pictureUrl} " alt="" />
                         <div class="caption">
+                            <h4 class="group inner list-group-item-heading" th:text="${media.getAuthor().getName()}">Author</h4>
                             <h4 class="group inner list-group-item-heading" th:text="${media.getTitle()}">Product name</h4>
-                            <h4 class="group inner list-group-item-heading" th:text="${media.getDescription()}">description</h4>
                             <div class="row">
                                 <div class="col-6">
-                                    <p class="lead">X left</p>
+                                    <p class="lead" th:text="${media.getAvailableCopiesNumber()} + ' left'">X left</p>
                                 </div>
                                 <div class="col-6">
-                                    <form action="/soon" method="post">
-                                        <!--<input type="hidden" th:name="mediaId" th:value="${media.id}" />-->
-                                        <input class="btn btn-warning" type="submit" value ="Rent"/>
+                                    <form action="/rent" method="post">
+                                        <input type="hidden" th:name="media_id" th:value="${media.id}" />
+                                        <div th:if="${media.isCopyAvailable()}">
+                                            <input class="btn btn-warning" type="submit" value ="Rent"/>
+                                        </div>
+                                        <div th:unless="${media.isCopyAvailable()}">
+                                            <input class="btn btn-secondary" type="submit" value ="Rent" disabled=""/>
+                                        </div>
                                     </form>
                                 </div>
                             </div>

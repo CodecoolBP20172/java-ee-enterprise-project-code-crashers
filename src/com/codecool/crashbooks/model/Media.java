@@ -1,13 +1,9 @@
 package com.codecool.crashbooks.model;
 
-import com.codecool.crashbooks.model.bookproperty.Author;
-import com.codecool.crashbooks.model.bookproperty.Category;
-import com.codecool.crashbooks.model.bookproperty.Genre;
+import com.codecool.crashbooks.model.mediaproperty.*;
 
 import javax.persistence.*;
-import java.util.ArrayList;
 import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
 
 @NamedQueries({
@@ -17,26 +13,31 @@ import java.util.Set;
         @NamedQuery(name = "Media.getMediaByGenreAndCategory", query = "SELECT m FROM Media m JOIN m.genres bg " +
                 " WHERE bg.id = :genreId AND category_id = :categoryId"),
         @NamedQuery(name = "Media.getMediaByCategory", query = "SELECT m FROM Media m WHERE category_id = :id"),
-        @NamedQuery(name = "Media.getMediaByAuthor", query = "SELECT m FROM Media m WHERE author_id = :id")})
+        @NamedQuery(name = "Media.getMediaByAuthor", query = "SELECT m FROM Media m WHERE author_id = :id")
+})
 @Entity
 public class Media {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
-
     private String title;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "author_id")
     private Author author;
+
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "category_id")
     private Category category;
 
     @ManyToMany(fetch = FetchType.EAGER)
-    @JoinTable(name = "book_genres")
+    @JoinTable(name = "media_genres")
     private Set<Genre> genres = new HashSet<>();
+
+    @OneToMany(mappedBy = "media", fetch = FetchType.EAGER)
+    private Set<Copy> copies = new HashSet<>();
+
     private String pictureUrl;
     private int year;
     private String description;
@@ -54,57 +55,16 @@ public class Media {
         this.description = description;
     }
 
-    //test constructor can be deleted
-    public Media(String title, String description) {
-        this.title = title;
-        this.description = description;
-        this.pictureUrl = "book_thumb.png";
+    public int getId() {
+        return id;
     }
 
-    public static List<Media> getAllMedia(EntityManagerFactory emf) {
-        EntityManager em = emf.createEntityManager();
-        List<Media> mediaList = em.createNamedQuery("Media.getAllMedia", Media.class).getResultList();
-        em.close();
-        return mediaList;
-    }
-
-    public static List<Media> getMediaBy(EntityManagerFactory emf, Genre genre) {
-        EntityManager em = emf.createEntityManager();
-        List<Media> mediaList = em.createNamedQuery("Media.getMediaByGenre", Media.class).setParameter("id", genre.getId()).getResultList();
-        em.close();
-        return mediaList;
-    }
-
-    public static List<Media> getMediaBy(EntityManagerFactory emf, Category category) {
-        EntityManager em = emf.createEntityManager();
-        List<Media> mediaList = em.createNamedQuery("Media.getMediaByCategory", Media.class).setParameter("id", category.getId()).getResultList();
-        em.close();
-        return mediaList;
-    }
-
-    public static List<Media> getMediaBy(EntityManagerFactory emf, Author author) {
-        EntityManager em = emf.createEntityManager();
-        List<Media> mediaList = em.createNamedQuery("Media.getMediaByAuthor", Media.class).setParameter("id", author.getId()).getResultList();
-        em.close();
-        return mediaList;
-    }
-
-    public static List<Media> getMediaBy(EntityManagerFactory emf, Genre genre, Category category) {
-        EntityManager em = emf.createEntityManager();
-        List<Media> mediaList = em.createNamedQuery("Media.getMediaByGenreAndCategory", Media.class)
-                .setParameter("genreId", genre.getId())
-                .setParameter("categoryId", category.getId())
-                .getResultList();
-        em.close();
-        return mediaList;
+    public Author getAuthor() {
+        return author;
     }
 
     public Category getCategory() {
         return category;
-    }
-
-    public void setGenres(Genre genres) {
-        this.genres.add(genres);
     }
 
     public String getTitle() {
@@ -121,6 +81,18 @@ public class Media {
 
     public Set<Genre> getGenres() {
         return genres;
+    }
+
+    public void setGenres(Genre genres) {
+        this.genres.add(genres);
+    }
+
+    public long getAvailableCopiesNumber() {
+        return copies.stream().filter(copy -> StatusType.AVAILABLE.equals(copy.getStatus())).count();
+    }
+
+    public boolean isCopyAvailable() {
+        return copies.stream().anyMatch(copy -> StatusType.AVAILABLE.equals(copy.getStatus()));
     }
 }
 
