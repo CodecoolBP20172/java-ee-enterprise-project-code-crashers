@@ -3,13 +3,13 @@ package com.codecool.crashbooks.model.mediaproperty;
 import com.codecool.crashbooks.model.Media;
 
 import javax.persistence.*;
-import java.util.List;
 import java.util.Objects;
 import java.util.Set;
+
 @NamedQueries({
-        @NamedQuery(name="Genre.getById", query="SELECT g FROM Genre g WHERE id = :id"),
-        @NamedQuery(name="Genre.getByType", query="SELECT g FROM Genre g WHERE type = :type"),
-        @NamedQuery(name = "Genre.getAllGenre", query="SELECT g FROM Genre g")
+        @NamedQuery(name = "Genre.getById", query = "SELECT g FROM Genre g WHERE id = :id"),
+        @NamedQuery(name = "Genre.getByType", query = "SELECT g FROM Genre g WHERE type = :type"),
+        @NamedQuery(name = "Genre.getAllGenre", query = "SELECT g FROM Genre g")
 })
 @Entity
 public class Genre {
@@ -23,7 +23,7 @@ public class Genre {
     private GenreType type;
 
     @ManyToMany(mappedBy = "genres", fetch = FetchType.EAGER)
-    private Set<Media> book;
+    private Set<Media> media;
 
     public Genre(GenreType type) {
         this.type = type;

@@ -1,68 +1,80 @@
 package com.codecool.crashbooks.controller;
 
-import com.codecool.crashbooks.model.Media;
 import com.codecool.crashbooks.model.mediaproperty.Category;
 import com.codecool.crashbooks.model.mediaproperty.Genre;
 import com.codecool.crashbooks.service.CategoryService;
 import com.codecool.crashbooks.service.GenreService;
 import com.codecool.crashbooks.service.MediaService;
+import com.codecool.crashbooks.service.RentService;
 import spark.ModelAndView;
 import spark.Request;
 import spark.Response;
 
-import javax.persistence.EntityManagerFactory;
 import java.util.HashMap;
 import java.util.Map;
 
 public class MediaController {
 
-    private MediaService mediaService;
-    private GenreService genreService;
-    private CategoryService categoryService;
+    private final MediaService mediaService;
+    private final GenreService genreService;
+    private final CategoryService categoryService;
+    private final RentService rentService;
 
-    public MediaController(MediaService mediaService, GenreService genreService, CategoryService categoryService) {
+    public MediaController(MediaService mediaService, GenreService genreService, CategoryService categoryService,
+                           RentService rentService) {
         this.mediaService = mediaService;
         this.genreService = genreService;
         this.categoryService = categoryService;
+        this.rentService = rentService;
     }
 
-    public ModelAndView renderAllBooks(Request request, Response response, EntityManagerFactory emf) {
+    public ModelAndView renderAllMedia(Request request, Response response) {
         Map<String, Object> params = new HashMap<>();
-        params.put("medialist", mediaService.getAllMedia(emf));
-        params.put("genres", genreService.getAllGenre(emf));
-        params.put("categories", categoryService.getAllCategory(emf));
+        params.put("medialist", mediaService.getAllMedia());
+        params.put("genres", genreService.getAllGenre());
+        params.put("categories", categoryService.getAllCategory());
         params.put("member", request.session().attribute("name"));
         return new ModelAndView(params, "book/index");
     }
 
-    public ModelAndView renderBooksByFilter(Request request, Response response, EntityManagerFactory emf) {
+    public ModelAndView renderMediaByFilter(Request request, Response response) {
         Map<String, Object> params = new HashMap<>();
         int genreId = Integer.parseInt(request.queryParams("genre"));
         int categoryId = Integer.parseInt(request.queryParams("category"));
 
-        Genre genre = genreId == 0 ? null : genreService.getGenreById(emf, genreId);
-        Category category = categoryId == 0 ? null : categoryService.getCategoryById(emf, categoryId);
+        Genre genre = genreId == 0 ? null : genreService.getGenreById(genreId);
+        Category category = categoryId == 0 ? null : categoryService.getCategoryById(categoryId);
 
         if (genreId == 0 && categoryId == 0) {
             response.redirect("/");
         } else if (genreId == 0) {
-            params.put("medialist", mediaService.getMediaBy(emf, category));
+            params.put("medialist", mediaService.getMediasBy(category));
         } else if (categoryId == 0) {
-            params.put("medialist", mediaService.getMediaBy(emf, genre));
+            params.put("medialist", mediaService.getMediasBy(genre));
         } else {
-            params.put("medialist", mediaService.getMediaBy(emf, genre, category));
+            params.put("medialist", mediaService.getMediasBy(genre, category));
         }
         params.put("genre", genre);
-        params.put("genres", genreService.getAllGenre(emf));
+        params.put("genres", genreService.getAllGenre());
         params.put("category", category);
-        params.put("categories", categoryService.getAllCategory(emf));
+        params.put("categories", categoryService.getAllCategory());
         params.put("member", request.session().attribute("name"));
         return new ModelAndView(params, "book/index");
     }
 
-    public ModelAndView soon(Request req, Response res) {
+    public ModelAndView renderProfile(Request request, Response response) {
         Map<String, Object> params = new HashMap<>();
-        params.put("member", req.session().attribute("name"));
-        return new ModelAndView(params, "book/soon");
+        params.put("member", request.session().attribute("name"));
+        params.put("pendingList", rentService.getPendingRentsByMemberId(request.session().attribute("id")));
+        params.put("rentedList", rentService.getRentedRentsByMemberId(request.session().attribute("id")));
+        params.put("returnedList", rentService.getReturnedRentsByMemberId(request.session().attribute("id")));
+        return new ModelAndView(params, "profile/main_profile");
     }
+
+    public ModelAndView soon(Request request, Response response) {
+        Map<String, Object> params = new HashMap<>();
+        params.put("member", request.session().attribute("name"));
+        return new ModelAndView(params, "book/index");
+    }
+
 }

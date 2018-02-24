@@ -7,62 +7,61 @@ import spark.ModelAndView;
 import spark.Request;
 import spark.Response;
 
-import javax.persistence.EntityManagerFactory;
 import java.util.HashMap;
 import java.util.Map;
 
 public class MemberController {
 
-    MemberService memberService;
+    private final MemberService memberService;
 
     public MemberController(MemberService memberService) {
         this.memberService = memberService;
     }
 
-    public ModelAndView loginPage(Request req, Response res) {
+    public ModelAndView renderLoginPage(Request req, Response res) {
         return new ModelAndView(new HashMap<>(), "book/login");
     }
 
-    public ModelAndView loginLogic(Request req, Response res, EntityManagerFactory emf) {
-        Member member = memberService.getMemberByName(emf, req.queryParams("name"));
+    public ModelAndView login(Request req, Response res) {
+        Member member = memberService.getMemberByName(req.queryParams("name"));
         if (member != null && Password.checkPassword(req.queryParams("password"), member.getPassword())) {
             req.session(true);
             req.session().attribute("name", member.getName());
             req.session().attribute("id", member.getId());
             res.redirect("/");
         } else {
-            return errorPage(req, res, "Login Failed! User or Password Invalid!");
+            return renderErrorPage(req, res, "Login Failed! User or Password Invalid!");
         }
         return null;
     }
 
-    public ModelAndView registrationPage(Request req, Response res) {
+    public ModelAndView renderRegistrationPage(Request req, Response res) {
         return new ModelAndView(new HashMap<>(), "book/registration");
     }
 
-    public ModelAndView registrationLogic(Request req, Response res, EntityManagerFactory emf) {
-        if (memberNameIsNotTaken(emf, req.queryParams("name"))) {
-            saveMember(req, emf);
-            Member member = memberService.getMemberByName(emf, req.queryParams("name"));
+    public ModelAndView register(Request req, Response res) {
+        if (checkIsMemberNameFree(req.queryParams("name"))) {
+            saveMember(req);
+            Member member = memberService.getMemberByName(req.queryParams("name"));
             req.session(true);
-            req.session().attribute("name",req.queryParams("name"));
+            req.session().attribute("name", req.queryParams("name"));
             req.session().attribute("id", member.getId());
             res.redirect("/");
         } else {
-            return errorPage(req, res, "Registration failed!");
+            return renderErrorPage(req, res, "Registration failed!");
         }
         return null;
     }
 
-    public void saveMember(Request req, EntityManagerFactory emf) {
-        memberService.saveMember(emf, req.queryParams("name"), Password.hashPassword(req.queryParams("password")));
+    private void saveMember(Request req) {
+        memberService.saveMember(req.queryParams("name"), Password.hashPassword(req.queryParams("password")));
     }
 
-    public boolean memberNameIsNotTaken(EntityManagerFactory emf, String name) {
-        return (memberService.getMemberByName(emf, name) == null);
+    private boolean checkIsMemberNameFree(String name) {
+        return (memberService.getMemberByName(name) == null);
     }
 
-    public ModelAndView errorPage(Request req, Response res, String errorMessage) {
+    private ModelAndView renderErrorPage(Request req, Response res, String errorMessage) {
         Map params = new HashMap();
         params.put("error", errorMessage);
         return new ModelAndView(params, "book/error");

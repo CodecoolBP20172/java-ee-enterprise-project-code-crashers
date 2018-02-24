@@ -1,12 +1,17 @@
 package com.codecool.crashbooks.model;
 
-import javax.persistence.*;
-import javax.persistence.criteria.CriteriaBuilder;
-import javax.persistence.criteria.CriteriaQuery;
-import javax.persistence.criteria.Root;
+import com.codecool.crashbooks.model.mediaproperty.Rent;
 
+import javax.persistence.*;
+import java.util.List;
+
+@NamedQueries({
+        @NamedQuery(name = "Member.getMemberById", query = "SELECT m FROM Member m WHERE id =:id"),
+        @NamedQuery(name = "Member.getMemberByName", query = "SELECT m FROM Member m WHERE name = :name")
+})
 @Entity
 public class Member {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
@@ -14,6 +19,9 @@ public class Member {
     private String name;
 
     private String password;
+
+    @OneToMany(mappedBy = "member", fetch = FetchType.LAZY)
+    private List<Rent> rents;
 
     @Enumerated(EnumType.STRING)
     private Membership membership;
