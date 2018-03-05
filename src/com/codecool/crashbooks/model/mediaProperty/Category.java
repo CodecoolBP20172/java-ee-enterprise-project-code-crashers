@@ -1,4 +1,4 @@
-package com.codecool.crashbooks.model.mediaproperty;
+package com.codecool.crashbooks.model.mediaProperty;
 
 import com.codecool.crashbooks.model.Media;
 
@@ -19,12 +19,12 @@ public class Category {
 
     @Enumerated(EnumType.STRING)
     @Column(unique = true)
-    private CategoryType type;
+    private Categories type;
 
     @OneToMany(mappedBy = "category", fetch = FetchType.LAZY)
     private List<Media> media;
 
-    public Category(CategoryType type) {
+    public Category(Categories type) {
         this.type = type;
     }
 
@@ -35,7 +35,7 @@ public class Category {
         return id;
     }
 
-    public CategoryType getType() {
+    public Categories getType() {
         return type;
     }
 }

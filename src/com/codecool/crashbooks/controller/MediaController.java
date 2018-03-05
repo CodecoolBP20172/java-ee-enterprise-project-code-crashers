@@ -1,7 +1,7 @@
 package com.codecool.crashbooks.controller;
 
-import com.codecool.crashbooks.model.mediaproperty.Category;
-import com.codecool.crashbooks.model.mediaproperty.Genre;
+import com.codecool.crashbooks.model.mediaProperty.Category;
+import com.codecool.crashbooks.model.mediaProperty.Genre;
 import com.codecool.crashbooks.service.CategoryService;
 import com.codecool.crashbooks.service.GenreService;
 import com.codecool.crashbooks.service.MediaService;

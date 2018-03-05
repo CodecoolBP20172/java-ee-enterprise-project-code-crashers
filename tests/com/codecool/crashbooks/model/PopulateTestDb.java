@@ -1,6 +1,6 @@
 package com.codecool.crashbooks.model;
 
-import com.codecool.crashbooks.model.mediaproperty.*;
+import com.codecool.crashbooks.model.mediaProperty.*;
 import com.codecool.crashbooks.utility.Password;
 
 import javax.persistence.EntityManager;
@@ -17,21 +17,21 @@ public class PopulateTestDb {
         Author testAuthor3 = new Author("testAuthor3");
         Author testAuthor4 = new Author("testAuthor4");
 
-        Category book = new Category(CategoryType.BOOK);
-        Category magazine = new Category(CategoryType.MAGAZINE);
-        Category newspaper = new Category(CategoryType.NEWSPAPER);
+        Category book = new Category(Categories.BOOK);
+        Category magazine = new Category(Categories.MAGAZINE);
+        Category newspaper = new Category(Categories.NEWSPAPER);
 
-        Genre comedy = new Genre(GenreType.COMEDY);
-        Genre drama = new Genre(GenreType.DRAMA);
-        Genre horror = new Genre(GenreType.HORROR);
-        Genre romance = new Genre(GenreType.ROMANCE);
-        Genre satire = new Genre(GenreType.SATIRE);
-        Genre tragedy = new Genre(GenreType.TRAGEDY);
-        Genre fantasy = new Genre(GenreType.FANTASY);
-        Genre mythology = new Genre(GenreType.MYTHOLOGY);
-        Genre tragicomedy = new Genre(GenreType.TRAGICOMEDY);
-        Genre adventure = new Genre(GenreType.ADVENTURE);
-        Genre realism = new Genre(GenreType.REALISM);
+        Genre comedy = new Genre(Genres.COMEDY);
+        Genre drama = new Genre(Genres.DRAMA);
+        Genre horror = new Genre(Genres.HORROR);
+        Genre romance = new Genre(Genres.ROMANCE);
+        Genre satire = new Genre(Genres.SATIRE);
+        Genre tragedy = new Genre(Genres.TRAGEDY);
+        Genre fantasy = new Genre(Genres.FANTASY);
+        Genre mythology = new Genre(Genres.MYTHOLOGY);
+        Genre tragicomedy = new Genre(Genres.TRAGICOMEDY);
+        Genre adventure = new Genre(Genres.ADVENTURE);
+        Genre realism = new Genre(Genres.REALISM);
 
         Media media1 = new Media("testMedia1", testAuthor1, magazine, adventure, "url/pic.jpg", 1999, "A good book...");
         Media media2 = new Media("testMedia2", testAuthor1, book, mythology, "url/pic.jpg", 1919, "A good book...");
@@ -46,10 +46,10 @@ public class PopulateTestDb {
         Copy copy3 = new Copy(media1);
         Copy copy4 = new Copy(media3);
         Copy copy5 = new Copy(media3);
-        copy1.setStatus(StatusType.RENTED);
-        copy2.setStatus(StatusType.AVAILABLE);
-        copy3.setStatus(StatusType.PENDING);
-        copy4.setStatus(StatusType.PENDING);
+        copy1.setStatus(CopyStatuses.RENTED);
+        copy2.setStatus(CopyStatuses.AVAILABLE);
+        copy3.setStatus(CopyStatuses.PENDING);
+        copy4.setStatus(CopyStatuses.PENDING);
 
         Rent rent1 = new Rent(testMember1, copy1);
         rent1.setRentPeriod();

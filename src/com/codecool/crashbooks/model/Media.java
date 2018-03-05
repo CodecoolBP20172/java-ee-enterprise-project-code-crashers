@@ -1,6 +1,6 @@
 package com.codecool.crashbooks.model;
 
-import com.codecool.crashbooks.model.mediaproperty.*;
+import com.codecool.crashbooks.model.mediaProperty.*;
 
 import javax.persistence.*;
 import java.util.HashSet;
@@ -88,11 +88,11 @@ public class Media {
     }
 
     public long getAvailableCopiesNumber() {
-        return copies.stream().filter(copy -> StatusType.AVAILABLE.equals(copy.getStatus())).count();
+        return copies.stream().filter(copy -> CopyStatuses.AVAILABLE.equals(copy.getStatus())).count();
     }
 
     public boolean isCopyAvailable() {
-        return copies.stream().anyMatch(copy -> StatusType.AVAILABLE.equals(copy.getStatus()));
+        return copies.stream().anyMatch(copy -> CopyStatuses.AVAILABLE.equals(copy.getStatus()));
     }
 }
 

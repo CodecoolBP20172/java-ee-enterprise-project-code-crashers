@@ -1,6 +1,5 @@
 package com.codecool.crashbooks.model;
 
-import com.codecool.crashbooks.model.mediaproperty.StatusType;
 import com.codecool.crashbooks.service.CopyService;
 import com.codecool.crashbooks.service.RentService;
 import org.junit.jupiter.api.DisplayName;
@@ -59,19 +58,19 @@ class RentTest extends SetupAndTearDown {
     @Test
     @DisplayName("Get available Media of Member by ID and Status, VALID")
     public void testGetRentByMemberIdAndStatusAvailableValid(){
-        assertEquals(1, rentService.getRentsByStatus(StatusType.AVAILABLE).size());
+        assertEquals(1, rentService.getRentsByStatus(CopyStatuses.AVAILABLE).size());
     }
 
     @Test
     @DisplayName("Get rented Media of Member by ID and Status, VALID")
     public void testGetRentByMemberIdAndStatusRentedValid(){
-        assertEquals(1, rentService.getRentsByStatus(StatusType.RENTED).size());
+        assertEquals(1, rentService.getRentsByStatus(CopyStatuses.RENTED).size());
     }
 
     @Test
     @DisplayName("Get rented Media of Member by ID and Status, VALID")
     public void testGetRentByMemberIdAndStatusPendingValid(){
-        assertEquals(2, rentService.getRentsByStatus(StatusType.PENDING).size());
+        assertEquals(2, rentService.getRentsByStatus(CopyStatuses.PENDING).size());
     }
 
     @Test

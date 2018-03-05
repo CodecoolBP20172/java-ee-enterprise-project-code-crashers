@@ -1,8 +1,7 @@
 package com.codecool.crashbooks.ORM;
 
-import com.codecool.crashbooks.model.Media;
-import com.codecool.crashbooks.model.Member;
-import com.codecool.crashbooks.model.mediaproperty.*;
+import com.codecool.crashbooks.model.*;
+import com.codecool.crashbooks.model.mediaProperty.*;
 import com.codecool.crashbooks.utility.Password;
 
 import javax.persistence.EntityManager;
@@ -26,23 +25,23 @@ public class PopulateData {
         Author nytimes = new Author("The New York Times");
 
 
-        Category book = new Category(CategoryType.BOOK);
-        Category magazine = new Category(CategoryType.MAGAZINE);
-        Category newspaper = new Category(CategoryType.NEWSPAPER);
+        Category book = new Category(Categories.BOOK);
+        Category magazine = new Category(Categories.MAGAZINE);
+        Category newspaper = new Category(Categories.NEWSPAPER);
 
-        Genre comedy = new Genre(GenreType.COMEDY);
-        Genre drama = new Genre(GenreType.DRAMA);
-        Genre horror = new Genre(GenreType.HORROR);
-        Genre romance = new Genre(GenreType.ROMANCE);
-        Genre satire = new Genre(GenreType.SATIRE);
-        Genre tragedy = new Genre(GenreType.TRAGEDY);
-        Genre fantasy = new Genre(GenreType.FANTASY);
-        Genre mythology = new Genre(GenreType.MYTHOLOGY);
-        Genre tragicomedy = new Genre(GenreType.TRAGICOMEDY);
-        Genre adventure = new Genre(GenreType.ADVENTURE);
-        Genre realism = new Genre(GenreType.REALISM);
-        Genre science = new Genre(GenreType.SCIENCE);
-        Genre sport = new Genre(GenreType.SPORT);
+        Genre comedy = new Genre(Genres.COMEDY);
+        Genre drama = new Genre(Genres.DRAMA);
+        Genre horror = new Genre(Genres.HORROR);
+        Genre romance = new Genre(Genres.ROMANCE);
+        Genre satire = new Genre(Genres.SATIRE);
+        Genre tragedy = new Genre(Genres.TRAGEDY);
+        Genre fantasy = new Genre(Genres.FANTASY);
+        Genre mythology = new Genre(Genres.MYTHOLOGY);
+        Genre tragicomedy = new Genre(Genres.TRAGICOMEDY);
+        Genre adventure = new Genre(Genres.ADVENTURE);
+        Genre realism = new Genre(Genres.REALISM);
+        Genre science = new Genre(Genres.SCIENCE);
+        Genre sport = new Genre(Genres.SPORT);
 
 
         Media vuk = new Media("Vuk", fekete, book, adventure, "vuk.jpg", 1965, "A good book...");
@@ -68,8 +67,8 @@ public class PopulateData {
         Copy copy1 = new Copy(it);
         Copy copy2 = new Copy(it);
         Copy copy3 = new Copy(lordOfTheRings1);
-        copy3.setStatus(StatusType.PENDING);
-        copy1.setStatus(StatusType.PENDING);
+        copy3.setStatus(CopyStatuses.PENDING);
+        copy1.setStatus(CopyStatuses.PENDING);
 
         Rent rent1 = new Rent(test, copy1);
         rent1.setRentPeriod();

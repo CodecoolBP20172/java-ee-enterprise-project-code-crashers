@@ -1,4 +1,4 @@
-package com.codecool.crashbooks.model.mediaproperty;
+package com.codecool.crashbooks.model.mediaProperty;
 
 import com.codecool.crashbooks.model.Media;
 

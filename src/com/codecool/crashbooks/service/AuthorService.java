@@ -1,6 +1,6 @@
 package com.codecool.crashbooks.service;
 
-import com.codecool.crashbooks.model.mediaproperty.Author;
+import com.codecool.crashbooks.model.mediaProperty.Author;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;

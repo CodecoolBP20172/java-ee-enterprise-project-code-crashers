@@ -1,7 +1,7 @@
 package com.codecool.crashbooks.service;
 
-import com.codecool.crashbooks.model.mediaproperty.Copy;
-import com.codecool.crashbooks.model.mediaproperty.StatusType;
+import com.codecool.crashbooks.model.Copy;
+import com.codecool.crashbooks.model.CopyStatuses;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
@@ -38,7 +38,7 @@ public class CopyService {
     }
 
 
-    public List<Copy> getCopiesByStatus(StatusType status) {
+    public List<Copy> getCopiesByStatus(CopyStatuses status) {
         EntityManager em = emf.createEntityManager();
         List<Copy> copyList = em.createNamedQuery("Copy.getByStatus", Copy.class)
                 .setParameter("status", status).getResultList();

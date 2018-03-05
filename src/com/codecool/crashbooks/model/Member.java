@@ -1,6 +1,6 @@
 package com.codecool.crashbooks.model;
 
-import com.codecool.crashbooks.model.mediaproperty.Rent;
+import com.codecool.crashbooks.model.memberProperty.Membership;
 
 import javax.persistence.*;
 import java.util.List;

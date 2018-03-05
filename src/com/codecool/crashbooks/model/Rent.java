@@ -1,6 +1,4 @@
-package com.codecool.crashbooks.model.mediaproperty;
-
-import com.codecool.crashbooks.model.Member;
+package com.codecool.crashbooks.model;
 
 import javax.persistence.*;
 import java.text.DateFormat;

@@ -1,9 +1,9 @@
 package com.codecool.crashbooks.service;
 
 import com.codecool.crashbooks.model.Media;
-import com.codecool.crashbooks.model.mediaproperty.Author;
-import com.codecool.crashbooks.model.mediaproperty.Category;
-import com.codecool.crashbooks.model.mediaproperty.Genre;
+import com.codecool.crashbooks.model.mediaProperty.Author;
+import com.codecool.crashbooks.model.mediaProperty.Category;
+import com.codecool.crashbooks.model.mediaProperty.Genre;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;

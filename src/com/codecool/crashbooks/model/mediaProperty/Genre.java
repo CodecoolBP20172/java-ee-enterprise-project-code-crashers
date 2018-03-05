@@ -1,4 +1,4 @@
-package com.codecool.crashbooks.model.mediaproperty;
+package com.codecool.crashbooks.model.mediaProperty;
 
 import com.codecool.crashbooks.model.Media;
 
@@ -20,12 +20,12 @@ public class Genre {
 
     @Enumerated(EnumType.STRING)
     @Column(unique = true)
-    private GenreType type;
+    private Genres type;
 
     @ManyToMany(mappedBy = "genres", fetch = FetchType.EAGER)
     private Set<Media> media;
 
-    public Genre(GenreType type) {
+    public Genre(Genres type) {
         this.type = type;
     }
 
@@ -36,7 +36,7 @@ public class Genre {
         return id;
     }
 
-    public GenreType getType() {
+    public Genres getType() {
         return type;
     }
 

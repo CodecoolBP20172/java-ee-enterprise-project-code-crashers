@@ -2,9 +2,9 @@ package com.codecool.crashbooks.service;
 
 
 import com.codecool.crashbooks.model.Member;
-import com.codecool.crashbooks.model.mediaproperty.Copy;
-import com.codecool.crashbooks.model.mediaproperty.Rent;
-import com.codecool.crashbooks.model.mediaproperty.StatusType;
+import com.codecool.crashbooks.model.Copy;
+import com.codecool.crashbooks.model.Rent;
+import com.codecool.crashbooks.model.CopyStatuses;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
@@ -28,7 +28,7 @@ public class RentService {
 
             Rent rent = new Rent(member, copy);
             Copy rentCopy = em.find(Copy.class, copy.getId());
-            rentCopy.setStatus(StatusType.PENDING);
+            rentCopy.setStatus(CopyStatuses.PENDING);
 
             EntityTransaction transaction = em.getTransaction();
             transaction.begin();
@@ -52,7 +52,7 @@ public class RentService {
         }
     }
 
-    public List<Rent> getRentsByStatus( StatusType status) {
+    public List<Rent> getRentsByStatus( CopyStatuses status) {
             EntityManager em = emf.createEntityManager();
         return em.createNamedQuery("Rent.getByStatus", Rent.class)
                 .setParameter("status", status).getResultList();

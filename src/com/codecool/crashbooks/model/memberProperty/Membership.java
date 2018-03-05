@@ -1,4 +1,4 @@
-package com.codecool.crashbooks.model;
+package com.codecool.crashbooks.model.memberProperty;
 
 public enum Membership {
     ADMIN(0),

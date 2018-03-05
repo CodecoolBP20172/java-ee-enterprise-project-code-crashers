@@ -1,6 +1,5 @@
 package com.codecool.crashbooks.model;
 
-import com.codecool.crashbooks.model.mediaproperty.StatusType;
 import com.codecool.crashbooks.service.CopyService;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -25,7 +24,7 @@ class CopyServiceTest extends SetupAndTearDown {
     @Test
     @DisplayName("Get copy by Status")
     public void testGetCopyByStatus(){
-        assertEquals(2, copyService.getCopiesByStatus(StatusType.AVAILABLE).size());
+        assertEquals(2, copyService.getCopiesByStatus(CopyStatuses.AVAILABLE).size());
     }
 
     @Test

@@ -1,9 +1,9 @@
 package com.codecool.crashbooks.model;
 
-import com.codecool.crashbooks.model.mediaproperty.Author;
-import com.codecool.crashbooks.model.mediaproperty.Category;
-import com.codecool.crashbooks.model.mediaproperty.CategoryType;
-import com.codecool.crashbooks.model.mediaproperty.Genre;
+import com.codecool.crashbooks.model.mediaProperty.Author;
+import com.codecool.crashbooks.model.mediaProperty.Category;
+import com.codecool.crashbooks.model.mediaProperty.Categories;
+import com.codecool.crashbooks.model.mediaProperty.Genre;
 import com.codecool.crashbooks.service.AuthorService;
 import com.codecool.crashbooks.service.CategoryService;
 import com.codecool.crashbooks.service.GenreService;
@@ -100,14 +100,14 @@ class MediaTest extends SetupAndTearDown {
     @DisplayName("Check for valid type, MAGAZINE")
     public void testGetAllMediaByCategoryForMagazineType() {
         Category realCategory = mediaService.getAllMedia().get(0).getCategory();
-        assertEquals(CategoryType.MAGAZINE, realCategory.getType());
+        assertEquals(Categories.MAGAZINE, realCategory.getType());
     }
 
     @Test
     @DisplayName("Check for valid type, Book")
     public void testGetAllMediaByCategoryForBookType() {
         Category realCategory = mediaService.getAllMedia().get(1).getCategory();
-        assertEquals(CategoryType.BOOK, realCategory.getType());
+        assertEquals(Categories.BOOK, realCategory.getType());
     }
 
     //Author tests
