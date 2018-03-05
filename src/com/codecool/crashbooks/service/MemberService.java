@@ -3,11 +3,13 @@ package com.codecool.crashbooks.service;
 import com.codecool.crashbooks.model.Member;
 import com.codecool.crashbooks.repository.MemberRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityTransaction;
 import javax.persistence.NoResultException;
 
+@Service
 public class MemberService {
 /*    private final EntityManagerFactory emf;
 

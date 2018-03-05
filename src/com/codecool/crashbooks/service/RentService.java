@@ -7,6 +7,7 @@ import com.codecool.crashbooks.model.Rent;
 import com.codecool.crashbooks.model.CopyStatuses;
 import com.codecool.crashbooks.repository.RentRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
@@ -14,7 +15,7 @@ import javax.persistence.EntityTransaction;
 import javax.persistence.NoResultException;
 import java.util.List;
 
-
+@Service
 public class RentService {
 /*    private final EntityManagerFactory emf;
     private final CopyService copyService;
