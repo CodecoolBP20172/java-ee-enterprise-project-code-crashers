@@ -26,6 +26,6 @@ public class RentController {
         if (session.getAttribute("name") != null) {
             rentService.createRent(memberService.getMemberByName((String) session.getAttribute("name")), copyService.getFirstAvailableCopy(Integer.parseInt(req.getParameter("media_id"))));
         }
-        return "index";
+        return "book/index";
     }
 }

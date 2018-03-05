@@ -36,7 +36,7 @@ public class MediaController {
         model.addAttribute("genres", genreService.getAllGenre());
         model.addAttribute("categories", categoryService.getAllCategory());
         model.addAttribute("member", session.getAttribute("name"));
-        return "index";
+        return "book/index";
     }
 
     @RequestMapping(value = "/filter", method = RequestMethod.GET)
@@ -62,7 +62,7 @@ public class MediaController {
         model.addAttribute("category", category);
         model.addAttribute("categories", categoryService.getAllCategory());
         model.addAttribute("member", session.getAttribute("name"));
-        return "index";
+        return "book/index";
     }
 
     @RequestMapping(value = "/profile", method = RequestMethod.GET)
@@ -71,13 +71,13 @@ public class MediaController {
         model.addAttribute("pendingList", rentService.getPendingRentsByMemberId((int)session.getAttribute("id")));
         model.addAttribute("rentedList", rentService.getRentedRentsByMemberId((int)session.getAttribute("id")));
         model.addAttribute("returnedList", rentService.getReturnedRentsByMemberId((int)session.getAttribute("id")));
-        return "main_profile";
+        return "profile/main_profile";
     }
 
     @RequestMapping(value = "/soon", method = RequestMethod.POST)
     public String renderSoon(Model model, HttpSession session){
         model.addAttribute("member", session.getAttribute("name"));
-        return "index";
+        return "book/index";
     }
 
 }

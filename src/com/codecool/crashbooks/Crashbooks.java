@@ -12,7 +12,7 @@ import javax.persistence.Persistence;
 
 
 public class Crashbooks {
-
+/*
     public static void main(String[] args) {
         EntityManagerFactory emf = Persistence.createEntityManagerFactory("CrashBooks");
 
@@ -79,5 +79,6 @@ public class Crashbooks {
         enableDebugScreen();
         //TODO all route should check status code 200 if not should redirect to an error page.
     }
-
+*/
 }
+

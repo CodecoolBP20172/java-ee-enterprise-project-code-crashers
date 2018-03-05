@@ -22,7 +22,7 @@ public class MemberController {
 
     @RequestMapping(value = "/login", method = RequestMethod.GET)
     public String renderLoginPage(){
-        return "login";
+        return "book/login";
     }
 
     @RequestMapping(value = "/login", method = RequestMethod.POST)
@@ -31,16 +31,16 @@ public class MemberController {
         if(member != null && Password.checkPassword(req.getParameter("password"), member.getPassword())){
             session.setAttribute("name", req.getParameter("name"));
             session.setAttribute("id", member.getId());
-            return "index";
+            return "book/index";
         }else{
             model.addAttribute("error", "Login Failed! Username or Password invalid!");
-            return "error";
+            return "book/error";
         }
     }
 
     @RequestMapping(value = "/registration", method = RequestMethod.GET)
     public String renderRegistrationPage(){
-        return "registration";
+        return "book/registration";
     }
 
     @RequestMapping(value = "/registration", method = RequestMethod.POST)
@@ -50,10 +50,10 @@ public class MemberController {
             Member member = memberService.getMemberByName(req.getParameter("name"));
             session.setAttribute("name", req.getParameter("name"));
             session.setAttribute("id", member.getId());
-            return "index";
+            return "book/index";
         }else{
             model.addAttribute("error", "Registration Failed!");
-            return "error";
+            return "book/error";
         }
 
     }
@@ -61,7 +61,7 @@ public class MemberController {
     @RequestMapping(value = "/logout", method = RequestMethod.GET)
     public String logout(HttpSession session){
         session.invalidate();
-        return "index";
+        return "book/index";
     }
 
     private void saveMember(HttpServletRequest req) {
