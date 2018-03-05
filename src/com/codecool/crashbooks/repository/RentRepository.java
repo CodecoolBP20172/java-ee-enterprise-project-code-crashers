@@ -14,7 +14,7 @@ public interface RentRepository extends JpaRepository<Rent, Integer> {
 
     List<Rent> findByMember_IdAndDateStartIsNotNullAndDateEndIsNull(int memberId);
 
-    List<Rent> findByMember_IdAAndDateReturnedIsNotNull(int memberId);
+    List<Rent> findByMember_IdAndDateReturnedIsNotNull(int memberId);
 
     List<Rent> findByCopy_Id(int copyId);
 

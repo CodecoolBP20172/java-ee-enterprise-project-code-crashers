@@ -33,7 +33,7 @@ public class MediaService {
         List<Media> mediaList = em.createNamedQuery("Media.getMediaByGenre", Media.class)
                 .setParameter("id", genre.getId()).getResultList();
         em.close();*/
-        return mediaRepository.findByGenres_Id(genre.getId());
+        return mediaRepository.findByGenres_Id(genre);
     }
 
     public List<Media> getMediasBy(Category category) {
@@ -59,6 +59,6 @@ public class MediaService {
                 .setParameter("categoryId", category.getId())
                 .getResultList();
         em.close();*/
-        return mediaRepository.findByGenres_IdAndCategory_Id(genre.getId(), category.getId());
+        return mediaRepository.findByGenres_IdAndCategory_Id(genre, category.getId());
     }
 }
