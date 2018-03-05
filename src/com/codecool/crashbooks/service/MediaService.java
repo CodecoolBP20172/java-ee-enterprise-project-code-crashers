@@ -4,11 +4,13 @@ import com.codecool.crashbooks.model.Media;
 import com.codecool.crashbooks.model.mediaProperty.Author;
 import com.codecool.crashbooks.model.mediaProperty.Category;
 import com.codecool.crashbooks.model.mediaProperty.Genre;
+import org.springframework.stereotype.Service;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import java.util.List;
 
+@Service
 public class MediaService {
     private final EntityManagerFactory emf;
 
