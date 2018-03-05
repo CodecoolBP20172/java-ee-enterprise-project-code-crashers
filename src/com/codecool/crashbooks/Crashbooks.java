@@ -5,15 +5,11 @@ import com.codecool.crashbooks.controller.MediaController;
 import com.codecool.crashbooks.controller.MemberController;
 import com.codecool.crashbooks.controller.RentController;
 import com.codecool.crashbooks.service.*;
-import spark.Request;
-import spark.Response;
-import spark.template.thymeleaf.ThymeleafTemplateEngine;
+
 
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
 
-import static spark.Spark.*;
-import static spark.debug.DebugScreen.enableDebugScreen;
 
 public class Crashbooks {
 
