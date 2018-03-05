@@ -1,6 +1,8 @@
 package com.codecool.crashbooks.service;
 
 import com.codecool.crashbooks.model.mediaProperty.Category;
+import com.codecool.crashbooks.repository.CategoryRepository;
+import org.springframework.beans.factory.annotation.Autowired;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
@@ -8,21 +10,26 @@ import javax.persistence.NoResultException;
 import java.util.List;
 
 public class CategoryService {
-    private final EntityManagerFactory emf;
+
+    @Autowired
+    private CategoryRepository categoryRepository;
+
+    /*private final EntityManagerFactory emf;
 
     public CategoryService(EntityManagerFactory emf) {
         this.emf = emf;
-    }
+    }*/
 
     public List<Category> getAllCategory() {
-        EntityManager em = emf.createEntityManager();
+        /*EntityManager em = emf.createEntityManager();
         List<Category> categoryList = em.createNamedQuery("Category.getAllCategory", Category.class).getResultList();
         em.close();
-        return categoryList;
+        return categoryList;*/
+        return categoryRepository.findAll();
     }
 
     public Category getCategoryById(int id) {
-        EntityManager em = emf.createEntityManager();
+        /*EntityManager em = emf.createEntityManager();
         try {
             return em.createNamedQuery("Category.getById", Category.class)
                     .setParameter("id", id).getSingleResult();
@@ -32,11 +39,12 @@ public class CategoryService {
             if (em != null) {
                 em.close();
             }
-        }
+        }*/
+        return categoryRepository.findOne(id);
     }
 
-    public Category getCategoryByType(String type) {
-        EntityManager em = emf.createEntityManager();
+    public List<Category> getCategoryByType(String type) {
+        /*EntityManager em = emf.createEntityManager();
         try {
             return em.createNamedQuery("Category.getByType", Category.class)
                     .setParameter("type", type).getSingleResult();
@@ -46,7 +54,8 @@ public class CategoryService {
             if (em != null) {
                 em.close();
             }
-        }
+        }*/
+        return categoryRepository.findByType(type);
     }
 
 }

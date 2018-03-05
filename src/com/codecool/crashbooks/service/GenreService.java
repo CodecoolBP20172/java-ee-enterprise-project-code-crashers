@@ -1,6 +1,8 @@
 package com.codecool.crashbooks.service;
 
 import com.codecool.crashbooks.model.mediaProperty.Genre;
+import com.codecool.crashbooks.repository.GenreRepository;
+import org.springframework.beans.factory.annotation.Autowired;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
@@ -8,21 +10,26 @@ import javax.persistence.NoResultException;
 import java.util.List;
 
 public class GenreService {
-    private final EntityManagerFactory emf;
+
+    @Autowired
+    private GenreRepository genreRepository;
+
+    /*private final EntityManagerFactory emf;
 
     public GenreService(EntityManagerFactory emf) {
         this.emf = emf;
-    }
+    }*/
 
     public List<Genre> getAllGenre() {
-        EntityManager em = emf.createEntityManager();
+        /*EntityManager em = emf.createEntityManager();
         List<Genre> genreList = em.createNamedQuery("Genre.getAllGenre", Genre.class).getResultList();
         em.close();
-        return genreList;
+        return genreList;*/
+        return genreRepository.findAll();
     }
 
     public Genre getGenreById(int id) {
-        EntityManager em = emf.createEntityManager();
+        /*EntityManager em = emf.createEntityManager();
         try {
             return em.createNamedQuery("Genre.getById", Genre.class)
                     .setParameter("id", id).getSingleResult();
@@ -32,11 +39,12 @@ public class GenreService {
             if (em != null) {
                 em.close();
             }
-        }
+        }*/
+        return genreRepository.findOne(id);
     }
 
-    public Genre getGenreByType(EntityManagerFactory emf, String type) {
-        EntityManager em = emf.createEntityManager();
+    public List<Genre> getGenreByType(String type) {
+        /*EntityManager em = emf.createEntityManager();
         try {
             return em.createNamedQuery("Genre.getByType", Genre.class)
                     .setParameter("type", type).getSingleResult();
@@ -46,6 +54,7 @@ public class GenreService {
             if (em != null) {
                 em.close();
             }
-        }
+        }*/
+        return genreRepository.findByType(type);
     }
 }
