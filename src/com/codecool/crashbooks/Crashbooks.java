@@ -15,7 +15,7 @@ import javax.persistence.Persistence;
 import static spark.Spark.*;
 import static spark.debug.DebugScreen.enableDebugScreen;
 
-public class Main {
+public class Crashbooks {
 
     public static void main(String[] args) {
         EntityManagerFactory emf = Persistence.createEntityManagerFactory("CrashBooks");
