@@ -3,74 +3,72 @@ package com.codecool.crashbooks.controller;
 import com.codecool.crashbooks.model.Member;
 import com.codecool.crashbooks.service.MemberService;
 import com.codecool.crashbooks.utility.Password;
-import spark.ModelAndView;
-import spark.Request;
-import spark.Response;
+import org.apache.catalina.servlet4preview.http.HttpServletRequest;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Scope;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 
-import java.util.HashMap;
-import java.util.Map;
+import javax.servlet.http.HttpSession;
 
+@Controller
+@Scope("session")
 public class MemberController {
 
-    private final MemberService memberService;
+    @Autowired
+    MemberService memberService;
 
-    public MemberController(MemberService memberService) {
-        this.memberService = memberService;
+    @RequestMapping(value = "/login", method = RequestMethod.GET)
+    public String renderLoginPage(){
+        return "login";
     }
 
-    public ModelAndView renderLoginPage(Request req, Response res) {
-        return new ModelAndView(new HashMap<>(), "book/login");
-    }
-
-    public ModelAndView login(Request req, Response res) {
-        Member member = memberService.getMemberByName(req.queryParams("name"));
-        if (member != null && Password.checkPassword(req.queryParams("password"), member.getPassword())) {
-            req.session(true);
-            req.session().attribute("name", member.getName());
-            req.session().attribute("id", member.getId());
-            res.redirect("/");
-        } else {
-            return renderErrorPage(req, res, "Login Failed! User or Password Invalid!");
+    @RequestMapping(value = "/login", method = RequestMethod.POST)
+    public String login(HttpServletRequest req, HttpSession session, Model model){
+        Member member = memberService.getMemberByName(req.getParameter("name"));
+        if(member != null && Password.checkPassword(req.getParameter("password"), member.getPassword())){
+            session.setAttribute("name", req.getParameter("name"));
+            session.setAttribute("id", member.getId());
+            return "index";
+        }else{
+            model.addAttribute("error", "Login Failed! Username or Password invalid!");
+            return "error";
         }
-        return null;
     }
 
-    public ModelAndView renderRegistrationPage(Request req, Response res) {
-        return new ModelAndView(new HashMap<>(), "book/registration");
+    @RequestMapping(value = "/registration", method = RequestMethod.GET)
+    public String renderRegistrationPage(){
+        return "registration";
     }
 
-    public ModelAndView register(Request req, Response res) {
-        if (checkIsMemberNameFree(req.queryParams("name"))) {
+    @RequestMapping(value = "/registration", method = RequestMethod.POST)
+    public String register(Model model, HttpServletRequest req, HttpSession session){
+        if(checkIsMemberNameFree(req.getParameter("name"))){
             saveMember(req);
-            Member member = memberService.getMemberByName(req.queryParams("name"));
-            req.session(true);
-            req.session().attribute("name", req.queryParams("name"));
-            req.session().attribute("id", member.getId());
-            res.redirect("/");
-        } else {
-            return renderErrorPage(req, res, "Registration failed!");
+            Member member = memberService.getMemberByName(req.getParameter("name"));
+            session.setAttribute("name", req.getParameter("name"));
+            session.setAttribute("id", member.getId());
+            return "index";
+        }else{
+            model.addAttribute("error", "Registration Failed!");
+            return "error";
         }
-        return null;
+
     }
 
-    private void saveMember(Request req) {
-        memberService.saveMember(req.queryParams("name"), Password.hashPassword(req.queryParams("password")));
+    @RequestMapping(value = "/logout", method = RequestMethod.GET)
+    public String logout(HttpSession session){
+        session.invalidate();
+        return "index";
+    }
+
+    private void saveMember(HttpServletRequest req) {
+        memberService.saveMember(req.getParameter("name"), Password.hashPassword(req.getParameter("password")));
     }
 
     private boolean checkIsMemberNameFree(String name) {
-        return (memberService.getMemberByName(name) == null);
-    }
-
-    private ModelAndView renderErrorPage(Request req, Response res, String errorMessage) {
-        Map params = new HashMap();
-        params.put("error", errorMessage);
-        return new ModelAndView(params, "book/error");
-    }
-
-    public ModelAndView logout(Request req, Response res) {
-        req.session().removeAttribute("name");
-        req.session().removeAttribute("id");
-        res.redirect("/");
-        return null;
+        return (memberService.getMemberByName(name)== null);
     }
 }
