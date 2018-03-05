@@ -51,4 +51,8 @@ public class Member {
         this.membership = membership;
     }
 
+    public static Member create(String name, String password) {
+        return new Member(name, password);
+    }
+
 }

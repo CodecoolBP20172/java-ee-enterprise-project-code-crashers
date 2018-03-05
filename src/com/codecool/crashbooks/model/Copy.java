@@ -61,4 +61,8 @@ public class Copy {
     public void setRents(List<Rent> rents) {
         this.rents = rents;
     }
+
+    public static Copy create(Media media) {
+        return new Copy(media);
+    }
 }

@@ -94,6 +94,11 @@ public class Media {
     public boolean isCopyAvailable() {
         return copies.stream().anyMatch(copy -> CopyStatuses.AVAILABLE.equals(copy.getStatus()));
     }
+
+    public static Media create(String title, Author author, Category category, Genre genre, String pictureUrl,
+                               int year, String description) {
+        return new Media(title,author, category, genre, pictureUrl, year, description);
+    }
 }
 
 

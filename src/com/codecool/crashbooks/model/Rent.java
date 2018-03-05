@@ -93,4 +93,8 @@ public class Rent {
     public double getFine() {
         return fine;
     }
+
+    public static Rent create(Member member, Copy copy) {
+        return new Rent(member, copy);
+    }
 }

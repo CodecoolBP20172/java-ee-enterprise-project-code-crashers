@@ -36,4 +36,8 @@ public class Author {
     public int getId() {
         return id;
     }
+
+    public static Author create(String name) {
+        return new Author(name);
+    }
 }

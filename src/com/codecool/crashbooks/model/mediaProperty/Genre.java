@@ -51,7 +51,10 @@ public class Genre {
 
     @Override
     public int hashCode() {
-
         return Objects.hash(id, type);
+    }
+
+    public static Genre create(Genres type) {
+        return new Genre(type);
     }
 }

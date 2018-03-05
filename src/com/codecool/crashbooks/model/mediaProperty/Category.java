@@ -38,4 +38,8 @@ public class Category {
     public Categories getType() {
         return type;
     }
+
+    public static Category create(Categories type) {
+        return new Category(type);
+    }
 }
