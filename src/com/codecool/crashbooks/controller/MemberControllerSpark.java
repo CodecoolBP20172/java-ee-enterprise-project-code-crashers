@@ -3,14 +3,10 @@ package com.codecool.crashbooks.controller;
 import com.codecool.crashbooks.model.Member;
 import com.codecool.crashbooks.service.MemberService;
 import com.codecool.crashbooks.utility.Password;
-import spark.ModelAndView;
-import spark.Request;
-import spark.Response;
-
 import java.util.HashMap;
 import java.util.Map;
 
-public class MemberControllerSpark {
+public class MemberControllerSpark {/*
 
     private final MemberService memberService;
 
@@ -73,4 +69,5 @@ public class MemberControllerSpark {
         res.redirect("/");
         return null;
     }
+    */
 }
