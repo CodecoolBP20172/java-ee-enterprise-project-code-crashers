@@ -31,6 +31,10 @@ public class RentService {
     @Autowired
     CopyService copyService;
 
+    public void saveRent(Rent rent) {
+        rentRepository.save(rent);
+    }
+
     public void createRent(Member member, Copy copy) {
 /*        if (member.getId() != 0) {
             EntityManager em = emf.createEntityManager();

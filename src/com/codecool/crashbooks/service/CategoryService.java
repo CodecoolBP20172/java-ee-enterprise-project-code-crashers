@@ -22,6 +22,10 @@ public class CategoryService {
         this.emf = emf;
     }*/
 
+    public void saveCategory(Category category) {
+        categoryRepository.save(category);
+    }
+
     public List<Category> getAllCategory() {
         /*EntityManager em = emf.createEntityManager();
         List<Category> categoryList = em.createNamedQuery("Category.getAllCategory", Category.class).getResultList();

@@ -20,6 +20,10 @@ public class MemberService {
     @Autowired
     MemberRepository memberRepository;
 
+    public void saveMember(Member member) {
+        memberRepository.save(member);
+    }
+
     public Member getMemberById(int id) {
 /*        EntityManager em = emf.createEntityManager();
         try {

@@ -22,7 +22,9 @@ public class CopyService {
     public CopyService(EntityManagerFactory emf) {
         this.emf = emf;
     }*/
-
+    public void saveCopy(Copy copy) {
+        copyRepository.save(copy);
+    }
     public List<Copy> getAllCopy() {
         /*EntityManager em = emf.createEntityManager();
         List<Copy> copyList = em.createNamedQuery("Copy.getAllCopy", Copy.class).getResultList();

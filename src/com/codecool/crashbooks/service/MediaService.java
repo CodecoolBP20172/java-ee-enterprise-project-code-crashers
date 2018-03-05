@@ -23,6 +23,10 @@ public class MediaService {
     @Autowired
     MediaRepository mediaRepository;
 
+    public void saveMedia(Media media) {
+        mediaRepository.save(media);
+    }
+
     public List<Media> getAllMedia() {
 /*        EntityManager em = emf.createEntityManager();
         List<Media> mediaList = em.createNamedQuery("Media.getAllMedia", Media.class).getResultList();

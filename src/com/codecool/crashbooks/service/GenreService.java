@@ -21,6 +21,9 @@ public class GenreService {
     public GenreService(EntityManagerFactory emf) {
         this.emf = emf;
     }*/
+    public void saveGenre(Genre genre) {
+        genreRepository.save(genre);
+    }
 
     public List<Genre> getAllGenre() {
         /*EntityManager em = emf.createEntityManager();

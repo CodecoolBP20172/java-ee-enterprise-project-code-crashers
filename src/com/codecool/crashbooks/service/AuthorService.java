@@ -22,6 +22,10 @@ public class AuthorService {
         this.emf = emf;
     }*/
 
+    public void saveAuthor(Author author) {
+        authorRepository.save(author);
+    }
+
     public List<Author> getAllAuthor() {
         //EntityManager em = emf.createEntityManager();
         //return em.createNamedQuery("Author.getAllAuthor", Author.class).getResultList();
