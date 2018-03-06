@@ -8,7 +8,7 @@ import org.mockito.Mockito;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-class RentTest extends SetupAndTearDown {
+class RentServiceTest extends SetupAndTearDown {
     private CopyService copyService = Mockito.mock(CopyService.class);
     private RentService rentService = new RentService(emf, copyService);
 

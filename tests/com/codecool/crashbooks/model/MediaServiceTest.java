@@ -14,7 +14,7 @@ import org.mockito.Mockito;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-class MediaTest extends SetupAndTearDown {
+class MediaServiceTest extends SetupAndTearDown {
     MediaService mediaService = new MediaService(emf);
     GenreService genreService = new GenreService(emf);
     CategoryService categoryService = new CategoryService(emf);

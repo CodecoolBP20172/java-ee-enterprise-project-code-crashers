@@ -6,7 +6,7 @@ import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-class MemberTest extends SetupAndTearDown {
+class MemberServiceTest extends SetupAndTearDown {
     MemberService memberService = new MemberService(emf);
 
     @Test
