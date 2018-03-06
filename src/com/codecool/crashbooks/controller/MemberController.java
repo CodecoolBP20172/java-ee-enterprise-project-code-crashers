@@ -31,7 +31,7 @@ public class MemberController {
         if(member != null && Password.checkPassword(req.getParameter("password"), member.getPassword())){
             session.setAttribute("name", req.getParameter("name"));
             session.setAttribute("id", member.getId());
-            return "book/index";
+            return "redirect:/";
         }else{
             model.addAttribute("error", "Login Failed! Username or Password invalid!");
             return "book/error";
@@ -50,7 +50,7 @@ public class MemberController {
             Member member = memberService.getMemberByName(req.getParameter("name"));
             session.setAttribute("name", req.getParameter("name"));
             session.setAttribute("id", member.getId());
-            return "book/index";
+            return "redirect:/";
         }else{
             model.addAttribute("error", "Registration Failed!");
             return "book/error";
@@ -61,7 +61,7 @@ public class MemberController {
     @RequestMapping(value = "/logout", method = RequestMethod.GET)
     public String logout(HttpSession session){
         session.invalidate();
-        return "book/index";
+        return "redirect:/";
     }
 
     private void saveMember(HttpServletRequest req) {

@@ -12,7 +12,7 @@ public interface RentRepository extends JpaRepository<Rent, Integer> {
 
     List<Rent> findByMember_IdAndDateStartIsNull(int memberId);
 
-    List<Rent> findByMember_IdAndDateStartIsNotNullAndDateEndIsNull(int memberId);
+    List<Rent> findByMember_IdAndDateStartIsNotNullAndDateReturnedIsNull(int memberId);
 
     List<Rent> findByMember_IdAndDateReturnedIsNotNull(int memberId);
 

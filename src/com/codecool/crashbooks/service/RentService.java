@@ -95,7 +95,7 @@ public class RentService {
 /*        EntityManager em = emf.createEntityManager();
         return em.createNamedQuery("Rent.getRentedByMemberId", Rent.class)
                 .setParameter("id", id).getResultList();*/
-        return rentRepository.findByMember_IdAndDateStartIsNotNullAndDateEndIsNull(id);
+        return rentRepository.findByMember_IdAndDateStartIsNotNullAndDateReturnedIsNull(id);
     }
 
     public List<Rent> getReturnedRentsByMemberId(int id) {
