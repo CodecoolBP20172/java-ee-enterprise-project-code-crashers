@@ -8,11 +8,11 @@ import java.util.List;
 
 public interface MediaRepository extends JpaRepository<Media, Integer> {
 
-    List<Media> findByGenres_Id(Genre genre);
+    List<Media> findByGenres_Id(int genreId);
 
     List<Media> findByCategory_Id(int categoryId);
 
     List<Media> findByAuthor_Id(int authorId);
 
-    List<Media> findByGenres_IdAndCategory_Id(Genre genre, int category_id);
+    List<Media> findByGenres_IdAndCategory_Id(int genreId, int category_id);
 }

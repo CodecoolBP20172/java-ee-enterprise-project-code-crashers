@@ -25,7 +25,7 @@ public class MediaService {
     }
 
     public List<Media> getMediasBy(Genre genre) {
-        return mediaRepository.findByGenres_Id(genre);
+        return mediaRepository.findByGenres_Id(genre.getId());
     }
 
     public List<Media> getMediasBy(Category category) {
@@ -37,6 +37,6 @@ public class MediaService {
     }
 
     public List<Media> getMediasBy(Genre genre, Category category) {
-        return mediaRepository.findByGenres_IdAndCategory_Id(genre, category.getId());
+        return mediaRepository.findByGenres_IdAndCategory_Id(genre.getId(), category.getId());
     }
 }
