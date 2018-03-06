@@ -116,3 +116,4 @@ buildNumber.properties
 
 
 src/resources/application\.properties
+/tests/resources/application.properties
