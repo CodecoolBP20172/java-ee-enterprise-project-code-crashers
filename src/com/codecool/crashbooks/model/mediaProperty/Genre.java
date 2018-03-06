@@ -6,11 +6,6 @@ import javax.persistence.*;
 import java.util.Objects;
 import java.util.Set;
 
-@NamedQueries({
-        @NamedQuery(name = "Genre.getById", query = "SELECT g FROM Genre g WHERE id = :id"),
-        @NamedQuery(name = "Genre.getByType", query = "SELECT g FROM Genre g WHERE type = :type"),
-        @NamedQuery(name = "Genre.getAllGenre", query = "SELECT g FROM Genre g")
-})
 @Entity
 public class Genre {
 

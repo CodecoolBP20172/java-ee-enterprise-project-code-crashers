@@ -6,15 +6,6 @@ import javax.persistence.*;
 import java.util.HashSet;
 import java.util.Set;
 
-@NamedQueries({
-        @NamedQuery(name = "Media.getAllMedia", query = "SELECT m FROM Media m"),
-        @NamedQuery(name = "Media.getMediaByGenre", query = "SELECT m FROM Media m JOIN m.genres bg " +
-                " WHERE bg.id = :id"),
-        @NamedQuery(name = "Media.getMediaByGenreAndCategory", query = "SELECT m FROM Media m JOIN m.genres bg " +
-                " WHERE bg.id = :genreId AND category_id = :categoryId"),
-        @NamedQuery(name = "Media.getMediaByCategory", query = "SELECT m FROM Media m WHERE category_id = :id"),
-        @NamedQuery(name = "Media.getMediaByAuthor", query = "SELECT m FROM Media m WHERE author_id = :id")
-})
 @Entity
 public class Media {
 

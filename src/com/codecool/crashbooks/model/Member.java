@@ -5,10 +5,6 @@ import com.codecool.crashbooks.model.memberProperty.Membership;
 import javax.persistence.*;
 import java.util.List;
 
-@NamedQueries({
-        @NamedQuery(name = "Member.getMemberById", query = "SELECT m FROM Member m WHERE id =:id"),
-        @NamedQuery(name = "Member.getMemberByName", query = "SELECT m FROM Member m WHERE name = :name")
-})
 @Entity
 public class Member {
 

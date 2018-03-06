@@ -1,11 +1,10 @@
-package com.codecool.crashbooks.ORM;
+package com.codecool.crashbooks.utility;
 
 
 import com.codecool.crashbooks.model.*;
 import com.codecool.crashbooks.model.mediaProperty.*;
 import com.codecool.crashbooks.model.memberProperty.Membership;
 import com.codecool.crashbooks.service.*;
-import com.codecool.crashbooks.utility.Password;
 import org.springframework.stereotype.Component;
 
 @Component
@@ -27,13 +26,9 @@ public class InitializerBean {
         Author nemzetisport = Author.create("Nemzeti Sport");
         Author nytimes = Author.create("The New York Times");
 
-
         Category book = Category.create(Categories.BOOK);
         Category magazine = Category.create(Categories.MAGAZINE);
         Category newspaper = Category.create(Categories.NEWSPAPER);
-        categoryService.saveCategory(book);
-        categoryService.saveCategory(magazine);
-        categoryService.saveCategory(newspaper);
 
         Genre drama = Genre.create(Genres.DRAMA);
         Genre horror = Genre.create(Genres.HORROR);
@@ -42,7 +37,6 @@ public class InitializerBean {
         Genre realism = Genre.create(Genres.REALISM);
         Genre science = Genre.create(Genres.SCIENCE);
         Genre sport = Genre.create(Genres.SPORT);
-
 
         Media vuk = Media.create("Vuk", fekete, book, adventure, "vuk.jpg", 1965, "A good book...");
         Media tuskevar = Media.create("Tüskevár", fekete, book, realism, "tuskevar.jpg", 1957, "A good book...");
@@ -60,11 +54,9 @@ public class InitializerBean {
         Media nemzetiSport = Media.create("2015.05.13", nemzetisport, newspaper, sport, "nemzetisport.jpg", 2015, "A good newspaper...");
         Media times = Media.create("1969.07.21", nytimes, newspaper, science, "nytimes.jpg", 1969, "A good newspaper...");
 
-
         Member test = Member.create("test", Password.hashPassword("test"));
         Member admin = Member.create("admin", Password.hashPassword("admin"));
         admin.setMembership(Membership.ADMIN);
-
 
         Copy copy1 = Copy.create(it);
         Copy copy2 = Copy.create(lordOfTheRings1);
@@ -88,6 +80,10 @@ public class InitializerBean {
         authorService.saveAuthor(kepessport);
         authorService.saveAuthor(nemzetisport);
         authorService.saveAuthor(nytimes);
+
+        categoryService.saveCategory(book);
+        categoryService.saveCategory(magazine);
+        categoryService.saveCategory(newspaper);
 
         genreService.saveGenre(drama);
         genreService.saveGenre(horror);
