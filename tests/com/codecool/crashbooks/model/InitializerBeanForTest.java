@@ -6,12 +6,12 @@ import com.codecool.crashbooks.utility.Password;
 import org.springframework.stereotype.Component;
 
 @Component
-public class InitializerBeanTest {
+public class InitializerBeanForTest {
 
 
-    public InitializerBeanTest(AuthorService authorService, CategoryService categoryService, CopyService copyService,
-                               GenreService genreService, MediaService mediaService, MemberService memberService,
-                               RentService rentService) {
+    public InitializerBeanForTest(AuthorService authorService, CategoryService categoryService, CopyService copyService,
+                                  GenreService genreService, MediaService mediaService, MemberService memberService,
+                                  RentService rentService) {
 
         Author testAuthor1 = Author.create("testAuthor1");
         Author testAuthor2 = Author.create("testAuthor2");
@@ -59,37 +59,37 @@ public class InitializerBeanTest {
         Rent rent4 = Rent.create(testMember2, copy5);
 
 
-        Author[] authors = new Author[] {testAuthor1, testAuthor2, testAuthor3, testAuthor4};
+        Author[] authors = new Author[]{testAuthor1, testAuthor2, testAuthor3, testAuthor4};
         for (Author author : authors) {
             authorService.saveAuthor(author);
         }
 
-        Category[] categories = new Category[] {book, magazine, newspaper};
+        Category[] categories = new Category[]{book, magazine, newspaper};
         for (Category category : categories) {
             categoryService.saveCategory(category);
         }
 
-        Genre[] genres = new Genre[] {adventure, mythology, realism};
+        Genre[] genres = new Genre[]{adventure, mythology, realism};
         for (Genre genre : genres) {
             genreService.saveGenre(genre);
         }
 
-        Media[] mediaList = new Media[] {media1, media2, media3, media4};
+        Media[] mediaList = new Media[]{media1, media2, media3, media4};
         for (Media media : mediaList) {
             mediaService.saveMedia(media);
         }
 
-        Member[] members = new Member[] {testMember1, testMember2}; //testAdmin
-        for (Member member: members) {
+        Member[] members = new Member[]{testMember1, testMember2}; //testAdmin
+        for (Member member : members) {
             memberService.saveMember(member);
         }
 
-        Copy[] copies = new Copy[] {copy1, copy2, copy3, copy4, copy5};
+        Copy[] copies = new Copy[]{copy1, copy2, copy3, copy4, copy5};
         for (Copy copy : copies) {
             copyService.saveCopy(copy);
         }
 
-        Rent[] rents = new Rent[] {rent1,rent2, rent3, rent4};
+        Rent[] rents = new Rent[]{rent1, rent2, rent3, rent4};
         for (Rent rent : rents) {
             rentService.saveRent(rent);
         }

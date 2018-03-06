@@ -1,24 +1,38 @@
-package com.codecool.crashbooks.model;
+package com.codecool.crashbooks.model.serviceTest;
 
 import com.codecool.crashbooks.model.mediaProperty.Author;
-import com.codecool.crashbooks.model.mediaProperty.Category;
 import com.codecool.crashbooks.model.mediaProperty.Categories;
+import com.codecool.crashbooks.model.mediaProperty.Category;
 import com.codecool.crashbooks.model.mediaProperty.Genre;
 import com.codecool.crashbooks.service.AuthorService;
 import com.codecool.crashbooks.service.CategoryService;
 import com.codecool.crashbooks.service.GenreService;
 import com.codecool.crashbooks.service.MediaService;
+import org.junit.Test;
 import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.Test;
+import org.junit.runner.RunWith;
 import org.mockito.Mockito;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.test.context.junit4.SpringRunner;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static junit.framework.TestCase.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
-class MediaServiceTest extends SetupAndTearDown {
-    MediaService mediaService = null;//new MediaService(emf);
-    GenreService genreService = null;//new GenreService(emf);
-    CategoryService categoryService = null;//new CategoryService(emf);
-    AuthorService authorService = null;//new AuthorService(emf);
+
+@RunWith(SpringRunner.class)
+@SpringBootTest
+public class MediaServiceTest {
+
+    @Autowired
+    MediaService mediaService;
+    @Autowired
+    GenreService genreService;
+    @Autowired
+    CategoryService categoryService;
+    @Autowired
+    AuthorService authorService;
 
     @Test
     @DisplayName("All media")
@@ -40,7 +54,7 @@ class MediaServiceTest extends SetupAndTearDown {
     @DisplayName("Size check for allMediaByGenre, ADVENTURE")
     public void testGetMediaByGenreValidSizeForAdventure() {
         Genre genreMock = Mockito.mock(Genre.class);
-        Mockito.when(genreMock.getId()).thenReturn(10);
+        Mockito.when(genreMock.getId()).thenReturn(1);
         assertEquals(2, mediaService.getMediasBy(genreMock).size());
     }
 
@@ -48,14 +62,14 @@ class MediaServiceTest extends SetupAndTearDown {
     @DisplayName("Size check for allMediaByGenre, MYTHOLOGY")
     public void testGetMediaByGenreValidSizeForMythology() {
         Genre genreMock = Mockito.mock(Genre.class);
-        Mockito.when(genreMock.getId()).thenReturn(9);
+        Mockito.when(genreMock.getId()).thenReturn(3);
         assertEquals(1, mediaService.getMediasBy(genreMock).size());
     }
 
     @Test
     @DisplayName("Check for valid type, ADVENTURE")
     public void testGetMediaByAdventureGenreValidType() {
-        Genre genre = genreService.getGenreById(10);
+        Genre genre = genreService.getGenreById(1);
         assertTrue(mediaService.getMediasBy(genre).get(0)
                 .getGenres()
                 .contains(genre));  //TODO rethink to use mock
@@ -64,7 +78,7 @@ class MediaServiceTest extends SetupAndTearDown {
     @Test
     @DisplayName("Check for valid type, MYTHOLOGY")
     public void testGetMediaByMythologyGenreValidType() {
-        Genre genre = genreService.getGenreById(9);
+        Genre genre = genreService.getGenreById(3);
         assertTrue(mediaService.getMediasBy(genre).get(0)
                 .getGenres()
                 .contains(genre)); //TODO rethink to use mock

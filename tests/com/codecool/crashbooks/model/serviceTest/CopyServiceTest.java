@@ -1,5 +1,6 @@
-package com.codecool.crashbooks.model;
+package com.codecool.crashbooks.model.serviceTest;
 
+import com.codecool.crashbooks.model.CopyStatuses;
 import com.codecool.crashbooks.service.CopyService;
 import org.junit.Test;
 import org.junit.jupiter.api.DisplayName;
