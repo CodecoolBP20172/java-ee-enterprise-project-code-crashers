@@ -1,7 +1,6 @@
 package com.codecool.crashbooks.repository;
 
 import com.codecool.crashbooks.model.Media;
-import com.codecool.crashbooks.model.mediaProperty.Genre;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.List;
