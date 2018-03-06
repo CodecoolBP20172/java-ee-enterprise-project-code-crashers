@@ -10,9 +10,9 @@ public class SetupAndTearDown {
 
     @BeforeAll
     static void setUp() {
-        emf = Persistence.createEntityManagerFactory("CrashBooks_test");
+        /*emf = Persistence.createEntityManagerFactory("CrashBooks_test");
         PopulateTestDb tDB = new PopulateTestDb();
-        tDB.populateTestDB(emf);
+        tDB.populateTestDB(emf);*/
     }
 
     @AfterAll

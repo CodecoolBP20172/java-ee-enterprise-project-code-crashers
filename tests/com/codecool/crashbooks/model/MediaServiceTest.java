@@ -15,10 +15,10 @@ import org.mockito.Mockito;
 import static org.junit.jupiter.api.Assertions.*;
 
 class MediaServiceTest extends SetupAndTearDown {
-    MediaService mediaService = new MediaService(emf);
-    GenreService genreService = new GenreService(emf);
-    CategoryService categoryService = new CategoryService(emf);
-    AuthorService authorService = new AuthorService(emf);
+    MediaService mediaService = null;//new MediaService(emf);
+    GenreService genreService = null;//new GenreService(emf);
+    CategoryService categoryService = null;//new CategoryService(emf);
+    AuthorService authorService = null;//new AuthorService(emf);
 
     @Test
     @DisplayName("All media")

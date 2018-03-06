@@ -10,7 +10,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 class RentServiceTest extends SetupAndTearDown {
     private CopyService copyService = Mockito.mock(CopyService.class);
-    private RentService rentService = new RentService(emf, copyService);
+    private RentService rentService = null;//new RentService(emf, copyService);
 
 
     @Test

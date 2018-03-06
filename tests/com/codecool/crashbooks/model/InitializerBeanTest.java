@@ -1,7 +1,6 @@
 package com.codecool.crashbooks.model;
 
 import com.codecool.crashbooks.model.mediaProperty.*;
-import com.codecool.crashbooks.model.memberProperty.Membership;
 import com.codecool.crashbooks.service.*;
 import com.codecool.crashbooks.utility.Password;
 import org.springframework.stereotype.Component;
@@ -24,7 +23,7 @@ public class InitializerBeanTest {
         Category newspaper = Category.create(Categories.NEWSPAPER);
 
         Genre adventure = Genre.create(Genres.ADVENTURE);
-        Genre mythology = Genre.create(Genres.REALISM);
+        Genre mythology = Genre.create(Genres.MYTHOLOGY);
         Genre realism = Genre.create(Genres.REALISM);
 
         Media media1 = Media.create("testMedia1", testAuthor1, magazine, adventure, "pic.jpg", 1999, "A good book...");

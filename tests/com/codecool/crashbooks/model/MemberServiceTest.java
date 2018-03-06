@@ -7,7 +7,7 @@ import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
 
 class MemberServiceTest extends SetupAndTearDown {
-    MemberService memberService = new MemberService(emf);
+    MemberService memberService = null;//new MemberService(emf);
 
     @Test
     @DisplayName("Get Member by ID, VALID")
