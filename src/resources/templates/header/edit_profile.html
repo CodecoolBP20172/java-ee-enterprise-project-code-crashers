@@ -18,8 +18,15 @@
             <button class = "btn btn-primary">Buy New Membership</button>
         </a>
     </span>
-    <span th:text="'Your membership  is: ' + ${membership.getMessage()}+ '. You can rent '+ ${membership.getLimit()- pendingList.size()-rentedList.size()} + ' more book(s).'">
-    </span>
+    <div th:with="hasRemainingRents = ${membership.getLimit()- pendingList.size()-rentedList.size() > 0}">
+        <div th:if="${hasRemainingRents}">
+            <span th:text="'Your membership  is: ' + ${membership.getMessage()}+ '. You can rent '+ ${membership.getLimit()- pendingList.size()-rentedList.size()} + ' more book(s).'"></span>
+        </div>
+        <div th:unless="${hasRemainingRents}">
+            <span th:text="'Your membership  is: ' + ${membership.getMessage()}+ '. You reached your renting limit.'"></span>
+        </div>
+    </div>
+
 </div>
 
 </body>
