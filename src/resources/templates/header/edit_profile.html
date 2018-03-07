@@ -1,0 +1,33 @@
+<!doctype html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<body>
+
+<div th:fragment="copy">
+    <span>
+        <a href="/edit/username">
+            <button class = "btn btn-primary">Edit User Name</button>
+        </a>
+    </span>
+    <span>
+        <a href="/edit/password">
+            <button class = "btn btn-primary">Edit User Password</button>
+        </a>
+    </span>
+    <span>
+        <a href="/membership">
+            <button class = "btn btn-primary">Buy New Membership</button>
+        </a>
+    </span>
+    <div th:with="hasRemainingRents = ${membership.getLimit()- pendingList.size()-rentedList.size() > 0}">
+        <div th:if="${hasRemainingRents}">
+            <span th:text="'Your membership  is: ' + ${membership.getMessage()}+ '. You can rent '+ ${membership.getLimit()- pendingList.size()-rentedList.size()} + ' more book(s).'"></span>
+        </div>
+        <div th:unless="${hasRemainingRents}">
+            <span th:text="'Your membership  is: ' + ${membership.getMessage()}+ '. You reached your renting limit.'"></span>
+        </div>
+    </div>
+
+</div>
+
+</body>
+</html>

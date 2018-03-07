@@ -84,6 +84,7 @@
     color: white;
 }
 
+
 .breadcrumb {
     border: 2px solid #dedede;
     border-radius: 5px;
@@ -121,8 +122,8 @@
     border-top: 1px solid #98d0c5;
 }
 
-thead {
-    background-color: #f7e159;
+.thead-primary {
+    background-color: #b8daff;
 }
 
 body{

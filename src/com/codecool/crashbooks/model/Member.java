@@ -11,14 +11,10 @@ public class Member {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
-
     private String name;
-
     private String password;
-
     @OneToMany(mappedBy = "member", fetch = FetchType.LAZY)
     private List<Rent> rents;
-
     @Enumerated(EnumType.STRING)
     private Membership membership;
 
@@ -31,6 +27,10 @@ public class Member {
     public Member() {
     }
 
+    public static Member create(String name, String password) {
+        return new Member(name, password);
+    }
+
     public int getId() {
         return id;
     }
@@ -39,8 +39,16 @@ public class Member {
         return name;
     }
 
+    public void setName(String name) {
+        this.name = name;
+    }
+
     public String getPassword() {
         return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
     }
 
     public Membership getMembership() {
@@ -49,10 +57,6 @@ public class Member {
 
     public void setMembership(Membership membership) {
         this.membership = membership;
-    }
-
-    public static Member create(String name, String password) {
-        return new Member(name, password);
     }
 
 }

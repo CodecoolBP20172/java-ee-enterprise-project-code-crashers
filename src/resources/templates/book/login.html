@@ -5,6 +5,9 @@
 
         <div th:replace="header/header :: copy"></div>
         <div class="container">
+            <div th:if="${user_information}">
+                <h4 th:text="${user_information}">user info</h4>
+            </div>
             <a href="/">
                 <button type="button" class="btn btn-primary">Back to main page</button>
             </a>

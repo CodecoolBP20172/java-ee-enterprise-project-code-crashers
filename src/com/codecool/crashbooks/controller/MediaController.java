@@ -1,11 +1,9 @@
 package com.codecool.crashbooks.controller;
 
+import com.codecool.crashbooks.model.Member;
 import com.codecool.crashbooks.model.mediaProperty.Category;
 import com.codecool.crashbooks.model.mediaProperty.Genre;
-import com.codecool.crashbooks.service.CategoryService;
-import com.codecool.crashbooks.service.GenreService;
-import com.codecool.crashbooks.service.MediaService;
-import com.codecool.crashbooks.service.RentService;
+import com.codecool.crashbooks.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
@@ -64,7 +62,7 @@ public class MediaController {
 
     @RequestMapping(value = "/soon", method = RequestMethod.POST)
     public String renderSoon(Model model, HttpSession session){
-        model.addAttribute("member", session.getAttribute("name"));
+        model.addAttribute("member",session.getAttribute("name"));
         return "book/index";
     }
 
