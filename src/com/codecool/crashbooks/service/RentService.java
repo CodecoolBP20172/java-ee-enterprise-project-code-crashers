@@ -56,4 +56,5 @@ public class RentService {
     public List<Rent> getRentsByCopyId(int id) {
         return rentRepository.findByCopy_Id(id);
     }
+
 }

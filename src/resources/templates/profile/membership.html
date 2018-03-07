@@ -6,7 +6,9 @@
 <div th:replace="header/header :: copy"></div>
 
 <div class="container">
-
+    <div th:if="${user_information}">
+        <h3 th:text="${user_information}">user info</h3>
+    </div>
     <div id="products" class="row list-group">
 
         <div class="item col-3" th:each="membership,iterStat : ${membershiplist}">
@@ -20,7 +22,8 @@
                                 <h4 class="group inner list-group-item-heading"
                                     th:text="'Limit: ' + ${membership.getLimit()}">Limit</h4>
                                 <div class="col-6">
-                                    <h5 class="group inner list-group-item-heading" th:text="'Price: ' + ${membership.getPrice()}">
+                                    <h5 class="group inner list-group-item-heading"
+                                        th:text="'Price: ' + ${membership.getPrice()}">
                                         Price</h5>
                                     <form action="/membership" method="post">
 
