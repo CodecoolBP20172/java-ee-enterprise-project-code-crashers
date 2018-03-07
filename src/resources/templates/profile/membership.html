@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org" lang="en" xmlns="http://www.w3.org/1999/xhtml">
 <head th:replace="head :: copy"></head>
 <body>
 
@@ -12,12 +12,21 @@
         <div class="item col-3" th:each="membership,iterStat : ${membershiplist}">
             <div class="thumbnail">
                 <div class="caption">
-                    <h4 class="group inner list-group-item-heading" th:text="${membership.getLimit()}">Limit</h4>
+                    <h2 class="group inner list-group-item-heading" th:text="${membership.getMessage()}">
+                        Message</h2>
                     <div class="row">
-                        <div class="col-6">
-                            <form action="/mebership" method="post">
-                                    <input class="btn btn-secondary" type="submit" value ="Rent" disabled=""/>
-                            </form>
+                        <div>
+                            <div>
+                                <h4 class="group inner list-group-item-heading"
+                                    th:text="'Limit: ' + ${membership.getLimit()}">Limit</h4>
+                                <div class="col-6">
+                                    <h5 class="group inner list-group-item-heading" th:text="'Price: ' + ${membership.getPrice()}">
+                                        Price</h5>
+                                    <form action="/mebership" method="post">
+                                        <input class="btn btn-secondary" type="submit" value="Buy"/>
+                                    </form>
+                                </div>
+                            </div>
                         </div>
                     </div>
 

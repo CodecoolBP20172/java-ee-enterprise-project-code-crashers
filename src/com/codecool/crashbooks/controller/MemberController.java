@@ -69,7 +69,7 @@ public class MemberController {
 
     @RequestMapping(value = "/edit/{editable}", method = RequestMethod.GET) //TODO find a good name for editable
     public String renderEditPage(HttpSession session, Model model, @PathVariable("editable") String editable){
-        if(editable.equals("username") || editable.equals("username")){
+        if(editable.equals("username") || editable.equals("password")){
             model.addAttribute("member", session.getAttribute("name"));
             model.addAttribute("editable", editable);
             return "profile/edit";
