@@ -115,7 +115,8 @@ public class MemberController {
             model.addAttribute("membershiplist", Arrays.asList(Membership.FREE, Membership.BRONZE, Membership.SILVER, Membership.GOLD));
             return "profile/membership";
         }
-        return "redirect:/registration";
+        model.addAttribute("user_information", "Please log in to see membership information!");
+        return "book/login";
     }
 
     @RequestMapping(value = "/membership", method = RequestMethod.POST)

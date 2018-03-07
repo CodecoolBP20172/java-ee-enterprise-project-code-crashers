@@ -10,8 +10,8 @@
         <h3 th:text="${user_information}">user info</h3>
     </div>
     <div id="products" class="row list-group">
-
         <div class="item col-3" th:each="membership,iterStat : ${membershiplist}">
+            <img class="group list-group-image" src="/img/book_thumb.png" th:src="'/img/'+${membership.getImgURL()}" alt="" height="200" width="200"/>
             <div class="thumbnail">
                 <div class="caption">
                     <h2 class="group inner list-group-item-heading" th:text="${membership.getMessage()}">
@@ -42,8 +42,7 @@
             </div>
         </div>
     </div>
+    </div>>
     <div th:replace="footer :: copy"></div>
-</div>
-
 </body>
 </html>
