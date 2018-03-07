@@ -5,10 +5,16 @@
 
         <div th:replace="header/header :: copy"></div>
         <div class="container">
-            <div class="tab_switcher">
-                <a href="/admin/pending_rents"><button th:class="${rentTab} == 'pending' ? 'btn btn-primary' : 'btn btn-btn-muted'">Pending rents</button></a>
-                <a href="/admin/rented_rents"><button th:class="${rentTab} == 'rented' ? 'btn btn-primary' : 'btn btn-btn-muted'">Rented rents</button></a>
-                <a href="/admin/returned_rents"><button th:class="${rentTab} == 'returned' ? 'btn btn-primary' : 'btn btn-btn-muted'">Returned rents</button></a>
+            <div class="row">
+                <div class="col-sm tab" >
+                    <a href="/admin/pending_rents"><div th:class="${rentTab} == 'pending' ? 'activetab firsttab' : 'inactivetab firsttab'">Pending rents</div></a>
+                </div>
+                <div class="col-sm tab" >
+                    <a href="/admin/rented_rents"><div th:class="${rentTab} == 'rented' ? 'activetab' : 'inactivetab'">Rented rents</div></a>
+                </div>
+                <div class="col-sm tab" >
+                    <a href="/admin/returned_rents"><div th:class="${rentTab} == 'returned' ? 'activetab lasttab' : 'inactivetab lasttab'">Returned rents</div></a>
+                </div>
             </div>
             <div th:switch="${rentTab}">
                 <div th:case="'pending'">

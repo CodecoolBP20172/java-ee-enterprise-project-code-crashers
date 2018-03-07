@@ -34,7 +34,7 @@
             <td th:text="${rent.getDateEnd()}"></td>
             <td>
                 <form th:action="${'/endrent/' + rent.getId()}">
-                    <input type="submit" value="End rent"/>
+                    <input class="btn btn-success admin" type="submit" value="End rent"/>
                 </form>
             </td>
         </tr>

@@ -36,7 +36,7 @@ public class MemberController {
     }
 
     @RequestMapping(value = "/login", method = RequestMethod.POST)
-    public String login(HttpServletRequest req, HttpSession session, Model model){
+    public String login(HttpServletRequest req, HttpSession session, Model model) {
         Member member = memberService.getMemberByName(req.getParameter("name"));
         if(member != null && Password.checkPassword(req.getParameter("password"), member.getPassword())){
             session.setAttribute("name", req.getParameter("name"));
@@ -73,18 +73,22 @@ public class MemberController {
     }
 
     @RequestMapping(value = "/profile", method = RequestMethod.GET)
-    public String renderProfile(Model model, HttpSession session){
-        model.addAttribute("memberName", session.getAttribute("name"));
-        model.addAttribute("membership", session.getAttribute("membership"));
-        int id = (int)session.getAttribute("id");
-        model.addAttribute("pendingList", rentService.getPendingRentsByMemberId(id));
-        model.addAttribute("rentedList", rentService.getRentedRentsByMemberId(id));
-        model.addAttribute("returnedList", rentService.getReturnedRentsByMemberId(id));
-        return "profile/main_profile";
+    public String renderProfile(Model model, HttpSession session) {
+        if(!String.valueOf(session.getAttribute("membership")).equals("ADMIN")) {
+            model.addAttribute("memberName", session.getAttribute("name"));
+            model.addAttribute("membership", session.getAttribute("membership"));
+            int id = (int) session.getAttribute("id");
+            model.addAttribute("pendingList", rentService.getPendingRentsByMemberId(id));
+            model.addAttribute("rentedList", rentService.getRentedRentsByMemberId(id));
+            model.addAttribute("returnedList", rentService.getReturnedRentsByMemberId(id));
+            return "profile/main_profile";
+        } else {
+            return "redirect:/admin";
+        }
     }
 
     @RequestMapping(value = "/admin", method = RequestMethod.GET)
-    public String renderAdmin(Model model, HttpSession session){
+    public String renderAdmin(Model model, HttpSession session) {
         if(String.valueOf(session.getAttribute("membership")).equals("ADMIN")) {
             model.addAttribute("memberName", session.getAttribute("name"));
             model.addAttribute("rentTab", rentTab);

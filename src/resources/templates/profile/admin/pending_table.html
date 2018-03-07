@@ -30,7 +30,7 @@
             <td th:text="${rent.getCopy().getId()}"></td>
             <td>
                 <form th:action="${'/startrent/' + rent.getId()}">
-                    <input type="submit" value="Start rent"/>
+                    <input class="btn btn-success admin" type="submit" value="Start rent"/>
                 </form>
             </td>
         </tr>
