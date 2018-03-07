@@ -23,7 +23,12 @@
                                     <h5 class="group inner list-group-item-heading" th:text="'Price: ' + ${membership.getPrice()}">
                                         Price</h5>
                                     <form action="/membership" method="post">
-                                        <input class="btn btn-primary" type="submit" value="Buy"/>
+
+                                        <input type="hidden" th:value="${membership}" name="membership_type"/>
+                                        <div th:if="${membership} != ${user_membership}">
+                                            <input class="btn btn-primary" type="submit" value="Buy"/>
+                                        </div>
+
                                     </form>
                                 </div>
                             </div>
