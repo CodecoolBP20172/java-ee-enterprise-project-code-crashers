@@ -18,10 +18,6 @@ import static org.junit.jupiter.api.Assertions.assertNull;
 @RunWith(SpringRunner.class)
 @SpringBootTest
 public class CopyServiceTest {
-    @BeforeAll
-    public void setup() {
-        InitializerBean.setTestRunning(true);
-    }
 
     @Autowired
     private CopyService copyService;
