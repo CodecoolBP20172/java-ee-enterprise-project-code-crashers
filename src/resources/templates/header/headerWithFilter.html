@@ -10,7 +10,7 @@
                     <img src="/img/logo.png" alt=""/>
                 </a>
                 <form class="form-inline filter" action="/filter" method="get">
-                    <div class="form-group" th:object="${categories}">
+                    <div th:object="${categories}">
                         <select class="form-control" id="category" name="category">
                             <option value="0">ALL</option>
                             <option th:each="cat : ${categories}"
@@ -19,7 +19,7 @@
                         </select>
                     </div>
 
-                    <div class="col-sm-5" th:object="${genres}">
+                    <div  th:object="${genres}">
                         <select class="form-control" id="genre" name="genre">
                             <option value="0">ALL</option>
                             <option th:each="gen : ${genres}"
@@ -27,7 +27,7 @@
                                     th:text="${gen.getType()}"></option>
                         </select>
                     </div>
-                    <button type="selectCategory" class="btn btn-warning">Filter</button>
+                    <button type="selectCategory" class="btn btn-primary">Filter</button>
                 </form>
             </div>
             <div th:replace="header/login_block :: copy"></div>
@@ -37,7 +37,7 @@
     <div class="jumbotron text-center">
         <h2>
             CrashBooks
-            <small class="text-muted">by Code Crashers</small>
+            <small class="text-white">by Code Crashers</small>
         </h2>
     </div>
 </div>
