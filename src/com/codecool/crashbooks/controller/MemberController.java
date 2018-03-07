@@ -142,7 +142,7 @@ public class MemberController {
         if(editable.equals("username") || editable.equals("password")){
             model.addAttribute("memberName", session.getAttribute("name"));
             model.addAttribute("editable", editable);
-            return "profile/edit";
+            return "profile/member/edit";
         }
         model.addAttribute("error", "There is no such route!");
         return "media/error";
@@ -180,7 +180,7 @@ public class MemberController {
             model.addAttribute("id", session.getAttribute("id"));
             model.addAttribute("user_membership", memberService.getMemberByName(name).getMembership());
             model.addAttribute("membershiplist", Arrays.asList(Membership.FREE, Membership.BRONZE, Membership.SILVER, Membership.GOLD));
-            return "profile/membership";
+            return "profile/member/membership";
         }
         model.addAttribute("user_information", "Please log in to see membership information!");
         return "media/login";

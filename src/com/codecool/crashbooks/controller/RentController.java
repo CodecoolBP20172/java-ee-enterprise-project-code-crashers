@@ -37,7 +37,7 @@ public class RentController {
             model.addAttribute("id", session.getAttribute("id"));
             model.addAttribute("user_membership", memberService.getMemberByName(name).getMembership());
             model.addAttribute("membershiplist", Arrays.asList(Membership.FREE, Membership.BRONZE, Membership.SILVER, Membership.GOLD));
-            return "profile/membership";
+            return "profile/member/membership";
         }else{
             rentService.createRent(memberService.getMemberByName(name), copyService.getFirstAvailableCopy(Integer.parseInt(req.getParameter("media_id"))));
         }
