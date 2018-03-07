@@ -8,7 +8,9 @@ import com.codecool.crashbooks.service.AuthorService;
 import com.codecool.crashbooks.service.CategoryService;
 import com.codecool.crashbooks.service.GenreService;
 import com.codecool.crashbooks.service.MediaService;
+import com.codecool.crashbooks.utility.InitializerBean;
 import org.junit.Test;
+import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.runner.RunWith;
 import org.mockito.Mockito;
@@ -24,7 +26,10 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 @RunWith(SpringRunner.class)
 @SpringBootTest
 public class MediaServiceTest {
-
+    @BeforeAll
+    public void setup() {
+        InitializerBean.setTestRunning(true);
+    }
     @Autowired
     MediaService mediaService;
     @Autowired
