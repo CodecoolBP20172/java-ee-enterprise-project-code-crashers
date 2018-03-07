@@ -30,7 +30,7 @@ public class RentController {
         String name =(String) session.getAttribute("name");
         if (name == null) {
             model.addAttribute("user_information", "Please Log in!");
-            return "book/login";
+            return "media/login";
         }else if(remainingRents((int)session.getAttribute("id"))<=0){
             model.addAttribute("user_information", "Rent limit reached!");
             model.addAttribute("member", name);
@@ -51,7 +51,7 @@ public class RentController {
             return "redirect:/admin";
         } else {
             model.addAttribute("error", "Forbidden! You don't have permission for this page.");
-            return "book/error";
+            return "media/error";
         }
     }
 
@@ -62,7 +62,7 @@ public class RentController {
             return "redirect:/admin";
         } else {
             model.addAttribute("error", "Forbidden! You don't have permission for this page.");
-            return "book/error";
+            return "media/error";
         }
     }
 

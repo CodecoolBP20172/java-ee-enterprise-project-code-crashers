@@ -32,7 +32,7 @@ public class MemberController {
 
     @RequestMapping(value = "/login", method = RequestMethod.GET)
     public String renderLoginPage(){
-        return "book/login";
+        return "media/login";
     }
 
     @RequestMapping(value = "/login", method = RequestMethod.POST)
@@ -49,13 +49,13 @@ public class MemberController {
             }
         }else{
             model.addAttribute("error", "Login Failed! Username or Password invalid!");
-            return "book/error";
+            return "media/error";
         }
     }
 
     @RequestMapping(value = "/registration", method = RequestMethod.GET)
     public String renderRegistrationPage(){
-        return "book/registration";
+        return "media/registration";
     }
 
     @RequestMapping(value = "/registration", method = RequestMethod.POST)
@@ -68,7 +68,7 @@ public class MemberController {
             return "redirect:/";
         }else{
             model.addAttribute("error", "Registration Failed!");
-            return "book/error";
+            return "media/error";
         }
     }
 
@@ -94,7 +94,7 @@ public class MemberController {
             return "profile/admin_profile";
         } else {
             model.addAttribute("error", "Forbidden! You don't have permission for this page.");
-            return "book/error";
+            return "media/error";
         }
     }
 
@@ -105,7 +105,7 @@ public class MemberController {
             return "redirect:/admin";
         } else {
             model.addAttribute("error", "Forbidden! You don't have permission for this page.");
-            return "book/error";
+            return "media/error";
         }
     }
 
@@ -116,7 +116,7 @@ public class MemberController {
             return "redirect:/admin";
         } else {
             model.addAttribute("error", "Forbidden! You don't have permission for this page.");
-            return "book/error";
+            return "media/error";
         }
     }
 
@@ -127,7 +127,7 @@ public class MemberController {
             return "redirect:/admin";
         } else {
             model.addAttribute("error", "Forbidden! You don't have permission for this page.");
-            return "book/error";
+            return "media/error";
         }
     }
 
@@ -145,7 +145,7 @@ public class MemberController {
             return "profile/edit";
         }
         model.addAttribute("error", "There is no such route!");
-        return "book/error";
+        return "media/error";
     }
 
     @RequestMapping(value = "/edit/{editable}", method = RequestMethod.POST) //TODO find a good name for editable, possibly make it two different route
@@ -169,7 +169,7 @@ public class MemberController {
                 model.addAttribute("error", "Passwords are not the same!");
             }
         }
-        return "book/error";
+        return "media/error";
     }
 
     @RequestMapping(value = "/membership", method = RequestMethod.GET)
@@ -183,7 +183,7 @@ public class MemberController {
             return "profile/membership";
         }
         model.addAttribute("user_information", "Please log in to see membership information!");
-        return "book/login";
+        return "media/login";
     }
 
     @RequestMapping(value = "/membership", method = RequestMethod.POST)
