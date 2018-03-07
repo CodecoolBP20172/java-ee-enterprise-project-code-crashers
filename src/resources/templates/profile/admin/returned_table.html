@@ -1,0 +1,36 @@
+<!doctype html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="head :: copy"></head>
+<body>
+
+<div th:fragment="copy">
+    <div class="breadcrumb">
+        <strong class="breadcrumb-item">
+            Returned media
+        </strong>
+    </div>
+
+    <table class="table">
+        <thead class="thead-primary">
+        <tr>
+            <th scope="col">Rent ID</th>
+            <th scope="col">Member name</th>
+            <th scope="col">Title</th>
+            <th scope="col">Author</th>
+            <th scope="col">Copy ID</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="rent,iterStat : $returnedList}">
+            <td th:text="${rent.getId()}"></td>
+            <td th:text="${rent.getMember().getName()}"></td>
+            <td th:text="${rent.getCopy().getMedia().getTitle()}"></td>
+            <td th:text="${rent.getCopy().getMedia().getAuthor().getName()}"></td>
+            <td th:text="${rent.getCopy().getId()}"></td>
+        </tr>
+        </tbody>
+    </table>
+
+</div>
+</body>
+</html>
