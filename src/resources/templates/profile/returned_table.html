@@ -32,7 +32,7 @@
             <td th:text="${rent.getDateStart()}"></td>
             <td th:text="${rent.getDateEnd()}"></td>
             <td th:text="${rent.getDateReturned()}"></td>
-            <td th:text="${rent.getFine()}"></td>
+            <td th:text="${rent.getFine()}  + ' $'"></td>
         </tr>
         </tbody>
     </table>

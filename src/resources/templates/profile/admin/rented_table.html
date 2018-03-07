@@ -9,6 +9,7 @@
             Rented media
         </strong>
     </div>
+
     <table class="table">
         <thead class="thead-primary">
         <tr>
@@ -17,6 +18,8 @@
             <th scope="col">Title</th>
             <th scope="col">Author</th>
             <th scope="col">Copy ID</th>
+            <th scope="col">Start date</th>
+            <th scope="col">End date</th>
             <th scope="col">Return</th>
         </tr>
         </thead>
@@ -27,6 +30,8 @@
             <td th:text="${rent.getCopy().getMedia().getTitle()}"></td>
             <td th:text="${rent.getCopy().getMedia().getAuthor().getName()}"></td>
             <td th:text="${rent.getCopy().getId()}"></td>
+            <td th:text="${rent.getDateStart()}"></td>
+            <td th:text="${rent.getDateEnd()}"></td>
             <td>
                 <form th:action="${'/endrent/' + rent.getId()}">
                     <input type="submit" value="End rent"/>
