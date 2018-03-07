@@ -1,15 +1,10 @@
-package com.codecool.crashbooks.model.mediaproperty;
+package com.codecool.crashbooks.model.mediaProperty;
 
 import com.codecool.crashbooks.model.Media;
 
 import javax.persistence.*;
 import java.util.List;
 
-@NamedQueries({
-        @NamedQuery(name = "Author.getById", query = "SELECT a FROM Author a WHERE id = :id"),
-        @NamedQuery(name = "Author.getByName", query = "SELECT a FROM Author a WHERE name = :name"),
-        @NamedQuery(name = "Author.getAllAuthor", query = "SELECT a FROM Author a")
-})
 @Entity
 public class Author {
 
@@ -35,5 +30,9 @@ public class Author {
 
     public int getId() {
         return id;
+    }
+
+    public static Author create(String name) {
+        return new Author(name);
     }
 }

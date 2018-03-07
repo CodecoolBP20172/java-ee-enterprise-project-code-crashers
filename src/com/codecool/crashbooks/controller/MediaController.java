@@ -1,80 +1,83 @@
 package com.codecool.crashbooks.controller;
 
-import com.codecool.crashbooks.model.mediaproperty.Category;
-import com.codecool.crashbooks.model.mediaproperty.Genre;
+import com.codecool.crashbooks.model.mediaProperty.Category;
+import com.codecool.crashbooks.model.mediaProperty.Genre;
 import com.codecool.crashbooks.service.CategoryService;
 import com.codecool.crashbooks.service.GenreService;
 import com.codecool.crashbooks.service.MediaService;
 import com.codecool.crashbooks.service.RentService;
-import spark.ModelAndView;
-import spark.Request;
-import spark.Response;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Scope;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 
-import java.util.HashMap;
-import java.util.Map;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
+@Controller
+@Scope("session")
 public class MediaController {
 
-    private final MediaService mediaService;
-    private final GenreService genreService;
-    private final CategoryService categoryService;
-    private final RentService rentService;
+    @Autowired
+    MediaService mediaService;
+    @Autowired
+    GenreService genreService;
+    @Autowired
+    CategoryService categoryService;
+    @Autowired
+    RentService rentService;
 
-    public MediaController(MediaService mediaService, GenreService genreService, CategoryService categoryService,
-                           RentService rentService) {
-        this.mediaService = mediaService;
-        this.genreService = genreService;
-        this.categoryService = categoryService;
-        this.rentService = rentService;
+
+    @RequestMapping(value = "/", method = RequestMethod.GET)
+    public String renderAllMedia(Model model, HttpSession session){
+        model.addAttribute("medialist", mediaService.getAllMedia());
+        model.addAttribute("genres", genreService.getAllGenre());
+        model.addAttribute("categories", categoryService.getAllCategory());
+        model.addAttribute("member", session.getAttribute("name"));
+        return "book/index";
     }
 
-    public ModelAndView renderAllMedia(Request request, Response response) {
-        Map<String, Object> params = new HashMap<>();
-        params.put("medialist", mediaService.getAllMedia());
-        params.put("genres", genreService.getAllGenre());
-        params.put("categories", categoryService.getAllCategory());
-        params.put("member", request.session().attribute("name"));
-        return new ModelAndView(params, "book/index");
-    }
+    @RequestMapping(value = "/filter", method = RequestMethod.GET)
+    public String renderMediaByFilter(Model model, HttpServletRequest req, HttpSession session){
+        int genreId = Integer.parseInt(req.getParameter("genre"));
+        int categoryId = Integer.parseInt(req.getParameter("category"));
 
-    public ModelAndView renderMediaByFilter(Request request, Response response) {
-        Map<String, Object> params = new HashMap<>();
-        int genreId = Integer.parseInt(request.queryParams("genre"));
-        int categoryId = Integer.parseInt(request.queryParams("category"));
+        Genre genre = genreId == 0 ? null:genreService.getGenreById(genreId);
+        Category category = categoryId == 0 ? null:categoryService.getCategoryById(categoryId);
 
-        Genre genre = genreId == 0 ? null : genreService.getGenreById(genreId);
-        Category category = categoryId == 0 ? null : categoryService.getCategoryById(categoryId);
-
-        if (genreId == 0 && categoryId == 0) {
-            response.redirect("/");
-        } else if (genreId == 0) {
-            params.put("medialist", mediaService.getMediasBy(category));
-        } else if (categoryId == 0) {
-            params.put("medialist", mediaService.getMediasBy(genre));
-        } else {
-            params.put("medialist", mediaService.getMediasBy(genre, category));
+        if(genreId ==0 && categoryId ==0){
+            return "index";
+        }else if (genreId ==0){
+            model.addAttribute("medialist", mediaService.getMediasBy(category));
+        } else if (categoryId ==0){
+            model.addAttribute("medialist", mediaService.getMediasBy(genre));
+        } else{
+            model.addAttribute("medialist", mediaService.getMediasBy(genre, category));
         }
-        params.put("genre", genre);
-        params.put("genres", genreService.getAllGenre());
-        params.put("category", category);
-        params.put("categories", categoryService.getAllCategory());
-        params.put("member", request.session().attribute("name"));
-        return new ModelAndView(params, "book/index");
+
+        model.addAttribute("genre", genre);
+        model.addAttribute("genres", genreService.getAllGenre());
+        model.addAttribute("category", category);
+        model.addAttribute("categories", categoryService.getAllCategory());
+        model.addAttribute("member", session.getAttribute("name"));
+        return "book/index";
     }
 
-    public ModelAndView renderProfile(Request request, Response response) {
-        Map<String, Object> params = new HashMap<>();
-        params.put("member", request.session().attribute("name"));
-        params.put("pendingList", rentService.getPendingRentsByMemberId(request.session().attribute("id")));
-        params.put("rentedList", rentService.getRentedRentsByMemberId(request.session().attribute("id")));
-        params.put("returnedList", rentService.getReturnedRentsByMemberId(request.session().attribute("id")));
-        return new ModelAndView(params, "profile/main_profile");
+    @RequestMapping(value = "/profile", method = RequestMethod.GET)
+    public String renderProfile(Model model, HttpSession session){
+        model.addAttribute("member", session.getAttribute("name"));
+        model.addAttribute("pendingList", rentService.getPendingRentsByMemberId((int)session.getAttribute("id")));
+        model.addAttribute("rentedList", rentService.getRentedRentsByMemberId((int)session.getAttribute("id")));
+        model.addAttribute("returnedList", rentService.getReturnedRentsByMemberId((int)session.getAttribute("id")));
+        return "profile/main_profile";
     }
 
-    public ModelAndView soon(Request request, Response response) {
-        Map<String, Object> params = new HashMap<>();
-        params.put("member", request.session().attribute("name"));
-        return new ModelAndView(params, "book/index");
+    @RequestMapping(value = "/soon", method = RequestMethod.POST)
+    public String renderSoon(Model model, HttpSession session){
+        model.addAttribute("member", session.getAttribute("name"));
+        return "book/index";
     }
 
 }

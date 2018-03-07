@@ -1,20 +1,11 @@
 package com.codecool.crashbooks.model;
 
-import com.codecool.crashbooks.model.mediaproperty.*;
+import com.codecool.crashbooks.model.mediaProperty.*;
 
 import javax.persistence.*;
 import java.util.HashSet;
 import java.util.Set;
 
-@NamedQueries({
-        @NamedQuery(name = "Media.getAllMedia", query = "SELECT m FROM Media m"),
-        @NamedQuery(name = "Media.getMediaByGenre", query = "SELECT m FROM Media m JOIN m.genres bg " +
-                " WHERE bg.id = :id"),
-        @NamedQuery(name = "Media.getMediaByGenreAndCategory", query = "SELECT m FROM Media m JOIN m.genres bg " +
-                " WHERE bg.id = :genreId AND category_id = :categoryId"),
-        @NamedQuery(name = "Media.getMediaByCategory", query = "SELECT m FROM Media m WHERE category_id = :id"),
-        @NamedQuery(name = "Media.getMediaByAuthor", query = "SELECT m FROM Media m WHERE author_id = :id")
-})
 @Entity
 public class Media {
 
@@ -88,11 +79,16 @@ public class Media {
     }
 
     public long getAvailableCopiesNumber() {
-        return copies.stream().filter(copy -> StatusType.AVAILABLE.equals(copy.getStatus())).count();
+        return copies.stream().filter(copy -> CopyStatuses.AVAILABLE.equals(copy.getStatus())).count();
     }
 
     public boolean isCopyAvailable() {
-        return copies.stream().anyMatch(copy -> StatusType.AVAILABLE.equals(copy.getStatus()));
+        return copies.stream().anyMatch(copy -> CopyStatuses.AVAILABLE.equals(copy.getStatus()));
+    }
+
+    public static Media create(String title, Author author, Category category, Genre genre, String pictureUrl,
+                               int year, String description) {
+        return new Media(title,author, category, genre, pictureUrl, year, description);
     }
 }
 

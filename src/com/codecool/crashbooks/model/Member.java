@@ -1,14 +1,10 @@
 package com.codecool.crashbooks.model;
 
-import com.codecool.crashbooks.model.mediaproperty.Rent;
+import com.codecool.crashbooks.model.memberProperty.Membership;
 
 import javax.persistence.*;
 import java.util.List;
 
-@NamedQueries({
-        @NamedQuery(name = "Member.getMemberById", query = "SELECT m FROM Member m WHERE id =:id"),
-        @NamedQuery(name = "Member.getMemberByName", query = "SELECT m FROM Member m WHERE name = :name")
-})
 @Entity
 public class Member {
 
@@ -49,6 +45,10 @@ public class Member {
 
     public void setMembership(Membership membership) {
         this.membership = membership;
+    }
+
+    public static Member create(String name, String password) {
+        return new Member(name, password);
     }
 
 }

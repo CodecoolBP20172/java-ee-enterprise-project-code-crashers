@@ -1,16 +1,9 @@
-package com.codecool.crashbooks.model.mediaproperty;
+package com.codecool.crashbooks.model;
 
-import com.codecool.crashbooks.model.Media;
 
 import javax.persistence.*;
 import java.util.List;
 
-@NamedQueries({
-        @NamedQuery(name = "Copy.getById", query = "SELECT a FROM Copy a WHERE id = :id"),
-        @NamedQuery(name = "Copy.getByStatus", query = "SELECT a FROM Copy a WHERE status = :status"),
-        @NamedQuery(name = "Copy.getAvailableCopyByMediaId", query = "SELECT a FROM Copy a WHERE media_id = :id AND status = 'AVAILABLE'"),
-        @NamedQuery(name = "Copy.getAllCopy", query = "SELECT a FROM Copy a")
-})
 @Entity
 public class Copy {
 
@@ -26,14 +19,14 @@ public class Copy {
     private List<Rent> rents;
 
     @Enumerated(EnumType.STRING)
-    private StatusType status;
+    private CopyStatuses status;
 
     public Copy() {
     }
 
     public Copy(Media media) {
         this.media = media;
-        this.status = StatusType.AVAILABLE;
+        this.status = CopyStatuses.AVAILABLE;
     }
 
     public Media getMedia() {
@@ -44,11 +37,11 @@ public class Copy {
         return id;
     }
 
-    public StatusType getStatus() {
+    public CopyStatuses getStatus() {
         return status;
     }
 
-    public void setStatus(StatusType status) {
+    public void setStatus(CopyStatuses status) {
         this.status = status;
     }
 
@@ -58,5 +51,9 @@ public class Copy {
 
     public void setRents(List<Rent> rents) {
         this.rents = rents;
+    }
+
+    public static Copy create(Media media) {
+        return new Copy(media);
     }
 }

@@ -3,31 +3,30 @@ package com.codecool.crashbooks.controller;
 import com.codecool.crashbooks.service.CopyService;
 import com.codecool.crashbooks.service.MemberService;
 import com.codecool.crashbooks.service.RentService;
-import spark.ModelAndView;
-import spark.Request;
-import spark.Response;
+import org.apache.catalina.servlet4preview.http.HttpServletRequest;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 
-import java.util.HashMap;
-import java.util.Map;
 
+import javax.servlet.http.HttpSession;
+
+@Controller
 public class RentController {
 
-    private final RentService rentService;
-    private final MemberService memberService;
-    private final CopyService copyService;
+    @Autowired
+    RentService rentService;
+    @Autowired
+    MemberService memberService;
+    @Autowired
+    CopyService copyService;
 
-    public RentController(RentService rentService, MemberService memberService, CopyService copyService) {
-        this.rentService = rentService;
-        this.memberService = memberService;
-        this.copyService = copyService;
-    }
-
-    public ModelAndView rentCopy(Request request, Response response) {
-        Map<String, Object> params = new HashMap<>();
-        if (request.session().attribute("name") != null) {
-            rentService.createRent(memberService.getMemberByName(request.session().attribute("name")), copyService.getFirstAvailableCopy(Integer.parseInt(request.queryParams("media_id"))));
+    @RequestMapping(value = "/rent", method = RequestMethod.POST)
+    public String rentCopy(HttpSession session, HttpServletRequest req) {
+        if (session.getAttribute("name") != null) {
+            rentService.createRent(memberService.getMemberByName((String) session.getAttribute("name")), copyService.getFirstAvailableCopy(Integer.parseInt(req.getParameter("media_id"))));
         }
-        response.redirect("/");
-        return null;
+        return "redirect:/";
     }
 }

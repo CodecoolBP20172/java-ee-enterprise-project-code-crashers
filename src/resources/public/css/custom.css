@@ -76,7 +76,12 @@
 
 .jumbotron {
     background-size: contain;
-    background: #98d0c5 url("../img/banner.png") no-repeat;
+    background: #7bc2e4 url("../img/banner.png") no-repeat;
+}
+
+.btn-primary {
+    background-color: #2c7fa3;
+    color: white;
 }
 
 .breadcrumb {
@@ -123,3 +128,5 @@ thead {
 body{
     background: radial-gradient(#ffffff, #eeeeee);
 }
+
+

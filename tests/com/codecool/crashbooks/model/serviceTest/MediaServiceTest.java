@@ -1,24 +1,43 @@
-package com.codecool.crashbooks.model;
+package com.codecool.crashbooks.model.serviceTest;
 
-import com.codecool.crashbooks.model.mediaproperty.Author;
-import com.codecool.crashbooks.model.mediaproperty.Category;
-import com.codecool.crashbooks.model.mediaproperty.CategoryType;
-import com.codecool.crashbooks.model.mediaproperty.Genre;
+import com.codecool.crashbooks.model.mediaProperty.Author;
+import com.codecool.crashbooks.model.mediaProperty.Categories;
+import com.codecool.crashbooks.model.mediaProperty.Category;
+import com.codecool.crashbooks.model.mediaProperty.Genre;
 import com.codecool.crashbooks.service.AuthorService;
 import com.codecool.crashbooks.service.CategoryService;
 import com.codecool.crashbooks.service.GenreService;
 import com.codecool.crashbooks.service.MediaService;
+import com.codecool.crashbooks.utility.InitializerBean;
+import org.junit.Test;
+import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.Test;
+import org.junit.runner.RunWith;
 import org.mockito.Mockito;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.test.context.junit4.SpringRunner;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static junit.framework.TestCase.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
-class MediaTest extends SetupAndTearDown {
-    MediaService mediaService = new MediaService(emf);
-    GenreService genreService = new GenreService(emf);
-    CategoryService categoryService = new CategoryService(emf);
-    AuthorService authorService = new AuthorService(emf);
+
+@RunWith(SpringRunner.class)
+@SpringBootTest
+public class MediaServiceTest {
+    @BeforeAll
+    public void setup() {
+        InitializerBean.setTestRunning(true);
+    }
+    @Autowired
+    MediaService mediaService;
+    @Autowired
+    GenreService genreService;
+    @Autowired
+    CategoryService categoryService;
+    @Autowired
+    AuthorService authorService;
 
     @Test
     @DisplayName("All media")
@@ -40,7 +59,7 @@ class MediaTest extends SetupAndTearDown {
     @DisplayName("Size check for allMediaByGenre, ADVENTURE")
     public void testGetMediaByGenreValidSizeForAdventure() {
         Genre genreMock = Mockito.mock(Genre.class);
-        Mockito.when(genreMock.getId()).thenReturn(10);
+        Mockito.when(genreMock.getId()).thenReturn(1);
         assertEquals(2, mediaService.getMediasBy(genreMock).size());
     }
 
@@ -48,14 +67,14 @@ class MediaTest extends SetupAndTearDown {
     @DisplayName("Size check for allMediaByGenre, MYTHOLOGY")
     public void testGetMediaByGenreValidSizeForMythology() {
         Genre genreMock = Mockito.mock(Genre.class);
-        Mockito.when(genreMock.getId()).thenReturn(9);
+        Mockito.when(genreMock.getId()).thenReturn(3);
         assertEquals(1, mediaService.getMediasBy(genreMock).size());
     }
 
     @Test
     @DisplayName("Check for valid type, ADVENTURE")
     public void testGetMediaByAdventureGenreValidType() {
-        Genre genre = genreService.getGenreById(10);
+        Genre genre = genreService.getGenreById(1);
         assertTrue(mediaService.getMediasBy(genre).get(0)
                 .getGenres()
                 .contains(genre));  //TODO rethink to use mock
@@ -64,7 +83,7 @@ class MediaTest extends SetupAndTearDown {
     @Test
     @DisplayName("Check for valid type, MYTHOLOGY")
     public void testGetMediaByMythologyGenreValidType() {
-        Genre genre = genreService.getGenreById(9);
+        Genre genre = genreService.getGenreById(3);
         assertTrue(mediaService.getMediasBy(genre).get(0)
                 .getGenres()
                 .contains(genre)); //TODO rethink to use mock
@@ -100,14 +119,14 @@ class MediaTest extends SetupAndTearDown {
     @DisplayName("Check for valid type, MAGAZINE")
     public void testGetAllMediaByCategoryForMagazineType() {
         Category realCategory = mediaService.getAllMedia().get(0).getCategory();
-        assertEquals(CategoryType.MAGAZINE, realCategory.getType());
+        assertEquals(Categories.MAGAZINE, realCategory.getType());
     }
 
     @Test
     @DisplayName("Check for valid type, Book")
     public void testGetAllMediaByCategoryForBookType() {
         Category realCategory = mediaService.getAllMedia().get(1).getCategory();
-        assertEquals(CategoryType.BOOK, realCategory.getType());
+        assertEquals(Categories.BOOK, realCategory.getType());
     }
 
     //Author tests

@@ -1,4 +1,4 @@
-package com.codecool.crashbooks.model.mediaproperty;
+package com.codecool.crashbooks.model.mediaProperty;
 
 import com.codecool.crashbooks.model.Media;
 
@@ -6,11 +6,6 @@ import javax.persistence.*;
 import java.util.Objects;
 import java.util.Set;
 
-@NamedQueries({
-        @NamedQuery(name = "Genre.getById", query = "SELECT g FROM Genre g WHERE id = :id"),
-        @NamedQuery(name = "Genre.getByType", query = "SELECT g FROM Genre g WHERE type = :type"),
-        @NamedQuery(name = "Genre.getAllGenre", query = "SELECT g FROM Genre g")
-})
 @Entity
 public class Genre {
 
@@ -20,12 +15,12 @@ public class Genre {
 
     @Enumerated(EnumType.STRING)
     @Column(unique = true)
-    private GenreType type;
+    private Genres type;
 
     @ManyToMany(mappedBy = "genres", fetch = FetchType.EAGER)
     private Set<Media> media;
 
-    public Genre(GenreType type) {
+    public Genre(Genres type) {
         this.type = type;
     }
 
@@ -36,7 +31,7 @@ public class Genre {
         return id;
     }
 
-    public GenreType getType() {
+    public Genres getType() {
         return type;
     }
 
@@ -51,7 +46,10 @@ public class Genre {
 
     @Override
     public int hashCode() {
-
         return Objects.hash(id, type);
+    }
+
+    public static Genre create(Genres type) {
+        return new Genre(type);
     }
 }

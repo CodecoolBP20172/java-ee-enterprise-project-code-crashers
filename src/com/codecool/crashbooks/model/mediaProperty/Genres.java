@@ -1,6 +1,6 @@
-package com.codecool.crashbooks.model.mediaproperty;
+package com.codecool.crashbooks.model.mediaProperty;
 
-public enum GenreType {
+public enum Genres {
     COMEDY,
     DRAMA,
     HORROR,

@@ -1,6 +1,4 @@
-package com.codecool.crashbooks.model.mediaproperty;
-
-import com.codecool.crashbooks.model.Member;
+package com.codecool.crashbooks.model;
 
 import javax.persistence.*;
 import java.text.DateFormat;
@@ -8,15 +6,6 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 
-@NamedQueries({
-        @NamedQuery(name = "Rent.getById", query = "SELECT r FROM Rent r WHERE id = :id"),
-        @NamedQuery(name = "Rent.getByStatus", query = "SELECT r FROM Rent r JOIN r.copy c WHERE c.status = :status"),
-        @NamedQuery(name = "Rent.getPendingByMemberId", query = "SELECT r FROM Rent r WHERE member_id = :id AND datestart IS NULL"),
-        @NamedQuery(name = "Rent.getRentedByMemberId", query = "SELECT r FROM Rent r WHERE member_id = :id AND datestart IS NOT NULL AND datereturned IS NULL"),
-        @NamedQuery(name = "Rent.getReturnedByMemberId", query = "SELECT r FROM Rent r WHERE member_id = :id AND datereturned IS NOT NULL"),
-        @NamedQuery(name = "Rent.getByMemberId", query = "SELECT r FROM Rent r WHERE member_id = :id"),
-        @NamedQuery(name = "Rent.getByCopyId", query = "SELECT r FROM Rent r WHERE copy_id = :id"),
-})
 @Entity
 public class Rent {
 
@@ -94,5 +83,9 @@ public class Rent {
 
     public double getFine() {
         return fine;
+    }
+
+    public static Rent create(Member member, Copy copy) {
+        return new Rent(member, copy);
     }
 }
