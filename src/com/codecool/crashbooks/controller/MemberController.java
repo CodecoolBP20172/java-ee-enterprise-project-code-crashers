@@ -37,7 +37,11 @@ public class MemberController {
             session.setAttribute("name", req.getParameter("name"));
             session.setAttribute("id", member.getId());
             session.setAttribute("membership", member.getMembership());
-            return "redirect:/";
+            if(String.valueOf(session.getAttribute("membership")).equals("ADMIN")) {
+                return "redirect:/admin";
+            } else {
+                return "redirect:/";
+            }
         }else{
             model.addAttribute("error", "Login Failed! Username or Password invalid!");
             return "book/error";
@@ -74,8 +78,8 @@ public class MemberController {
 
     @RequestMapping(value = "/admin", method = RequestMethod.GET)
     public String renderAdmin(Model model, HttpSession session){
-        if(session.getAttribute("membership") == "ADMIN") {
-            model.addAttribute("member", session.getAttribute("name"));
+        if(String.valueOf(session.getAttribute("membership")).equals("ADMIN")) {
+            model.addAttribute("memberName", session.getAttribute("name"));
             model.addAttribute("pendingList", rentService.getRentsByStatus(CopyStatuses.PENDING));
             model.addAttribute("rentedList", rentService.getRentsByStatus(CopyStatuses.RENTED));
             model.addAttribute("returnedList", rentService.getRentsByStatus(CopyStatuses.AVAILABLE));
