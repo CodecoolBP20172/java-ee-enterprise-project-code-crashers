@@ -32,8 +32,7 @@ public class MediaController {
         model.addAttribute("medialist", mediaService.getAllMedia());
         model.addAttribute("genres", genreService.getAllGenre());
         model.addAttribute("categories", categoryService.getAllCategory());
-        model.addAttribute("member", session.getAttribute("name"));
-        model.addAttribute("membership", session.getAttribute("membership"));
+        model.addAttribute("memberName", session.getAttribute("name"));
         return "book/index";
     }
 

@@ -9,7 +9,7 @@
             Returned media
         </strong>
     </div>
-
+    <div th:text="${returnedList}"></div>
     <table class="table">
         <thead class="thead-primary">
         <tr>
@@ -21,7 +21,7 @@
         </tr>
         </thead>
         <tbody>
-        <tr th:each="rent,iterStat : $returnedList}">
+        <tr th:each="rent,iterStat : ${returnedList}">
             <td th:text="${rent.getId()}"></td>
             <td th:text="${rent.getMember().getName()}"></td>
             <td th:text="${rent.getCopy().getMedia().getTitle()}"></td>

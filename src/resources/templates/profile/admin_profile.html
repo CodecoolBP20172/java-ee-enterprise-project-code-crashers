@@ -6,14 +6,21 @@
         <div th:replace="header/header :: copy"></div>
         <div class="container">
             <div class="tab_switcher">
-                <a href="/pending_rents"><button class="btn btn-primary">Pending rents</button></a>
-                <a href="/rented_rents"><button class="btn btn-muted">Rented rents</button></a>
-                <a href="/returned_rents"><button class="btn btn-muted">Pending rents</button></a>
+                <a href="/admin/pending_rents"><button th:class="${rentTab} == 'pending' ? 'btn btn-primary' : 'btn btn-btn-muted'">Pending rents</button></a>
+                <a href="/admin/rented_rents"><button th:class="${rentTab} == 'rented' ? 'btn btn-primary' : 'btn btn-btn-muted'">Rented rents</button></a>
+                <a href="/admin/returned_rents"><button th:class="${rentTab} == 'returned' ? 'btn btn-primary' : 'btn btn-btn-muted'">Returned rents</button></a>
             </div>
-            <div th:replace="profile/admin/pending_table :: copy"></div>
-            <!--<div th:replace="profile/admin/rented_table :: copy"></div>
-            <div th:replace="profile/admin/returned_table :: copy"></div>-->
-
+            <div th:switch="${rentTab}">
+                <div th:case="'pending'">
+                    <div th:replace="profile/admin/pending_table :: copy"></div>
+                </div>
+                <div th:case="'rented'">
+                    <div th:replace="profile/admin/rented_table :: copy"></div>
+                </div>
+                <div th:case="returned">
+                    <div  th:replace="profile/admin/returned_table :: copy"></div>
+                </div>
+            </div>
             <div th:replace="footer :: copy"></div>
 
         </div>

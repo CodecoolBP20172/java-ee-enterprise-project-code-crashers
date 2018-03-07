@@ -9,7 +9,6 @@
             Rented media
         </strong>
     </div>
-
     <table class="table">
         <thead class="thead-primary">
         <tr>
@@ -22,7 +21,7 @@
         </tr>
         </thead>
         <tbody>
-        <tr th:each="rent,iterStat : ${pendingList}">
+        <tr th:each="rent,iterStat : ${rentedList}">
             <td th:text="${rent.getId()}"></td>
             <td th:text="${rent.getMember().getName()}"></td>
             <td th:text="${rent.getCopy().getMedia().getTitle()}"></td>

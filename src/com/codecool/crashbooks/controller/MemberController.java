@@ -19,6 +19,8 @@ import javax.servlet.http.HttpSession;
 @Scope("session")
 public class MemberController {
 
+    private String rentTab = "pending";
+
     @Autowired
     MemberService memberService;
 
@@ -80,10 +82,44 @@ public class MemberController {
     public String renderAdmin(Model model, HttpSession session){
         if(String.valueOf(session.getAttribute("membership")).equals("ADMIN")) {
             model.addAttribute("memberName", session.getAttribute("name"));
+            model.addAttribute("rentTab", rentTab);
             model.addAttribute("pendingList", rentService.getRentsByStatus(CopyStatuses.PENDING));
             model.addAttribute("rentedList", rentService.getRentsByStatus(CopyStatuses.RENTED));
             model.addAttribute("returnedList", rentService.getRentsByStatus(CopyStatuses.AVAILABLE));
             return "profile/admin_profile";
+        } else {
+            model.addAttribute("error", "Forbidden! You don't have permission for this page.");
+            return "book/error";
+        }
+    }
+
+    @RequestMapping(value = "/admin/pending_rents", method = RequestMethod.GET)
+    public String renderPendingAdmin(Model model, HttpSession session){
+        if(String.valueOf(session.getAttribute("membership")).equals("ADMIN")) {
+            rentTab = "pending";
+            return "redirect:/admin";
+        } else {
+            model.addAttribute("error", "Forbidden! You don't have permission for this page.");
+            return "book/error";
+        }
+    }
+
+    @RequestMapping(value = "/admin/rented_rents", method = RequestMethod.GET)
+    public String renderRentedAdmin(Model model, HttpSession session){
+        if(String.valueOf(session.getAttribute("membership")).equals("ADMIN")) {
+            rentTab = "rented";
+            return "redirect:/admin";
+        } else {
+            model.addAttribute("error", "Forbidden! You don't have permission for this page.");
+            return "book/error";
+        }
+    }
+
+    @RequestMapping(value = "/admin/returned_rents", method = RequestMethod.GET)
+    public String renderReturnedAdmin(Model model, HttpSession session){
+        if(String.valueOf(session.getAttribute("membership")).equals("ADMIN")) {
+            rentTab = "returned";
+            return "redirect:/admin";
         } else {
             model.addAttribute("error", "Forbidden! You don't have permission for this page.");
             return "book/error";
