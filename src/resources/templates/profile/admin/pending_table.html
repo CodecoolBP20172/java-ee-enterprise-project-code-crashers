@@ -29,8 +29,8 @@
             <td th:text="${rent.getCopy().getMedia().getAuthor().getName()}"></td>
             <td th:text="${rent.getCopy().getId()}"></td>
             <td>
-                <form th:action="/">
-                    <form th:action="${'/startrent/' + rent.getId()}">
+                <form th:action="${'/startrent/' + rent.getId()}">
+                    <input type="submit" value="Start rent"/>
                 </form>
             </td>
         </tr>
