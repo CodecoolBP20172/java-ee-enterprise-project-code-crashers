@@ -1,0 +1,21 @@
+<!doctype html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+    <head th:replace="head :: copy"></head>
+    <body>
+
+        <div th:replace="header/header :: copy"></div>
+        <div class="container">
+            <div class="tab_switcher">
+                <a href="/pending_rents"><button class="btn btn-primary">Pending rents</button></a>
+                <a href="/rented_rents"><button class="btn btn-muted">Rented rents</button></a>
+                <a href="/returned_rents"><button class="btn btn-muted">Pending rents</button></a>
+            </div>
+            <div th:replace="profile/admin/pending_table :: copy"></div>
+            <!--<div th:replace="profile/admin/rented_table :: copy"></div>
+            <div th:replace="profile/admin/returned_table :: copy"></div>-->
+
+            <div th:replace="footer :: copy"></div>
+
+        </div>
+    </body>
+</html>
