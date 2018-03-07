@@ -4,16 +4,16 @@
 
 <ul class="nav navbar-nav" th:fragment="copy">
     <li class="active">
-        <div th:if="${member}">
+        <div th:if="${memberName}">
             <div class="btn-group" role="group" aria-label="Basic example">
-                <button type="button" class="btn btn-outline-primary" th:text="'Hi ' + ${member}"></button>
+                <button type="button" class="btn btn-outline-primary" th:text="'Hi ' + ${memberName}"></button>
                 <a href="/logout">
                     <button type="button" class="btn btn-outline-primary">Logout</button>
                 </a>
             </div>
             <a href="/profile"><img src="/img/profile.png" alt=""/></a> <!--TODO profile page-->
         </div>
-        <div th:unless="${member}">
+        <div th:unless="${memberName}">
             <div class="btn-group" role="group" aria-label="Basic example">
                 <a href="/registration">
                     <button type="register" class="btn btn-primary">Register</button>
