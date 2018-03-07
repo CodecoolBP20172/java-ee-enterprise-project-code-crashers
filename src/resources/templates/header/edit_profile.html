@@ -18,6 +18,8 @@
             <button class = "btn btn-primary">Buy New Membership</button>
         </a>
     </span>
+    <span th:text="'Your membership  is: ' + ${membership.getMessage()}+ '. You can rent '+ ${membership.getLimit()- pendingList.size()-rentedList.size()} + ' more book(s).'">
+    </span>
 </div>
 
 </body>
