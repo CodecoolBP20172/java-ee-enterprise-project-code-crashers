@@ -14,7 +14,7 @@ public class InitializerBean {
     public InitializerBean(AuthorService authorService, CategoryService categoryService, CopyService copyService,
                            GenreService genreService, MediaService mediaService, MemberService memberService,
                            RentService rentService) {
-        if(isTestRunning) {
+        if(!isTestRunning) {
             Author fekete = Author.create("Fekete István");
             Author rowling = Author.create("J. K. Rowling");
             Author tolkien = Author.create("J. R. R. Tolkien");
