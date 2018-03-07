@@ -1,11 +1,9 @@
 package com.codecool.crashbooks.controller;
 
+import com.codecool.crashbooks.model.Member;
 import com.codecool.crashbooks.model.mediaProperty.Category;
 import com.codecool.crashbooks.model.mediaProperty.Genre;
-import com.codecool.crashbooks.service.CategoryService;
-import com.codecool.crashbooks.service.GenreService;
-import com.codecool.crashbooks.service.MediaService;
-import com.codecool.crashbooks.service.RentService;
+import com.codecool.crashbooks.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
@@ -28,7 +26,8 @@ public class MediaController {
     CategoryService categoryService;
     @Autowired
     RentService rentService;
-
+    @Autowired
+    MemberService memberService;
 
     @RequestMapping(value = "/", method = RequestMethod.GET)
     public String renderAllMedia(Model model, HttpSession session){
@@ -68,15 +67,17 @@ public class MediaController {
     @RequestMapping(value = "/profile", method = RequestMethod.GET)
     public String renderProfile(Model model, HttpSession session){
         model.addAttribute("member", session.getAttribute("name"));
-        model.addAttribute("pendingList", rentService.getPendingRentsByMemberId((int)session.getAttribute("id")));
-        model.addAttribute("rentedList", rentService.getRentedRentsByMemberId((int)session.getAttribute("id")));
-        model.addAttribute("returnedList", rentService.getReturnedRentsByMemberId((int)session.getAttribute("id")));
+        int id = (int)session.getAttribute("id");
+        model.addAttribute("pendingList", rentService.getPendingRentsByMemberId(id));
+        model.addAttribute("rentedList", rentService.getRentedRentsByMemberId(id));
+        model.addAttribute("returnedList", rentService.getReturnedRentsByMemberId(id));
+        model.addAttribute("membership", memberService.getMemberById(id).getMembership());
         return "profile/main_profile";
     }
 
     @RequestMapping(value = "/soon", method = RequestMethod.POST)
     public String renderSoon(Model model, HttpSession session){
-        model.addAttribute("member", session.getAttribute("name"));
+        model.addAttribute("member",session.getAttribute("name"));
         return "book/index";
     }
 

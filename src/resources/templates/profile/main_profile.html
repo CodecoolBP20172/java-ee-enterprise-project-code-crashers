@@ -5,8 +5,7 @@
 
         <div th:replace="header/header :: copy"></div>
         <div class="container">
-            <strong th:text="${member} + ' your rent statuses'"></strong>
-
+            <div th:replace="header/edit_profile :: copy"></div>
             <div th:replace="profile/pending_table :: copy"></div>
             <div th:replace="profile/rented_table :: copy"></div>
             <div th:replace="profile/returned_table :: copy"></div>
