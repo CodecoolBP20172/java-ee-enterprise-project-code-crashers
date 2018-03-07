@@ -22,8 +22,8 @@
                                 <div class="col-6">
                                     <h5 class="group inner list-group-item-heading" th:text="'Price: ' + ${membership.getPrice()}">
                                         Price</h5>
-                                    <form action="/mebership" method="post">
-                                        <input class="btn btn-secondary" type="submit" value="Buy"/>
+                                    <form action="/membership" method="post">
+                                        <input class="btn btn-primary" type="submit" value="Buy"/>
                                     </form>
                                 </div>
                             </div>
@@ -34,8 +34,6 @@
             </div>
         </div>
     </div>
-
-
     <div th:replace="footer :: copy"></div>
 </div>
 
