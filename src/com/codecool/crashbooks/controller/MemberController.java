@@ -1,7 +1,9 @@
 package com.codecool.crashbooks.controller;
 
+import com.codecool.crashbooks.model.CopyStatuses;
 import com.codecool.crashbooks.model.Member;
 import com.codecool.crashbooks.service.MemberService;
+import com.codecool.crashbooks.service.RentService;
 import com.codecool.crashbooks.utility.Password;
 import org.apache.catalina.servlet4preview.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,6 +22,9 @@ public class MemberController {
     @Autowired
     MemberService memberService;
 
+    @Autowired
+    RentService rentService;
+
     @RequestMapping(value = "/login", method = RequestMethod.GET)
     public String renderLoginPage(){
         return "book/login";
@@ -31,6 +36,7 @@ public class MemberController {
         if(member != null && Password.checkPassword(req.getParameter("password"), member.getPassword())){
             session.setAttribute("name", req.getParameter("name"));
             session.setAttribute("id", member.getId());
+            session.setAttribute("membership", member.getMembership());
             return "redirect:/";
         }else{
             model.addAttribute("error", "Login Failed! Username or Password invalid!");
@@ -55,7 +61,29 @@ public class MemberController {
             model.addAttribute("error", "Registration Failed!");
             return "book/error";
         }
+    }
 
+    @RequestMapping(value = "/profile", method = RequestMethod.GET)
+    public String renderProfile(Model model, HttpSession session){
+        model.addAttribute("memberName", session.getAttribute("name"));
+        model.addAttribute("pendingList", rentService.getPendingRentsByMemberId((int)session.getAttribute("id")));
+        model.addAttribute("rentedList", rentService.getRentedRentsByMemberId((int)session.getAttribute("id")));
+        model.addAttribute("returnedList", rentService.getReturnedRentsByMemberId((int)session.getAttribute("id")));
+        return "profile/main_profile";
+    }
+
+    @RequestMapping(value = "/admin", method = RequestMethod.GET)
+    public String renderAdmin(Model model, HttpSession session){
+        if(session.getAttribute("membership") == "ADMIN") {
+            model.addAttribute("member", session.getAttribute("name"));
+            model.addAttribute("pendingList", rentService.getRentsByStatus(CopyStatuses.PENDING));
+            model.addAttribute("rentedList", rentService.getRentsByStatus(CopyStatuses.RENTED));
+            model.addAttribute("returnedList", rentService.getRentsByStatus(CopyStatuses.AVAILABLE));
+            return "profile/admin_profile";
+        } else {
+            model.addAttribute("error", "Forbidden! You don't have permission for this page.");
+            return "book/error";
+        }
     }
 
     @RequestMapping(value = "/logout", method = RequestMethod.GET)

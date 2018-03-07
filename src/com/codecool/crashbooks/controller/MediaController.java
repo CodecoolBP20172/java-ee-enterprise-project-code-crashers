@@ -26,9 +26,6 @@ public class MediaController {
     GenreService genreService;
     @Autowired
     CategoryService categoryService;
-    @Autowired
-    RentService rentService;
-
 
     @RequestMapping(value = "/", method = RequestMethod.GET)
     public String renderAllMedia(Model model, HttpSession session){
@@ -36,6 +33,7 @@ public class MediaController {
         model.addAttribute("genres", genreService.getAllGenre());
         model.addAttribute("categories", categoryService.getAllCategory());
         model.addAttribute("member", session.getAttribute("name"));
+        model.addAttribute("membership", session.getAttribute("membership"));
         return "book/index";
     }
 
@@ -63,15 +61,6 @@ public class MediaController {
         model.addAttribute("categories", categoryService.getAllCategory());
         model.addAttribute("member", session.getAttribute("name"));
         return "book/index";
-    }
-
-    @RequestMapping(value = "/profile", method = RequestMethod.GET)
-    public String renderProfile(Model model, HttpSession session){
-        model.addAttribute("member", session.getAttribute("name"));
-        model.addAttribute("pendingList", rentService.getPendingRentsByMemberId((int)session.getAttribute("id")));
-        model.addAttribute("rentedList", rentService.getRentedRentsByMemberId((int)session.getAttribute("id")));
-        model.addAttribute("returnedList", rentService.getReturnedRentsByMemberId((int)session.getAttribute("id")));
-        return "profile/main_profile";
     }
 
     @RequestMapping(value = "/soon", method = RequestMethod.POST)

@@ -43,6 +43,10 @@ public class Member {
         return password;
     }
 
+    public Membership getMembership() {
+        return membership;
+    }
+
     public void setMembership(Membership membership) {
         this.membership = membership;
     }
