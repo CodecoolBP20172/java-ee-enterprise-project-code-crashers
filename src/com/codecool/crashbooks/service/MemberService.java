@@ -1,6 +1,7 @@
 package com.codecool.crashbooks.service;
 
 import com.codecool.crashbooks.model.Member;
+import com.codecool.crashbooks.model.memberProperty.Membership;
 import com.codecool.crashbooks.repository.MemberRepository;
 import com.codecool.crashbooks.utility.Password;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -46,4 +47,10 @@ public class MemberService {
         return (getMemberByName(name)== null);
     }
 
+    public void setMembershipById(int id, String membership_type) {
+        Member member = getMemberById(id);
+        System.out.println(membership_type);
+        member.setMembership(Membership.valueOf(membership_type));
+        memberRepository.save(member);
+    }
 }

@@ -3,6 +3,7 @@ package com.codecool.crashbooks.controller;
 import com.codecool.crashbooks.model.Member;
 import com.codecool.crashbooks.model.memberProperty.Membership;
 import com.codecool.crashbooks.service.MemberService;
+import com.codecool.crashbooks.service.RentService;
 import com.codecool.crashbooks.utility.Password;
 import org.apache.catalina.servlet4preview.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,6 +23,8 @@ public class MemberController {
 
     @Autowired
     MemberService memberService;
+    @Autowired
+    RentService rentService;
 
     @RequestMapping(value = "/login", method = RequestMethod.GET)
     public String renderLoginPage(){
@@ -103,15 +106,25 @@ public class MemberController {
     }
 
     @RequestMapping(value = "/membership", method = RequestMethod.GET)
-    public String membership(Model model, HttpSession session){
+    public String renderMembershipPage(Model model, HttpSession session){
         String name = (String) session.getAttribute("name");
         if (name != null){
             model.addAttribute("member", name);
             model.addAttribute("id", session.getAttribute("id"));
-            model.addAttribute("membership", memberService.getMemberByName(name).getMembership());
+            model.addAttribute("user_membership", memberService.getMemberByName(name).getMembership());
             model.addAttribute("membershiplist", Arrays.asList(Membership.FREE, Membership.BRONZE, Membership.SILVER, Membership.GOLD));
             return "profile/membership";
         }
         return "redirect:/registration";
+    }
+
+    @RequestMapping(value = "/membership", method = RequestMethod.POST)
+    public String membership(HttpServletRequest req, HttpSession session, Model model){
+        model.addAttribute("member", session.getAttribute("name"));
+        model.addAttribute("pendingList", rentService.getPendingRentsByMemberId((int)session.getAttribute("id")));
+        model.addAttribute("rentedList", rentService.getRentedRentsByMemberId((int)session.getAttribute("id")));
+        model.addAttribute("returnedList", rentService.getReturnedRentsByMemberId((int)session.getAttribute("id")));
+        memberService.setMembershipById((int)session.getAttribute("id"), req.getParameter("membership_type"));
+        return "redirect:/profile";
     }
 }
