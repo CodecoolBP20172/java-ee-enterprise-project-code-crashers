@@ -1,5 +1,8 @@
 package com.codecool.crashbooks.model.memberProperty;
 
+import java.util.Arrays;
+import java.util.List;
+
 public enum Membership {
     ADMIN(0),
     FREE(1),
@@ -16,4 +19,5 @@ public enum Membership {
     public int getLimit() {
         return limit;
     }
+
 }

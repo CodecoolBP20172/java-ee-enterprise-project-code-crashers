@@ -2,6 +2,7 @@ package com.codecool.crashbooks.service;
 
 import com.codecool.crashbooks.model.Member;
 import com.codecool.crashbooks.repository.MemberRepository;
+import com.codecool.crashbooks.utility.Password;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -27,4 +28,22 @@ public class MemberService {
         Member member = new Member(name, password);
         memberRepository.save(member);
     }
+
+    public void editUsername(String userName, int id){
+            Member member = getMemberById(id);
+            member.setName(userName);
+            memberRepository.save(member);
+    }
+
+    public void editPassword(String psw, int id){
+            Member member = getMemberById(id);
+            member.setPassword(Password.hashPassword(psw));
+            memberRepository.save(member);
+    }
+
+
+    public boolean checkIsMemberNameFree(String name) {
+        return (getMemberByName(name)== null);
+    }
+
 }

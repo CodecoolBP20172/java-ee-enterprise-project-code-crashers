@@ -76,7 +76,7 @@ public class MediaController {
 
     @RequestMapping(value = "/soon", method = RequestMethod.POST)
     public String renderSoon(Model model, HttpSession session){
-        model.addAttribute("member", session.getAttribute("name"));
+        model.addAttribute("member",session.getAttribute("name"));
         return "book/index";
     }
 
