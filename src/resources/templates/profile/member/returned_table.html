@@ -3,14 +3,14 @@
 <head th:replace="head :: copy"></head>
 <body>
 
-<div class="container" th:fragment="copy">
+<div th:fragment="copy">
     <div class="breadcrumb">
         <strong class="breadcrumb-item">
             Returned medias
         </strong>
     </div>
 
-    <table class="table">
+    <table class="table table-striped">
         <thead class="thead-primary">
         <tr>
             <th scope="col">Rent ID</th>
@@ -32,7 +32,7 @@
             <td th:text="${rent.getDateStart()}"></td>
             <td th:text="${rent.getDateEnd()}"></td>
             <td th:text="${rent.getDateReturned()}"></td>
-            <td th:text="${rent.getFine()}"></td>
+            <td th:text="${rent.getFine()}  + ' $'"></td>
         </tr>
         </tbody>
     </table>

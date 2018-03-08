@@ -2,6 +2,7 @@ package com.codecool.crashbooks.model;
 
 import com.codecool.crashbooks.model.mediaProperty.*;
 import com.codecool.crashbooks.service.*;
+import com.codecool.crashbooks.utility.InitializerBean;
 import com.codecool.crashbooks.utility.Password;
 import org.springframework.stereotype.Component;
 
@@ -12,7 +13,7 @@ public class InitializerBeanForTest {
     public InitializerBeanForTest(AuthorService authorService, CategoryService categoryService, CopyService copyService,
                                   GenreService genreService, MediaService mediaService, MemberService memberService,
                                   RentService rentService) {
-
+        InitializerBean.setTestRunning(true);
         Author testAuthor1 = Author.create("testAuthor1");
         Author testAuthor2 = Author.create("testAuthor2");
         Author testAuthor3 = Author.create("testAuthor3");

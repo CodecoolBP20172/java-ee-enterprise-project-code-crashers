@@ -5,7 +5,7 @@
 
 <div th:fragment="copy">
     <form action="/edit/username" method="post">
-        <input th:required="required" type="text" name="name" th:attr="value=${member}"/>
+        <input th:required="required" type="text" name="name" th:attr="value=${memberName}"/>
         <button type="submit" class = "btn btn-warning">Change Username</button>
     </form>
 </div>

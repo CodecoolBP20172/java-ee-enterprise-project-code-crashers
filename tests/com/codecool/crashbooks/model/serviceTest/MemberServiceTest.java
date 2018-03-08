@@ -15,10 +15,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 @RunWith(SpringRunner.class)
 @SpringBootTest
 public class MemberServiceTest {
-    @BeforeAll
-    public void setup() {
-        InitializerBean.setTestRunning(true);
-    }
+
     @Autowired
     private MemberService memberService;
 

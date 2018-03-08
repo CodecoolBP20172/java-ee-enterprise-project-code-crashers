@@ -60,8 +60,12 @@ public class InitializerBean {
 
             Copy copy1 = Copy.create(it);
             Copy copy2 = Copy.create(lordOfTheRings1);
+            Copy copy3 = Copy.create(vuk);
+            Copy copy4 = Copy.create(potter2);
             copy1.setStatus(CopyStatuses.RENTED);
             copy2.setStatus(CopyStatuses.AVAILABLE);
+            copy3.setStatus(CopyStatuses.AVAILABLE);
+            copy4.setStatus(CopyStatuses.AVAILABLE);
 
             Rent rent1 = Rent.create(test, copy1);
             rent1.setRentPeriod();
@@ -69,6 +73,14 @@ public class InitializerBean {
             Rent rent2 = Rent.create(test, copy2);
             rent2.setRentPeriod();
             rent2.setDateReturned();
+
+            Rent rent3 = Rent.create(test, copy3);
+            rent3.setRentPeriod();
+            rent3.setDateReturned();
+
+            Rent rent4 = Rent.create(test, copy4);
+            rent4.setRentPeriod();
+            rent4.setDateReturned();
 
             authorService.saveAuthor(fekete);
             authorService.saveAuthor(rowling);
@@ -118,6 +130,8 @@ public class InitializerBean {
 
             copyService.saveCopy(copy1);
             copyService.saveCopy(copy2);
+            copyService.saveCopy(copy3);
+            copyService.saveCopy(copy4);
             copyService.saveCopy(Copy.create(vuk));
             copyService.saveCopy(Copy.create(vuk));
             copyService.saveCopy(Copy.create(tuskevar));
@@ -152,6 +166,8 @@ public class InitializerBean {
 
             rentService.saveRent(rent1);
             rentService.saveRent(rent2);
+            rentService.saveRent(rent3);
+            rentService.saveRent(rent4);
         }
     }
 

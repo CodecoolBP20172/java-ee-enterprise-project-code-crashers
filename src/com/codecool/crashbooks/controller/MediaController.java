@@ -24,18 +24,14 @@ public class MediaController {
     GenreService genreService;
     @Autowired
     CategoryService categoryService;
-    @Autowired
-    RentService rentService;
-    @Autowired
-    MemberService memberService;
 
     @RequestMapping(value = "/", method = RequestMethod.GET)
     public String renderAllMedia(Model model, HttpSession session){
         model.addAttribute("medialist", mediaService.getAllMedia());
         model.addAttribute("genres", genreService.getAllGenre());
         model.addAttribute("categories", categoryService.getAllCategory());
-        model.addAttribute("member", session.getAttribute("name"));
-        return "book/index";
+        model.addAttribute("memberName", session.getAttribute("name"));
+        return "media/index";
     }
 
     @RequestMapping(value = "/filter", method = RequestMethod.GET)
@@ -61,24 +57,13 @@ public class MediaController {
         model.addAttribute("category", category);
         model.addAttribute("categories", categoryService.getAllCategory());
         model.addAttribute("member", session.getAttribute("name"));
-        return "book/index";
-    }
-
-    @RequestMapping(value = "/profile", method = RequestMethod.GET)
-    public String renderProfile(Model model, HttpSession session){
-        model.addAttribute("member", session.getAttribute("name"));
-        int id = (int)session.getAttribute("id");
-        model.addAttribute("pendingList", rentService.getPendingRentsByMemberId(id));
-        model.addAttribute("rentedList", rentService.getRentedRentsByMemberId(id));
-        model.addAttribute("returnedList", rentService.getReturnedRentsByMemberId(id));
-        model.addAttribute("membership", memberService.getMemberById(id).getMembership());
-        return "profile/main_profile";
+        return "media/index";
     }
 
     @RequestMapping(value = "/soon", method = RequestMethod.POST)
     public String renderSoon(Model model, HttpSession session){
         model.addAttribute("member",session.getAttribute("name"));
-        return "book/index";
+        return "media/index";
     }
 
 }

@@ -57,4 +57,15 @@ public class RentService {
         return rentRepository.findByCopy_Id(id);
     }
 
+    public void startRent(Rent rent) {
+        rent.setRentPeriod();
+        copyService.changeCopyStatus(rent.getCopy(), CopyStatuses.RENTED);
+        rentRepository.save(rent);
+    }
+
+    public void endRent(Rent rent) {
+        rent.setDateReturned();
+        copyService.changeCopyStatus(rent.getCopy(), CopyStatuses.AVAILABLE);
+        rentRepository.save(rent);
+    }
 }

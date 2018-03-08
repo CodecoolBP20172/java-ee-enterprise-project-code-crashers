@@ -18,10 +18,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 @RunWith(SpringRunner.class)
 @SpringBootTest
 public class RentServiceTest {
-    @BeforeAll
-    public void setup() {
-        InitializerBean.setTestRunning(true);
-    }
+
     @Autowired
     private CopyService copyService;
     @Autowired

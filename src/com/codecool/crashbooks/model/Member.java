@@ -39,10 +39,6 @@ public class Member {
         return name;
     }
 
-    public Membership getMembership() {
-        return membership;
-    }
-
     public void setName(String name) {
         this.name = name;
     }
@@ -53,6 +49,10 @@ public class Member {
 
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    public Membership getMembership() {
+        return membership;
     }
 
     public void setMembership(Membership membership) {
