@@ -75,12 +75,12 @@ public class MemberController {
     @RequestMapping(value = "/profile", method = RequestMethod.GET)
     public String renderProfile(Model model, HttpSession session) {
         if(!String.valueOf(session.getAttribute("membership")).equals("ADMIN")) {
-            model.addAttribute("memberName", session.getAttribute("name"));
-            model.addAttribute("membership", session.getAttribute("membership"));
-            int id = (int) session.getAttribute("id");
-            model.addAttribute("pendingList", rentService.getPendingRentsByMemberId(id));
-            model.addAttribute("rentedList", rentService.getRentedRentsByMemberId(id));
-            model.addAttribute("returnedList", rentService.getReturnedRentsByMemberId(id));
+            Member member = memberService.getMemberById((int) session.getAttribute("id"));
+            model.addAttribute("memberName", member.getName());
+            model.addAttribute("membership", member.getMembership());
+            model.addAttribute("pendingList", rentService.getPendingRentsByMemberId(member.getId()));
+            model.addAttribute("rentedList", rentService.getRentedRentsByMemberId(member.getId()));
+            model.addAttribute("returnedList", rentService.getReturnedRentsByMemberId(member.getId()));
             return "profile/main_profile";
         } else {
             return "redirect:/admin";
