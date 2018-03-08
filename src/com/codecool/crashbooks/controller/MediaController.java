@@ -81,6 +81,7 @@ public class MediaController {
         }
         model.addAttribute("medium", mediaService.getMediasBy(Integer.parseInt(id)));
         model.addAttribute("nextAvailableRentDate", rentService.getNextAvailableRentDate(Integer.parseInt(id)));
+        model.addAttribute("averageRating", mediaService.getMediasBy(Integer.parseInt(id)).getAverageRating());
         return "media/book_review";
     }
 

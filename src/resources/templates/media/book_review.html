@@ -30,19 +30,38 @@
             </div>
             <div>
                 <div class="card">
-                    <div class="card-body row">
-                        <span th:text="'Category: '+${medium.getCategory().getType()}"></span>
-                        <span>Genres: </span>
-                        <span th:each="genre,iterStat : ${medium.getGenres()}">
-                            <span th:text="${genre.getType()}"></span>
+                    <div class="card-body row" id="brmedia">
+                        <span class="brbottom col">
+                            <strong><span>Category:</span></strong>
+                            <span th:text="'&nbsp;'+${#strings.toLowerCase(medium.getCategory().getType())}+'&nbsp;'"></span>
                         </span>
-                        <span th:if="${medium.isCopyAvailable()}">
-                            <span> The book is available</span>
+                        <span class="brbottom col">
+                            <strong><span>Genres:</span></strong>
+                            <span th:each="genre,iterStat : ${medium.getGenres()}">
+                                <span th:text="'&nbsp;'+${#strings.toLowerCase(genre.getType())}+'&nbsp;'"></span>
+                            </span>
                         </span>
-                        <span th:unless="${medium.isCopyAvailable()}">
-                            <span th:text="'The book will be available at '+${nextAvailable}"></span>
+                        <span class="brbottom col">
+                            <strong><span>Rating:</span></strong>
+                            <span th:text="${averageRating}"></span>
+                        </span>
+                        <span class="brbottom col">
+                            <span th:if="${medium.isCopyAvailable()}">
+                                <span>The book is available</span>
+                            </span>
+                            <span th:unless="${medium.isCopyAvailable()}">
+                                <span th:text="${nextAvailableRentDate}==null ? 'Pending! Please come back later!':'The book will be available at '+${nextAvailableRentDate}"></span>
+                            </span>
                         </span>
                     </div>
+                </div>
+            </div>
+            <div class="card">
+                <div class="card-header">
+                    <strong>Description:</strong>
+                </div>
+                <div class="card-body">
+                    <p th:text="'&nbsp;'+${medium.getDescription()}"></p>
                 </div>
             </div>
         </div>

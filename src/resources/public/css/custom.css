@@ -46,6 +46,9 @@
     display: table;
     content: " ";
 }
+.brbottom{
+
+}
 
 .item.list-group-item img {
     float: none;
@@ -95,6 +98,15 @@
 }
 .card-body{
 
+}
+
+
+#brmedia{
+    margin-left: 5px;
+}
+
+.card {
+    margin-bottom: 5px;
 }
 
 .breadcrumb {

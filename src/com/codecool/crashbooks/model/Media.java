@@ -106,8 +106,11 @@ public class Media {
     }
 
     public String getAverageRating() {
+        if(ratings.size()==0){
+            return "No rating yet!";
+        }
         // returns a 1 decimal string
-        return String.format("%.1f", ratings.stream().mapToDouble(o -> o.getStars()).average());
+        return String.format("%.1f", ratings.stream().mapToDouble(o -> o.getStars()).sum()/ratings.size());
     }
 
     public int getCopiesCount() {
