@@ -24,6 +24,8 @@ public class MediaService {
         return mediaRepository.findAll();
     }
 
+    public Media getMediasBy(int id){return mediaRepository.findOne(id);}
+
     public List<Media> getMediasBy(Genre genre) {
         return mediaRepository.findByGenres_Id(genre.getId());
     }
