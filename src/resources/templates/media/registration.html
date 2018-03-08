@@ -5,18 +5,21 @@
 
         <div th:replace="header/header :: copy"></div>
         <div class="container">
-            <a href="/">
-                <button type="button" class="btn btn-primary">Back to main page</button>
-            </a>
-            <form method = "post" action = "/registration">
-                <div th:replace="logregpart :: copy"></div>
-
-                <button type="submit" class="btn btn-primary">Regist me!</button>
-            </form>
-
-
-            <div th:replace="footer :: copy"></div>
-
+            <div class="card logreg">
+                <div class="card-body paddingbotnull">
+                    <form method = "post" action = "/registration">
+                        <div class="form-group">
+                            <div th:replace="logregpart :: copy"></div>
+                            <div class="row">
+                                <div class="btn-group mid">
+                                    <button type="submit" class="btn btn-primary reg">Regist me!</button>
+                                    <a href="/"><button type="button" class="btn btn-primary log">Main page</button></a>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
         </div>
     </body>
 </html>
