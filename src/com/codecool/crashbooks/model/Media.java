@@ -109,6 +109,10 @@ public class Media {
         // returns a 1 decimal string
         return String.format("%.1f", ratings.stream().mapToDouble(o -> o.getStars()).average());
     }
+
+    public int getCopiesCount() {
+        return copies.size();
+    }
 }
 
 

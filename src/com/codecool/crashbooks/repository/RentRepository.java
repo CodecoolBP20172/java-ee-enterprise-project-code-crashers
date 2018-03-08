@@ -18,4 +18,7 @@ public interface RentRepository extends JpaRepository<Rent, Integer> {
     List<Rent> findByCopy_Id(int copyId);
 
     List<Rent> findByCopy_Status(CopyStatuses status);
+
+    Rent findFirstByMedia_IdAndDateEndNotNullDateReturnedNullOrderByDateEndAsc(int mediaId);
+
 }

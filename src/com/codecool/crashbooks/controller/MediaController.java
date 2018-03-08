@@ -32,6 +32,8 @@ public class MediaController {
     RatingService ratingService;
     @Autowired
     ReviewService reviewService;
+    @Autowired
+    RentService rentService;
 
     @RequestMapping(value = "/", method = RequestMethod.GET)
     public String renderAllMedia(Model model, HttpSession session){
@@ -77,6 +79,7 @@ public class MediaController {
             model.addAttribute("memberName", member.getName());
         }
         model.addAttribute("medium", mediaService.getMediasBy(Integer.parseInt(id)));
+        model.addAttribute("nextAvailableRentDate", rentService.getNextAvailableRentDate(Integer.parseInt(id)));
         return "media/book_review";
     }
 
