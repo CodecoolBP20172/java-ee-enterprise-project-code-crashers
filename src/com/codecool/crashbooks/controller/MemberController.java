@@ -180,7 +180,7 @@ public class MemberController {
     public String renderMembershipPage(Model model, HttpSession session){
         String name = (String) session.getAttribute("name");
         if (name != null){
-            model.addAttribute("member", name);
+            model.addAttribute("memberName", name);
             model.addAttribute("id", session.getAttribute("id"));
             model.addAttribute("user_membership", memberService.getMemberByName(name).getMembership());
             model.addAttribute("membershiplist", Arrays.asList(Membership.FREE, Membership.BRONZE, Membership.SILVER, Membership.GOLD));

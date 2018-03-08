@@ -62,9 +62,9 @@ public class MediaController {
         return "media/index";
     }
 
-    @RequestMapping(value = "/bookReview/{id}", method = RequestMethod.GET)
+    @RequestMapping(value = "/book_review/{id}", method = RequestMethod.GET)
     public String renderBookReviewPage(@PathVariable String id, HttpSession session, Model model){
-        model.addAttribute("member", session.getAttribute("name"));
+        model.addAttribute("memberName", session.getAttribute("name"));
         model.addAttribute("medium", mediaService.getMediasBy(Integer.parseInt(id)));
         return "media/book_review";
     }
