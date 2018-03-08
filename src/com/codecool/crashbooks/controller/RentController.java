@@ -33,7 +33,7 @@ public class RentController {
             return "media/login";
         }else if(remainingRents((int)session.getAttribute("id"))<=0){
             model.addAttribute("user_information", "Rent limit reached!");
-            model.addAttribute("member", name);
+            model.addAttribute("memberName", name);
             model.addAttribute("id", session.getAttribute("id"));
             model.addAttribute("user_membership", memberService.getMemberByName(name).getMembership());
             model.addAttribute("membershiplist", Arrays.asList(Membership.FREE, Membership.BRONZE, Membership.SILVER, Membership.GOLD));

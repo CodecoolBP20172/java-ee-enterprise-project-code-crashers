@@ -192,7 +192,7 @@ public class MemberController {
 
     @RequestMapping(value = "/membership", method = RequestMethod.POST)
     public String membership(HttpServletRequest req, HttpSession session, Model model){
-        model.addAttribute("member", session.getAttribute("name"));
+        model.addAttribute("memberName", session.getAttribute("name"));
         model.addAttribute("pendingList", rentService.getPendingRentsByMemberId((int)session.getAttribute("id")));
         model.addAttribute("rentedList", rentService.getRentedRentsByMemberId((int)session.getAttribute("id")));
         model.addAttribute("returnedList", rentService.getReturnedRentsByMemberId((int)session.getAttribute("id")));
