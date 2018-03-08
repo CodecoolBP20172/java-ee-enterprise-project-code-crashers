@@ -74,17 +74,22 @@ public class MemberController {
 
     @RequestMapping(value = "/profile", method = RequestMethod.GET)
     public String renderProfile(Model model, HttpSession session) {
-        if(!String.valueOf(session.getAttribute("membership")).equals("ADMIN")) {
-            Member member = memberService.getMemberById((int) session.getAttribute("id"));
+        if (session.getAttribute("id") != null) {
+            int memberId = (int) session.getAttribute("id");
+            Member member = memberService.getMemberById(memberId);
+
+            if(member.getMembership().equals(Membership.ADMIN)) {
+                return "redirect:/admin";
+            }
             model.addAttribute("memberName", member.getName());
             model.addAttribute("membership", member.getMembership());
             model.addAttribute("pendingList", rentService.getPendingRentsByMemberId(member.getId()));
             model.addAttribute("rentedList", rentService.getRentedRentsByMemberId(member.getId()));
             model.addAttribute("returnedList", rentService.getReturnedRentsByMemberId(member.getId()));
             return "profile/main_profile";
-        } else {
-            return "redirect:/admin";
         }
+        model.addAttribute("user_information", "Please log in to see profile information!");
+        return "media/login";
     }
 
     @RequestMapping(value = "/admin", method = RequestMethod.GET)
@@ -154,35 +159,45 @@ public class MemberController {
 
     @RequestMapping(value = "/edit/{editable}", method = RequestMethod.POST) //TODO find a good name for editable, possibly make it two different route
     public String edit(HttpServletRequest req, HttpSession session, Model model, @PathVariable("editable") String editable) {
-        if (editable.equals("username")) {
-            if (memberService.checkIsMemberNameFree(req.getParameter("name"))) {
+        if (session.getAttribute("id") != null) {
+            int memberId = (int) session.getAttribute("id");
 
-                memberService.editUsername(req.getParameter("name"),
-                        (int) session.getAttribute("id"));
-                session.setAttribute("name", req.getParameter("name"));
-                return "redirect:/profile";
-            } else {
-                model.addAttribute("error", "Username change have failed!");
+            if (editable.equals("username")) {
+                if (memberService.checkIsMemberNameFree(req.getParameter("name"))) {
+
+                    memberService.editUsername(req.getParameter("name"), memberId);
+                    session.setAttribute("name", req.getParameter("name"));
+                    return "redirect:/profile";
+                } else {
+                    model.addAttribute("error", "Username change have failed!");
+                }
+            } else if (editable.equals("password")) {
+                if (req.getParameter("psw1").equals(req.getParameter("psw2"))) {
+                    memberService.editPassword(req.getParameter("psw1"), memberId);
+                    return "redirect:/profile";
+                } else {
+                    model.addAttribute("error", "Passwords are not the same!");
+                }
             }
-        } else if (editable.equals("password")) {
-            if (req.getParameter("psw1").equals(req.getParameter("psw2"))) {
-                memberService.editPassword(req.getParameter("psw1"),
-                        (int) session.getAttribute("id"));
-                return "redirect:/profile";
-            } else {
-                model.addAttribute("error", "Passwords are not the same!");
-            }
+            return "media/error";
         }
+        model.addAttribute("user_information", "You are not allowed to make this request");
         return "media/error";
+
     }
 
     @RequestMapping(value = "/membership", method = RequestMethod.GET)
-    public String renderMembershipPage(Model model, HttpSession session){
-        String name = (String) session.getAttribute("name");
-        if (name != null){
-            model.addAttribute("memberName", name);
+    public String renderMembershipPage(Model model, HttpSession session) {
+        if (session.getAttribute("id") != null) {
+            int memberId = (int) session.getAttribute("id");
+            Member member = memberService.getMemberById(memberId);
+
+            if(member.getMembership().equals(Membership.ADMIN)) {
+                return "redirect:/admin";
+            }
+            model.addAttribute("memberName", member.getName());
             model.addAttribute("id", session.getAttribute("id"));
-            model.addAttribute("user_membership", memberService.getMemberByName(name).getMembership());
+            model.addAttribute("user_membership", member.getMembership());
             model.addAttribute("membershiplist", Arrays.asList(Membership.FREE, Membership.BRONZE, Membership.SILVER, Membership.GOLD));
             return "profile/member/membership";
         }
@@ -191,12 +206,22 @@ public class MemberController {
     }
 
     @RequestMapping(value = "/membership", method = RequestMethod.POST)
-    public String membership(HttpServletRequest req, HttpSession session, Model model){
-        model.addAttribute("memberName", session.getAttribute("name"));
-        model.addAttribute("pendingList", rentService.getPendingRentsByMemberId((int)session.getAttribute("id")));
-        model.addAttribute("rentedList", rentService.getRentedRentsByMemberId((int)session.getAttribute("id")));
-        model.addAttribute("returnedList", rentService.getReturnedRentsByMemberId((int)session.getAttribute("id")));
-        memberService.setMembershipById((int)session.getAttribute("id"), req.getParameter("membership_type"));
-        return "redirect:/profile";
+    public String membership(HttpServletRequest req, HttpSession session, Model model) {
+        if (session.getAttribute("id") != null) {
+            int memberId = (int) session.getAttribute("id");
+            Member member = memberService.getMemberById(memberId);
+
+            if (member.getMembership().equals(Membership.ADMIN)) {
+                return "redirect:/admin";
+            }
+            model.addAttribute("memberName", session.getAttribute("name"));
+            model.addAttribute("pendingList", rentService.getPendingRentsByMemberId(memberId));
+            model.addAttribute("rentedList", rentService.getRentedRentsByMemberId(memberId));
+            model.addAttribute("returnedList", rentService.getReturnedRentsByMemberId(memberId));
+            memberService.setMembershipById(memberId, req.getParameter("membership_type"));
+            return "redirect:/profile";
+        }
+        model.addAttribute("user_information", "You are not allowed to make this request");
+        return "media/error";
     }
 }
