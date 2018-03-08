@@ -47,8 +47,9 @@ import javax.servlet.http.HttpSession;
         public String review(HttpSession session, Model model, @PathVariable String id, HttpServletRequest req){
             Member member = memberService.getMemberByName((String)session.getAttribute("name"));
             Media media = mediaService.getMediasBy(Integer.parseInt(id));
-            Review review = new Review(req.getParameter("rating"), member, media);
-            reviewService.saveReview(review);
+
+                Review review = new Review(req.getParameter("rating"), member, media);
+                reviewService.saveReview(review);
             if (session.getAttribute("id")!= null){
                 model.addAttribute("userReview", reviewService.getReviewByMemberAndMedia((int)session.getAttribute("id"), Integer.parseInt(id)));
                 model.addAttribute("userRating", ratingService.getRatingByMemberAndMedia((int)session.getAttribute("id"), Integer.parseInt(id)));
@@ -57,6 +58,6 @@ import javax.servlet.http.HttpSession;
             model.addAttribute("medium", mediaService.getMediasBy(Integer.parseInt(id)));
             model.addAttribute("nextAvailableRentDate", rentService.getNextAvailableRentDate(Integer.parseInt(id)));
             model.addAttribute("averageRating", mediaService.getMediasBy(Integer.parseInt(id)).getAverageRating());
-            return "media/book_review";
+            return "redirect:/medium/"+id;
         }
 }
