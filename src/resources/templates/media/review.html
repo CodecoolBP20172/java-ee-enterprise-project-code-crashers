@@ -9,10 +9,11 @@
         <div class="card-body paddingbotnull">
             <form method = "post" th:action="'/review/'+${mediumId}">
                 <div class="form-group">
-                    <input name = "rating" type ="text" required="required"/>
+                    <textarea name="rating" required="required" class="form-control" rows="6"></textarea>
+                    <br/>
                     <div class="row">
                         <div class="btn-group mid">
-                            <button type="submit" class="btn btn-primary reg">Save rating</button>
+                            <button type="submit" class="btn btn-primary reg">Save review</button>
                             <a href="/"><button type="button" class="btn btn-primary log">Main page</button></a>
                         </div>
                     </div>
