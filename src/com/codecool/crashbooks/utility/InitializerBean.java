@@ -170,10 +170,12 @@ public class InitializerBean {
             rentService.saveRent(rent4);
 
             Rating rating1 = new Rating(5, test, it);
-            Review review1 = new Review("asdf", test, it);
+            Review review1 = new Review("That little fox is a totally kick ass. Love it!", test, vuk);
+            Review review2 = new Review("Scared the shit out of me. I will wear diapers next time.", test, it);
 
-            reviewService.saveReview(review1);
             ratingService.saveRating(rating1);
+            reviewService.saveReview(review1);
+            reviewService.saveReview(review2);
         }
     }
 
