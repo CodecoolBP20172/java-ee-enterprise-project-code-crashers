@@ -32,7 +32,7 @@ public class Media {
     @OneToMany(mappedBy = "media", fetch = FetchType.EAGER)
     private Set<Rating> ratings = new HashSet<>();
 
-    @OneToMany(mappedBy = "member", fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "media", fetch = FetchType.EAGER)
     private Set<Review> reviews = new HashSet<>();
 
     private String pictureUrl;
