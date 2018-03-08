@@ -1,0 +1,14 @@
+<!doctype html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+    <head th:replace="head :: copy"></head>
+    <body>
+
+        <div th:replace="header/headerWithFilter :: copy"></div>
+
+        <div class="container">
+
+            <p th:text="${medim.getTitle()}"></p>
+        </div>
+
+    </body>
+</html>
