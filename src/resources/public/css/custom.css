@@ -80,6 +80,7 @@
 .jumbotron {
     background-size: contain;
     background: #7bc2e4 url("../img/banner.png") no-repeat;
+    padding: 27px 0px;
 }
 
 .btn-primary {
@@ -215,6 +216,13 @@
     padding-bottom: 0;
 }
 
+
+#bannerlogo {
+    position: relative;
+    left: 25%;
+    top: 15%;
+    width: 300px;
+}
 body{
     background: radial-gradient(#ffffff, #eeeeee);
 }
