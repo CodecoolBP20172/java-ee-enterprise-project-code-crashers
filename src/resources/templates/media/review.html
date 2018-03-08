@@ -1,0 +1,25 @@
+<!doctype html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="head :: copy"></head>
+<body>
+
+<div th:replace="header/header :: copy"></div>
+<div class="container">
+    <div class="card logreg">
+        <div class="card-body paddingbotnull">
+            <form method = "post" th:action="'/rating/'+${mediumId}">
+                <div class="form-group">
+                    <input name = "rating" type ="text" required="required"/>
+                    <div class="row">
+                        <div class="btn-group mid">
+                            <button type="submit" class="btn btn-primary reg">Save rating</button>
+                            <a href="/"><button type="button" class="btn btn-primary log">Main page</button></a>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+</body>
+</html>
