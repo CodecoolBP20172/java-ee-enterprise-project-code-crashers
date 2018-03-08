@@ -17,7 +17,7 @@
 
                 <div class="item col-4" th:each="media,iterStat : ${medialist}">
                     <div class="thumbnail">
-                        <a th:href="'/book_review/' + ${media.getId()}"><img class="group list-group-image" src="/img/book_thumb.png" th:src="${media.pictureUrl} != null ? '/img/' + ${media.pictureUrl} " alt="" /></a>
+                        <a th:href="'/medium/' + ${media.getId()}"><img class="group list-group-image" src="/img/book_thumb.png" th:src="${media.pictureUrl} != null ? '/img/' + ${media.pictureUrl} " alt="" /></a>
                         <div class="caption">
                             <h5 class="group inner list-group-item-heading" th:text="${media.getAuthor().getName()}">Author</h5>
                             <h5 class="group inner list-group-item-heading" th:text="${media.getTitle()}">Product name</h5>

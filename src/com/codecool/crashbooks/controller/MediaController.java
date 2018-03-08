@@ -70,10 +70,11 @@ public class MediaController {
         return "media/index";
     }
 
+
     @RequestMapping(value = "/medium/{id}", method = RequestMethod.GET)
     public String renderBookReviewPage(@PathVariable String id, HttpSession session, Model model){
-        Member member = memberService.getMemberById((int) session.getAttribute("name"));
-        if (member != null){
+        if (session.getAttribute("id")!= null){
+            Member member = memberService.getMemberById((int) session.getAttribute("id"));
             model.addAttribute("userReview", reviewService.getReviewByMemberAndMedia((int)session.getAttribute("id"), Integer.parseInt(id)));
             model.addAttribute("userRating", ratingService.getRatingByMemberAndMedia((int)session.getAttribute("id"), Integer.parseInt(id)));
             model.addAttribute("memberName", member.getName());

@@ -5,20 +5,25 @@
 
         <div th:replace="header/header :: copy"></div>
         <div class="container">
-            <div th:if="${user_information}">
-                <h4 th:text="${user_information}">user info</h4>
+            <div class="card logreg">
+                <div class="card-body paddingbotnull">
+                    <div th:if="${user_information}">
+                        <h4 th:text="${user_information}">user info</h4>
+                    </div>
+
+                    <form method = "post" action = "/login">
+                        <div class="form-group">
+                            <div th:replace="logregpart :: copy"></div>
+                            <div class="row">
+                                <div class="btn-group mid">
+                                    <button type="submit" class="btn btn-primary reg">Login</button>
+                                    <a href="/"><button type="button" class="btn btn-primary log">Main page</button></a>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
             </div>
-            <a href="/">
-                <button type="button" class="btn btn-primary">Back to main page</button>
-            </a>
-            <form method = "post" action = "/login">
-                <div th:replace="logregpart :: copy"></div>
-                <button type="submit" class="btn btn-primary">Login</button>
-            </form>
-
-
-            <div th:replace="footer :: copy"></div>
-
         </div>
     </body>
 </html>

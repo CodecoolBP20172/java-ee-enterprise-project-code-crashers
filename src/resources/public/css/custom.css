@@ -84,6 +84,18 @@
     color: white;
 }
 
+.brtitle{
+    font-weight: 800;
+    font-size: 20px;
+    margin-bottom: 0;
+}
+.brvalue {
+    font-style: italic;
+    font-size: 18px;
+}
+.card-body{
+
+}
 
 .breadcrumb {
     border: 2px solid #dedede;
@@ -107,19 +119,13 @@
     color: white;
 }
 
-.btn .btn-group {
-    background-color: white;
+.bookinfo{
+    width: 90%;
+    margin: 0 auto;
 }
 
-.totalPrice {
-    width: 150px;
-    margin-left: auto;
-    margin-right: 14%;
-    padding: 10px 0px;
-    text-align: center;
-    font-weight: 800;
-    font-size: 20px;
-    border-top: 1px solid #98d0c5;
+.btn .btn-group {
+    background-color: white;
 }
 
 .thead-primary {
@@ -184,7 +190,18 @@
     border-radius: 0rem .75rem 0rem 0rem;
 }
 
-.co
+.logreg {
+    width: 60%;
+    margin: 0 auto;
+}
+
+.mid {
+    margin: 0 auto;
+}
+
+.paddingbotnull {
+    padding-bottom: 0;
+}
 
 body{
     background: radial-gradient(#ffffff, #eeeeee);
