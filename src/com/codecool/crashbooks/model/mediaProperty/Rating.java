@@ -34,4 +34,8 @@ public class Rating {
     public int getStars() {
         return stars;
     }
+
+    public void setStars(int stars) {
+        this.stars = stars;
+    }
 }
