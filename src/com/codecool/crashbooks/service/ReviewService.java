@@ -14,4 +14,8 @@ public class ReviewService {
     public void saveReview(Review review){
         reviewRepository.save(review);
     }
+
+    public Review getReviewByMemberAndMedia(int memberId, int mediaId) {
+        return reviewRepository.findByMember_IdAndMedia_Id(memberId, mediaId);
+    }
 }

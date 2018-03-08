@@ -6,4 +6,6 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface ReviewRepository extends JpaRepository<Review, Integer>{
+
+    Review findByMember_IdAndMedia_Id(int memberId, int mediaId);
 }

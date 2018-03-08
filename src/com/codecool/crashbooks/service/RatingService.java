@@ -15,4 +15,7 @@ public class RatingService {
         ratingRepository.save(rating);
     }
 
+    public Rating getRatingByMemberAndMedia(int memberId, int mediaId) {
+        return ratingRepository.findByMember_IdAndMedia_Id(memberId, mediaId);
+    }
 }
