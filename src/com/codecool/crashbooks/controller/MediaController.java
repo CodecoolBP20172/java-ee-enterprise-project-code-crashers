@@ -3,6 +3,7 @@ package com.codecool.crashbooks.controller;
 import com.codecool.crashbooks.model.Member;
 import com.codecool.crashbooks.model.mediaProperty.Category;
 import com.codecool.crashbooks.model.mediaProperty.Genre;
+import com.codecool.crashbooks.model.mediaProperty.Rating;
 import com.codecool.crashbooks.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
@@ -75,9 +76,12 @@ public class MediaController {
     public String renderBookReviewPage(@PathVariable String id, HttpSession session, Model model){
         if (session.getAttribute("id")!= null){
             Member member = memberService.getMemberById((int) session.getAttribute("id"));
+            Rating rating = ratingService.getRatingByMemberAndMedia((int)session.getAttribute("id"), Integer.parseInt(id));
             model.addAttribute("userReview", reviewService.getReviewByMemberAndMedia((int)session.getAttribute("id"), Integer.parseInt(id)));
-            model.addAttribute("userRating", ratingService.getRatingByMemberAndMedia((int)session.getAttribute("id"), Integer.parseInt(id)));
             model.addAttribute("memberName", member.getName());
+            if (rating != null) {
+                model.addAttribute("userRating", rating.getStars());
+            }
         }
         model.addAttribute("medium", mediaService.getMediasBy(Integer.parseInt(id)));
         model.addAttribute("nextAvailableRentDate", rentService.getNextAvailableRentDate(Integer.parseInt(id)));
