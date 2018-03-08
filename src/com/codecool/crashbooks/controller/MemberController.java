@@ -102,6 +102,9 @@ public class MemberController {
             model.addAttribute("returnedList", rentService.getRentsByStatus(CopyStatuses.AVAILABLE));
             return "profile/admin_profile";
         } else {
+            if (session.getAttribute("id")!= null) {
+                model.addAttribute("memberName", session.getAttribute("name"));
+            }
             model.addAttribute("error", "Forbidden! You don't have permission for this page.");
             return "media/error";
         }
@@ -113,6 +116,9 @@ public class MemberController {
             rentTab = "pending";
             return "redirect:/admin";
         } else {
+            if (session.getAttribute("id")!= null) {
+                model.addAttribute("memberName", session.getAttribute("name"));
+            }
             model.addAttribute("error", "Forbidden! You don't have permission for this page.");
             return "media/error";
         }
@@ -124,6 +130,9 @@ public class MemberController {
             rentTab = "rented";
             return "redirect:/admin";
         } else {
+            if (session.getAttribute("id")!= null) {
+                model.addAttribute("memberName", session.getAttribute("name"));
+            }
             model.addAttribute("error", "Forbidden! You don't have permission for this page.");
             return "media/error";
         }
@@ -135,6 +144,9 @@ public class MemberController {
             rentTab = "returned";
             return "redirect:/admin";
         } else {
+            if (session.getAttribute("id")!= null) {
+                model.addAttribute("memberName", session.getAttribute("name"));
+            }
             model.addAttribute("error", "Forbidden! You don't have permission for this page.");
             return "media/error";
         }

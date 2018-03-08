@@ -54,7 +54,7 @@ public class MediaController {
         Category category = categoryId == 0 ? null:categoryService.getCategoryById(categoryId);
 
         if(genreId ==0 && categoryId ==0){
-            return "index";
+            return "redirect:/";
         }else if (genreId ==0){
             model.addAttribute("medialist", mediaService.getMediasBy(category));
         } else if (categoryId ==0){
@@ -73,30 +73,27 @@ public class MediaController {
 
 
     @RequestMapping(value = "/medium/{id}", method = RequestMethod.GET)
-    public String renderBookReviewPage(@PathVariable String mediumId, HttpSession session, Model model) {
+    public String renderBookReviewPage(@PathVariable String id, HttpSession session, Model model){
         if (session.getAttribute("id")!= null){
-            int memberId = (int) session.getAttribute("id");
-            Member member = memberService.getMemberById(memberId);
-
-            if(member.getMembership().equals(Membership.ADMIN)) {
-                return "redirect:/admin";
-            }
-            Rating rating = ratingService.getRatingByMemberAndMedia((int)session.getAttribute("id"), Integer.parseInt(mediumId));
-            model.addAttribute("userReview", reviewService.getReviewByMemberAndMedia((int)session.getAttribute("id"), Integer.parseInt(mediumId)));
+            Member member = memberService.getMemberById((int) session.getAttribute("id"));
+            Rating rating = ratingService.getRatingByMemberAndMedia((int)session.getAttribute("id"), Integer.parseInt(id));
+            model.addAttribute("userReview", reviewService.getReviewByMemberAndMedia((int)session.getAttribute("id"), Integer.parseInt(id)));
             model.addAttribute("memberName", member.getName());
             if (rating != null) {
                 model.addAttribute("userRating", rating.getStars());
             }
         }
-        model.addAttribute("medium", mediaService.getMediasBy(Integer.parseInt(mediumId)));
-        model.addAttribute("nextAvailableRentDate", rentService.getNextAvailableRentDate(Integer.parseInt(mediumId)));
-        model.addAttribute("averageRating", mediaService.getMediasBy(Integer.parseInt(mediumId)).getAverageRating());
+        model.addAttribute("medium", mediaService.getMediasBy(Integer.parseInt(id)));
+        model.addAttribute("nextAvailableRentDate", rentService.getNextAvailableRentDate(Integer.parseInt(id)));
+        model.addAttribute("averageRating", mediaService.getMediasBy(Integer.parseInt(id)).getAverageRating());
         return "media/book_review";
     }
 
     @RequestMapping(value = "/soon", method = RequestMethod.POST)
     public String renderSoon(Model model, HttpSession session){
-        model.addAttribute("memberName",session.getAttribute("name"));
+        if (session.getAttribute("id")!= null) {
+            model.addAttribute("memberName", session.getAttribute("name"));
+        }
         return "media/index";
     }
 

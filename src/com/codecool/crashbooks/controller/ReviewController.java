@@ -38,6 +38,9 @@ import javax.servlet.http.HttpSession;
                 model.addAttribute("user_information", "Please Log in!");
                 return "media/login";
             }
+            if (String.valueOf(session.getAttribute("membership")).equals("ADMIN")) {
+                return "redirect:/admin";
+            }
             model.addAttribute("memberName", name);
             model.addAttribute("mediumId", id);
             return "media/review";
@@ -45,7 +48,17 @@ import javax.servlet.http.HttpSession;
 
         @RequestMapping(value="/review/{id}", method = RequestMethod.POST)
         public String review(HttpSession session, Model model, @PathVariable String id, HttpServletRequest req){
-            Member member = memberService.getMemberByName((String)session.getAttribute("name"));
+            String name =(String) session.getAttribute("name");
+            if (name == null) {
+                model.addAttribute("user_information", "Please Log in!");
+                return "media/login";
+            }
+
+            if (String.valueOf(session.getAttribute("membership")).equals("ADMIN")) {
+                return "redirect:/admin";
+            }
+
+            Member member = memberService.getMemberByName(name);
             Media media = mediaService.getMediasBy(Integer.parseInt(id));
 
                 Review review = new Review(req.getParameter("rating"), member, media);
