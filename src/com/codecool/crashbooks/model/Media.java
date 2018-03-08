@@ -113,6 +113,10 @@ public class Media {
     public int getCopiesCount() {
         return copies.size();
     }
+
+    public Set<Copy> getCopies() {
+        return copies;
+    }
 }
 
 
