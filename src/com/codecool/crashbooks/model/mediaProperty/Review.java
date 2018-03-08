@@ -31,4 +31,12 @@ public class Review {
     public Review() {
 
     }
+
+    public String getReviewText() {
+        return reviewText;
+    }
+
+    public Member getMember() {
+        return member;
+    }
 }

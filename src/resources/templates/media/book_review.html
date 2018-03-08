@@ -75,7 +75,22 @@
                     <strong>Description:</strong>
                 </div>
                 <div class="card-body">
-                    <p th:text="'&nbsp;'+${medium.getDescription()}"></p>
+                    <p th:text="${medium.getDescription()}"></p>
+                </div>
+            </div>
+
+            <div class="breadcrumb">
+                <strong>User reviews: </strong>
+            </div>
+            <div th:text="${#lists.size(medium.getReviews())} == 0 ? 'Noone gave a review yet be the first!' : '' "></div>
+            <div th:each="review,iterStat : ${medium.getReviews()}">
+                <div class="card">
+                    <div class="card-header">
+                        <strong th:text="${review.getMember().getName()}"></strong>
+                    </div>
+                    <div class="card-body">
+                        <p th:text="${review.getReviewText()}"></p>
+                    </div>
                 </div>
             </div>
         </div>
