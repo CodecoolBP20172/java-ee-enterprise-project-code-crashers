@@ -31,5 +31,7 @@ public class Rating {
         this.media = media;
     }
 
-
+    public int getStars() {
+        return stars;
+    }
 }

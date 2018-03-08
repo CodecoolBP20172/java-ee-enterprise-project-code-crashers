@@ -96,6 +96,19 @@ public class Media {
                                int year, String description) {
         return new Media(title,author, category, genre, pictureUrl, year, description);
     }
+
+    public Set<Review> getReviews() {
+        return reviews;
+    }
+
+    public int getYear() {
+        return year;
+    }
+
+    public String getAverageRating() {
+        // returns a 1 decimal string
+        return String.format("%.1f", ratings.stream().mapToDouble(o -> o.getStars()).average());
+    }
 }
 
 
