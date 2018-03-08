@@ -24,7 +24,11 @@
                             </span>
                             <span class="col">
                                 <form th:action="'/review/'+${medium.getId()}" method="get">
-                                    <input class="btn btn-primary ml-auto" type="submit" value ="Add Review"/>
+                                    <div th:with="review=${userReview==null}">
+                                    <div th:if="${review}">
+                                        <input class="btn btn-primary ml-auto" type="submit" value ="Add Review"/>
+                                    </div>
+                                    </div>
                                 </form>
                             </span>
                             <span class="col">
