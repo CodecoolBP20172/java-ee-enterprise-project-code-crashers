@@ -37,6 +37,9 @@ public class Media {
 
     private String pictureUrl;
     private int year;
+
+    @Lob
+    @Column
     private String description;
 
     public Media() {

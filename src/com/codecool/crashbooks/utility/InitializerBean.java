@@ -38,21 +38,21 @@ public class InitializerBean {
             Genre science = Genre.create(Genres.SCIENCE);
             Genre sport = Genre.create(Genres.SPORT);
 
-            Media vuk = Media.create("Vuk", fekete, book, adventure, "vuk.jpg", 1965, "A good book...");
-            Media tuskevar = Media.create("Tüskevár", fekete, book, realism, "tuskevar.jpg", 1957, "A good book...");
-            Media potter1 = Media.create("Harry Potter and the Philosopher's Stone", rowling, book, adventure, "harrypotter1.jpg", 1997, "A good book...");
-            Media potter2 = Media.create("Harry Potter and the Chamber of Secrets", rowling, book, adventure, "nobook.jpg", 1998, "A good book...");
-            Media lordOfTheRings1 = Media.create("Lord of the Rings", tolkien, book, fantasy, "lordoftherings.jpg", 1954, "A good book...");
-            Media gOfThrones1 = Media.create("Game of Thrones", martin, book, fantasy, "gameofthrones.jpg", 1996, "A good book...");
-            Media it = Media.create("It", king, book, horror, "it.jpg", 1986, "A good book...");
-            Media jurassicPark = Media.create("Jurassic Park", crichton, book, fantasy, "jurassicpark.jpg", 1990, "A good book...");
-            Media twister = Media.create("Twister", crichton, book, drama, "twister.jpg", 1994, "A good book...");
+            Media vuk = Media.create("Vuk", fekete, book, adventure, "vuk.jpg", 1965, "A rókalyuk folyosója tágabb lett, és a pitvaron túl, mint egy teknő, öblösödött a kamra, ahol halkan szuszogott a rókakölyök. A szőrös gomolyag mozogni kezdett, orra kutatva emelkedett a levegőbe... Vuk lesz a neve, mint öregapjának,");
+            Media tuskevar = Media.create("Tüskevár", fekete, book, realism, "tuskevar.jpg", 1957, "Vár volt állítólag valamikor, de akkor még sziget is. Akkor még odáig ért a Balaton, de a patakok telehordták iszappal a nagy öblöt; bizonyos, hogy Tüskevár körül most már sekély a víz és nádas az egész.");
+            Media potter1 = Media.create("Harry Potter and the Philosopher's Stone", rowling, book, adventure, "harrypotter1.jpg", 1997, "This is the tale of Harry Potter, an ordinary 11-year-old boy serving as a sort of slave for his aunt and uncle who learns that he is actually a wizard and has been invited to attend the Hogwarts School for Witchcraft and Wizardry.");
+            Media potter2 = Media.create("Harry Potter and the Chamber of Secrets", rowling, book, adventure, "nobook.jpg", 1998, "Harry Potter is in his second year of Hogwarts School of Witchcraft and Wizardry. He is visited by a house-elf named Dobby and warned not to go back to Hogwarts.");
+            Media lordOfTheRings1 = Media.create("Lord of the Rings", tolkien, book, fantasy, "lordoftherings.jpg", 1954, "One Ring to rule them all, One Ring to find them, One Ring to bring them all and in the darkeness bind them");
+            Media gOfThrones1 = Media.create("Game of Thrones", martin, book, fantasy, "gameofthrones.jpg", 1996, "Here is the first volume in George R. R. Martin’s magnificent cycle of novels that includes A Clash of Kings and A Storm of Swords.");
+            Media it = Media.create("It", king, book, horror, "it.jpg", 1986, "Welcome to Derry, Maine… It’s a small city, a place as hauntingly familiar as your own hometown. Only in Derry the haunting is real…");
+            Media jurassicPark = Media.create("Jurassic Park", crichton, book, fantasy, "jurassicpark.jpg", 1990, "A billionaire has created a technique to clone dinosaurs. From the DNA that his crack team of scientists extract, he is able to grow the dinosaurs in his laboratories and lock them away on an island behind electric fences, creating a sort of theme park");
+            Media twister = Media.create("Twister", crichton, book, drama, "twister.jpg", 1994, "As Oklahoma braces itself for the largest storm in more than fifty years, two rival groups of scientists fight to be the first to launch a high-tech, life-saving tracking device inside the ferocious funnel of one of the most destructive forces in the natural world.");
 
-            Media natgeo167 = Media.create("Vol. 167/ No. 6", natgeo, magazine, science, "natgeo167-6.jpg", 1985, "A good magazine...");
-            Media kepesSport = Media.create("2017 Nyári különszám", kepessport, magazine, sport, "kepessport.jpg", 2017, "A good magazine...");
+            Media natgeo167 = Media.create("Vol. 167/ No. 6", natgeo, magazine, science, "natgeo167-6.jpg", 1985, "National Geographic Magazine, is the official magazine of the National Geographic Society. It has been published continuously since its first issue in 1888, nine months after the Society itself was founded.");
+            Media kepesSport = Media.create("2017 Nyári különszám", kepessport, magazine, sport, "kepessport.jpg", 2017, "A Képes Sport egy dinamikus, informatív, szórakoztató hetilap, amely nem csupán a sportot az átlagon felül kedvelő olvasókhoz szól.");
 
-            Media nemzetiSport = Media.create("2015.05.13", nemzetisport, newspaper, sport, "nemzetisport.jpg", 2015, "A good newspaper...");
-            Media times = Media.create("1969.07.21", nytimes, newspaper, science, "nytimes.jpg", 1969, "A good newspaper...");
+            Media nemzetiSport = Media.create("2015.05.13", nemzetisport, newspaper, sport, "nemzetisport.jpg", 2015, "Nemzeti Sport (the title means National Sport) is a Hungarian sports daily");
+            Media times = Media.create("1969.07.21", nytimes, newspaper, science, "nytimes.jpg", 1969, "The New York Times is an American newspaper based in New York City with worldwide influence and readership. ");
 
             Member test = Member.create("test", Password.hashPassword("test"));
             Member admin = Member.create("admin", Password.hashPassword("admin"));
@@ -170,10 +170,12 @@ public class InitializerBean {
             rentService.saveRent(rent4);
 
             Rating rating1 = new Rating(5, test, it);
-            Review review1 = new Review("asdf", test, it);
+            Review review1 = new Review("That little fox is a totally kick ass. Love it!", test, vuk);
+            Review review2 = new Review("Scared the shit out of me. I will wear diapers next time.", test, it);
 
-            reviewService.saveReview(review1);
             ratingService.saveRating(rating1);
+            reviewService.saveReview(review1);
+            reviewService.saveReview(review2);
         }
     }
 
