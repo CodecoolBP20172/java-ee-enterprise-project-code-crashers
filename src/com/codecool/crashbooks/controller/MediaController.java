@@ -4,10 +4,10 @@ import com.codecool.crashbooks.model.Member;
 import com.codecool.crashbooks.model.mediaProperty.Category;
 import com.codecool.crashbooks.model.mediaProperty.Genre;
 import com.codecool.crashbooks.model.mediaProperty.Rating;
+import com.codecool.crashbooks.model.memberProperty.Membership;
 import com.codecool.crashbooks.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
-import org.springframework.http.HttpRequest;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -37,7 +37,7 @@ public class MediaController {
     RentService rentService;
 
     @RequestMapping(value = "/", method = RequestMethod.GET)
-    public String renderAllMedia(Model model, HttpSession session){
+    public String renderAllMedia(Model model, HttpSession session) {
         model.addAttribute("medialist", mediaService.getAllMedia());
         model.addAttribute("genres", genreService.getAllGenre());
         model.addAttribute("categories", categoryService.getAllCategory());
@@ -46,7 +46,7 @@ public class MediaController {
     }
 
     @RequestMapping(value = "/filter", method = RequestMethod.GET)
-    public String renderMediaByFilter(Model model, HttpServletRequest req, HttpSession session){
+    public String renderMediaByFilter(Model model, HttpServletRequest req, HttpSession session) {
         int genreId = Integer.parseInt(req.getParameter("genre"));
         int categoryId = Integer.parseInt(req.getParameter("category"));
 
@@ -73,19 +73,24 @@ public class MediaController {
 
 
     @RequestMapping(value = "/medium/{id}", method = RequestMethod.GET)
-    public String renderBookReviewPage(@PathVariable String id, HttpSession session, Model model){
+    public String renderBookReviewPage(@PathVariable String mediumId, HttpSession session, Model model) {
         if (session.getAttribute("id")!= null){
-            Member member = memberService.getMemberById((int) session.getAttribute("id"));
-            Rating rating = ratingService.getRatingByMemberAndMedia((int)session.getAttribute("id"), Integer.parseInt(id));
-            model.addAttribute("userReview", reviewService.getReviewByMemberAndMedia((int)session.getAttribute("id"), Integer.parseInt(id)));
+            int memberId = (int) session.getAttribute("id");
+            Member member = memberService.getMemberById(memberId);
+
+            if(member.getMembership().equals(Membership.ADMIN)) {
+                return "redirect:/admin";
+            }
+            Rating rating = ratingService.getRatingByMemberAndMedia((int)session.getAttribute("id"), Integer.parseInt(mediumId));
+            model.addAttribute("userReview", reviewService.getReviewByMemberAndMedia((int)session.getAttribute("id"), Integer.parseInt(mediumId)));
             model.addAttribute("memberName", member.getName());
             if (rating != null) {
                 model.addAttribute("userRating", rating.getStars());
             }
         }
-        model.addAttribute("medium", mediaService.getMediasBy(Integer.parseInt(id)));
-        model.addAttribute("nextAvailableRentDate", rentService.getNextAvailableRentDate(Integer.parseInt(id)));
-        model.addAttribute("averageRating", mediaService.getMediasBy(Integer.parseInt(id)).getAverageRating());
+        model.addAttribute("medium", mediaService.getMediasBy(Integer.parseInt(mediumId)));
+        model.addAttribute("nextAvailableRentDate", rentService.getNextAvailableRentDate(Integer.parseInt(mediumId)));
+        model.addAttribute("averageRating", mediaService.getMediasBy(Integer.parseInt(mediumId)).getAverageRating());
         return "media/book_review";
     }
 
