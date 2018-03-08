@@ -6,8 +6,10 @@ import com.codecool.crashbooks.model.mediaProperty.Genre;
 import com.codecool.crashbooks.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
+import org.springframework.http.HttpRequest;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
@@ -58,6 +60,13 @@ public class MediaController {
         model.addAttribute("categories", categoryService.getAllCategory());
         model.addAttribute("member", session.getAttribute("name"));
         return "media/index";
+    }
+
+    @RequestMapping(value = "/bookReview/{id}", method = RequestMethod.GET)
+    public String renderBookReviewPage(@PathVariable String id, HttpSession session, Model model){
+        model.addAttribute("member", session.getAttribute("name"));
+        model.addAttribute("medium", mediaService.getMediasBy(Integer.parseInt(id)));
+        return "media/book_review";
     }
 
     @RequestMapping(value = "/soon", method = RequestMethod.POST)
