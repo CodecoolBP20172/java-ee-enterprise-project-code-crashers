@@ -67,7 +67,7 @@ public class MediaController {
         model.addAttribute("genres", genreService.getAllGenre());
         model.addAttribute("category", category);
         model.addAttribute("categories", categoryService.getAllCategory());
-        model.addAttribute("member", session.getAttribute("name"));
+        model.addAttribute("memberName", session.getAttribute("name"));
         return "media/index";
     }
 
@@ -91,7 +91,7 @@ public class MediaController {
 
     @RequestMapping(value = "/soon", method = RequestMethod.POST)
     public String renderSoon(Model model, HttpSession session){
-        model.addAttribute("member",session.getAttribute("name"));
+        model.addAttribute("memberName",session.getAttribute("name"));
         return "media/index";
     }
 
