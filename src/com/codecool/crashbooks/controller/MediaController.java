@@ -26,6 +26,14 @@ public class MediaController {
     GenreService genreService;
     @Autowired
     CategoryService categoryService;
+    @Autowired
+    MemberService memberService;
+    @Autowired
+    RatingService ratingService;
+    @Autowired
+    ReviewService reviewService;
+    @Autowired
+    RentService rentService;
 
     @RequestMapping(value = "/", method = RequestMethod.GET)
     public String renderAllMedia(Model model, HttpSession session){
@@ -62,11 +70,17 @@ public class MediaController {
         return "media/index";
     }
 
-    @RequestMapping(value = "/book/{id}", method = RequestMethod.GET)
+
+    @RequestMapping(value = "/medium/{id}", method = RequestMethod.GET)
     public String renderBookReviewPage(@PathVariable String id, HttpSession session, Model model){
-        model.addAttribute("memberName", session.getAttribute("name"));
+        if (session.getAttribute("id")!= null){
+            Member member = memberService.getMemberById((int) session.getAttribute("id"));
+            model.addAttribute("userReview", reviewService.getReviewByMemberAndMedia((int)session.getAttribute("id"), Integer.parseInt(id)));
+            model.addAttribute("userRating", ratingService.getRatingByMemberAndMedia((int)session.getAttribute("id"), Integer.parseInt(id)));
+            model.addAttribute("memberName", member.getName());
+        }
         model.addAttribute("medium", mediaService.getMediasBy(Integer.parseInt(id)));
-        model.addAttribute("nextAvailable", "2017.08.19");
+        model.addAttribute("nextAvailableRentDate", rentService.getNextAvailableRentDate(Integer.parseInt(id)));
         return "media/book_review";
     }
 

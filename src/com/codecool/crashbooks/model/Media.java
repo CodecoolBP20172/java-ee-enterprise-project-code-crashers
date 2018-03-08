@@ -29,6 +29,12 @@ public class Media {
     @OneToMany(mappedBy = "media", fetch = FetchType.EAGER)
     private Set<Copy> copies = new HashSet<>();
 
+    @OneToMany(mappedBy = "media", fetch = FetchType.EAGER)
+    private Set<Rating> ratings = new HashSet<>();
+
+    @OneToMany(mappedBy = "member", fetch = FetchType.LAZY)
+    private Set<Review> reviews = new HashSet<>();
+
     private String pictureUrl;
     private int year;
     private String description;
@@ -49,10 +55,6 @@ public class Media {
     public static Media create(String title, Author author, Category category, Genre genre, String pictureUrl,
                                int year, String description) {
         return new Media(title, author, category, genre, pictureUrl, year, description);
-    }
-
-    public int getYear() {
-        return year;
     }
 
     public int getId() {
@@ -93,6 +95,23 @@ public class Media {
 
     public boolean isCopyAvailable() {
         return copies.stream().anyMatch(copy -> CopyStatuses.AVAILABLE.equals(copy.getStatus()));
+    }
+
+    public Set<Review> getReviews() {
+        return reviews;
+    }
+
+    public int getYear() {
+        return year;
+    }
+
+    public String getAverageRating() {
+        // returns a 1 decimal string
+        return String.format("%.1f", ratings.stream().mapToDouble(o -> o.getStars()).average());
+    }
+
+    public int getCopiesCount() {
+        return copies.size();
     }
 }
 

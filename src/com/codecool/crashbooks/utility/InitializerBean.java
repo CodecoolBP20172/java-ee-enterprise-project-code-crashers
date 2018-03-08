@@ -13,7 +13,7 @@ public class InitializerBean {
 
     public InitializerBean(AuthorService authorService, CategoryService categoryService, CopyService copyService,
                            GenreService genreService, MediaService mediaService, MemberService memberService,
-                           RentService rentService) {
+                           RentService rentService, ReviewService reviewService, RatingService ratingService) {
         if(!isTestRunning) {
             Author fekete = Author.create("Fekete István");
             Author rowling = Author.create("J. K. Rowling");
@@ -168,6 +168,12 @@ public class InitializerBean {
             rentService.saveRent(rent2);
             rentService.saveRent(rent3);
             rentService.saveRent(rent4);
+
+            Rating rating1 = new Rating(5, test, it);
+            Review review1 = new Review("asdf", test, it);
+
+            reviewService.saveReview(review1);
+            ratingService.saveRating(rating1);
         }
     }
 

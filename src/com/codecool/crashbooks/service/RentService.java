@@ -68,4 +68,13 @@ public class RentService {
         copyService.changeCopyStatus(rent.getCopy(), CopyStatuses.AVAILABLE);
         rentRepository.save(rent);
     }
+
+    public String getNextAvailableRentDate(int mediaId) {
+        Rent rent = null;//rentRepository.findFirstByMedia_IdAndDateEndNotNullDateReturnedNullOrderByDateEndAsc(mediaId);
+        if (rent != null) {
+            return rent.getDateEnd();
+        } else {
+            return null;
+        }
+    }
 }
