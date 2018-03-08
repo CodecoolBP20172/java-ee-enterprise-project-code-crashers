@@ -29,6 +29,12 @@ public class Media {
     @OneToMany(mappedBy = "media", fetch = FetchType.EAGER)
     private Set<Copy> copies = new HashSet<>();
 
+    @OneToMany(mappedBy = "media", fetch = FetchType.EAGER)
+    private Set<Rating> ratings = new HashSet<>();
+
+    @OneToMany(mappedBy = "member", fetch = FetchType.LAZY)
+    private Set<Review> reviews = new HashSet<>();
+
     private String pictureUrl;
     private int year;
     private String description;
