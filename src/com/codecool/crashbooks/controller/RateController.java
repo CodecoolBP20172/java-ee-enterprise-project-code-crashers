@@ -3,6 +3,7 @@ package com.codecool.crashbooks.controller;
 import com.codecool.crashbooks.model.Media;
 import com.codecool.crashbooks.model.Member;
 import com.codecool.crashbooks.model.mediaProperty.Rating;
+import com.codecool.crashbooks.model.memberProperty.Membership;
 import com.codecool.crashbooks.service.MediaService;
 import com.codecool.crashbooks.service.MemberService;
 import com.codecool.crashbooks.service.RatingService;
@@ -31,10 +32,13 @@ public class RateController {
     @Autowired
     MediaService mediaService;
 
-    @RequestMapping(value = "/rate/{mediumId}/{ratingValue}", method = RequestMethod.GET)
+    @RequestMapping(value = "/rate/{mediumId}/{ratingValue}", method = RequestMethod.GET)  //TODO Why GET?
     public String rateMedium(Model model, HttpSession session, @PathVariable int mediumId, @PathVariable int ratingValue) {
         if (session.getAttribute("id") != null && (ratingValue > 0 && ratingValue < 6)) {
             Member member = memberService.getMemberById((Integer) session.getAttribute("id"));
+            if(member.getMembership().equals(Membership.ADMIN)) {
+                return "redirect:/admin";
+            }
             Media media = mediaService.getMediasBy(mediumId);
 
             Rating rating = ratingService.getRatingByMemberAndMedia(member.getId(), media.getId());
