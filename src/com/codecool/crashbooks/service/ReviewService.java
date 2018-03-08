@@ -5,6 +5,8 @@ import com.codecool.crashbooks.repository.ReviewRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.transaction.Transactional;
+
 @Service
 public class ReviewService {
 
@@ -15,6 +17,7 @@ public class ReviewService {
         reviewRepository.save(review);
     }
 
+    @Transactional
     public Review getReviewByMemberAndMedia(int memberId, int mediaId) {
         return reviewRepository.findByMember_IdAndMedia_Id(memberId, mediaId);
     }

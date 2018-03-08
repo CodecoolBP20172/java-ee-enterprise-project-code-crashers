@@ -16,12 +16,18 @@
                         <p class = "brvalue" th:text="${medium.getAuthor().getName()}"></p>
                         <p class="brtitle">Year of release:</p>
                         <p class = "brvalue" th:text="${medium.getYear()}"></p>
+
                         <div class="row">
-                            <span class="col">
-                                <form th:action="'/rating/'+${medium.getId()}"  method="get">
-                                    <input class="btn btn-primary ml-auto" type="submit" value ="Add Rating"/>
-                                </form>
-                            </span>
+
+                            <fieldset class="rating">
+                                <span class="brtitle">Rate: </span>
+                                <input type="radio" id="star5" name="rating" value="5" th:onclick="|javascript:location.href='/rate/${medium.getId()}/5'|" /><label class = "full" for="star5" title="Awesome - 5 stars"></label>
+                                <input type="radio" id="star4" name="rating" value="4" th:onclick="|javascript:location.href='/rate/${medium.getId()}/4'|" /><label class = "full" for="star4" title="Pretty good - 4 stars"></label>
+                                <input type="radio" id="star3" name="rating" value="3" th:onclick="|javascript:location.href='/rate/${medium.getId()}/3'|" /><label class = "full" for="star3" title="Meh - 3 stars"></label>
+                                <input type="radio" id="star2" name="rating" value="2" th:onclick="|javascript:location.href='/rate/${medium.getId()}/2'|" /><label class = "full" for="star2" title="Kinda bad - 2 stars"></label>
+                                <input type="radio" id="star1" name="rating" value="1" th:onclick="|javascript:location.href='/rate/${medium.getId()}/1'|" /><label class = "full" for="star1" title="Sucks big time - 1 star"></label>
+                            </fieldset>
+
                             <span class="col">
                                 <form th:action="'/review/'+${medium.getId()}" method="get">
                                     <input class="btn btn-primary ml-auto" type="submit" value ="Add Review"/>
@@ -56,7 +62,7 @@
                             </span>
                         </span>
                         <span class="brbottom col">
-                            <strong><span>Rating:</span></strong>
+                            <strong><span>Average rating:</span></strong>
                             <span th:text="${averageRating}"></span>
                         </span>
                         <span class="brbottom col">
