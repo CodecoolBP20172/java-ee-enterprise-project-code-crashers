@@ -62,10 +62,11 @@ public class MediaController {
         return "media/index";
     }
 
-    @RequestMapping(value = "/book_review/{id}", method = RequestMethod.GET)
+    @RequestMapping(value = "/book/{id}", method = RequestMethod.GET)
     public String renderBookReviewPage(@PathVariable String id, HttpSession session, Model model){
         model.addAttribute("memberName", session.getAttribute("name"));
         model.addAttribute("medium", mediaService.getMediasBy(Integer.parseInt(id)));
+        model.addAttribute("nextAvailable", "2017.08.19");
         return "media/book_review";
     }
 
