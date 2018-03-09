@@ -1,5 +1,6 @@
 package com.codecool.crashbooks.controller;
 
+import com.codecool.crashbooks.model.Member;
 import com.codecool.crashbooks.model.memberProperty.Membership;
 import com.codecool.crashbooks.service.CopyService;
 import com.codecool.crashbooks.service.MemberService;
@@ -27,21 +28,28 @@ public class RentController {
 
     @RequestMapping(value = "/rent", method = RequestMethod.POST) // TODO rename to pendingRent
     public String rentCopy(HttpSession session, HttpServletRequest req, Model model) {
-        String name =(String) session.getAttribute("name");
-        if (name == null) {
-            model.addAttribute("user_information", "Please Log in!");
-            return "media/login";
-        }else if(remainingRents((int)session.getAttribute("id"))<=0){
-            model.addAttribute("user_information", "Rent limit reached!");
-            model.addAttribute("member", name);
-            model.addAttribute("id", session.getAttribute("id"));
-            model.addAttribute("user_membership", memberService.getMemberByName(name).getMembership());
-            model.addAttribute("membershiplist", Arrays.asList(Membership.FREE, Membership.BRONZE, Membership.SILVER, Membership.GOLD));
-            return "profile/member/membership";
-        }else{
-            rentService.createRent(memberService.getMemberByName(name), copyService.getFirstAvailableCopy(Integer.parseInt(req.getParameter("media_id"))));
+
+        if (session.getAttribute("id") != null) {
+            int memberId = (int) session.getAttribute("id");
+            Member member = memberService.getMemberById(memberId);
+
+            if (member.getMembership().equals(Membership.ADMIN)) {
+                return "redirect:/admin";
+            }
+            if (remainingRents(member.getId()) <= 0) {
+                model.addAttribute("user_information", "Rent limit reached!");
+                model.addAttribute("memberName", member.getName());
+                model.addAttribute("id", session.getAttribute("id"));
+                model.addAttribute("user_membership", member.getMembership());
+                model.addAttribute("membershiplist", Arrays.asList(Membership.FREE, Membership.BRONZE, Membership.SILVER, Membership.GOLD));
+                return "profile/member/membership";
+            } else {
+                rentService.createRent(member, copyService.getFirstAvailableCopy(Integer.parseInt(req.getParameter("media_id"))));
+            }
+            return "redirect:/";
         }
-        return "redirect:/";
+        model.addAttribute("user_information", "Please Log in!");
+        return "media/login";
     }
 
     @RequestMapping(value = "/startrent/{rentId}", method = RequestMethod.GET)

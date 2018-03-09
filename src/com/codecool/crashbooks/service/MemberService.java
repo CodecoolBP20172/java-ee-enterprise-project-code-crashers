@@ -7,6 +7,8 @@ import com.codecool.crashbooks.utility.Password;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.transaction.Transactional;
+
 @Service
 public class MemberService {
 
@@ -17,6 +19,7 @@ public class MemberService {
         memberRepository.save(member);
     }
 
+    @Transactional
     public Member getMemberById(int id) {
         return memberRepository.findOne(id);
     }

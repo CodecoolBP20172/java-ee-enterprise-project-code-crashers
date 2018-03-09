@@ -1,3 +1,5 @@
+@import url(//netdna.bootstrapcdn.com/font-awesome/3.2.1/css/font-awesome.css);
+
 .glyphicon {
     margin-right:5px;
 }
@@ -46,6 +48,9 @@
     display: table;
     content: " ";
 }
+.brbottom{
+
+}
 
 .item.list-group-item img {
     float: none;
@@ -77,6 +82,7 @@
 .jumbotron {
     background-size: contain;
     background: #7bc2e4 url("../img/banner.png") no-repeat;
+    padding: 27px 0px;
 }
 
 .btn-primary {
@@ -84,6 +90,27 @@
     color: white;
 }
 
+.brtitle{
+    font-weight: 800;
+    font-size: 20px;
+    margin-bottom: 0;
+}
+.brvalue {
+    font-style: italic;
+    font-size: 18px;
+}
+.card-body{
+
+}
+
+
+#brmedia{
+    margin-left: 5px;
+}
+
+.card {
+    margin-bottom: 5px;
+}
 
 .breadcrumb {
     border: 2px solid #dedede;
@@ -107,19 +134,13 @@
     color: white;
 }
 
-.btn .btn-group {
-    background-color: white;
+.bookinfo{
+    width: 90%;
+    margin: 0 auto;
 }
 
-.totalPrice {
-    width: 150px;
-    margin-left: auto;
-    margin-right: 14%;
-    padding: 10px 0px;
-    text-align: center;
-    font-weight: 800;
-    font-size: 20px;
-    border-top: 1px solid #98d0c5;
+.btn .btn-group {
+    background-color: white;
 }
 
 .thead-primary {
@@ -184,10 +205,65 @@
     border-radius: 0rem .75rem 0rem 0rem;
 }
 
-.co
+.logreg {
+    width: 60%;
+    margin: 0 auto;
+}
 
+.mid {
+    margin: 0 auto;
+}
+
+.paddingbotnull {
+    padding-bottom: 0;
+}
+
+
+#bannerlogo {
+    position: relative;
+    left: 25%;
+    top: 15%;
+    width: 300px;
+}
 body{
     background: radial-gradient(#ffffff, #eeeeee);
 }
 
+fieldset, label { margin: 0; padding: 0; }
 
+/****** Style Star Rating Widget *****/
+
+.rating {
+    border: none;
+    float: left;
+}
+
+.rating > input { display: none; }
+.rating > label:before {
+    margin: 5px;
+    font-size: 1.25em;
+    font-family: FontAwesome;
+    display: inline-block;
+    content: "\f005";
+}
+
+.rating > .half:before {
+    content: "\f089";
+    position: absolute;
+}
+
+.rating > label {
+    color: #ddd;
+    float: right;
+}
+
+/***** CSS Magic to Highlight Stars on Hover *****/
+
+.rating > input:checked ~ label, /* show gold star when clicked */
+.rating:not(:checked) > label:hover, /* hover current star */
+.rating:not(:checked) > label:hover ~ label { color: #FFD700;  } /* hover previous stars in list */
+
+.rating > input:checked + label:hover, /* hover current star when changing rating */
+.rating > input:checked ~ label:hover,
+.rating > label:hover ~ input:checked ~ label, /* lighten current selection */
+.rating > input:checked ~ label:hover ~ label { color: #FFED85;  }

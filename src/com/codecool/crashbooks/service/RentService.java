@@ -1,14 +1,14 @@
 package com.codecool.crashbooks.service;
 
-import com.codecool.crashbooks.model.Copy;
-import com.codecool.crashbooks.model.CopyStatuses;
-import com.codecool.crashbooks.model.Member;
-import com.codecool.crashbooks.model.Rent;
+import com.codecool.crashbooks.model.*;
 import com.codecool.crashbooks.repository.RentRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
+import java.util.stream.Collectors;
 
 @Service
 public class RentService {
@@ -18,6 +18,9 @@ public class RentService {
 
     @Autowired
     CopyService copyService;
+
+    @Autowired
+    MediaService mediaService;
 
     public void saveRent(Rent rent) {
         rentRepository.save(rent);
@@ -67,5 +70,17 @@ public class RentService {
         rent.setDateReturned();
         copyService.changeCopyStatus(rent.getCopy(), CopyStatuses.AVAILABLE);
         rentRepository.save(rent);
+    }
+
+    public String getNextAvailableRentDate(int mediaId) {
+        Media media = mediaService.getMediasBy(mediaId);
+        Set<Copy> copyList = media.getCopies();
+        List<Integer> copyIdList = copyList.stream().map(Copy::getId).collect(Collectors.toList());
+        Rent rent = rentRepository.findFirstByCopy_IdInAndDateEndIsNotNullAndDateReturnedIsNullOrderByDateEndAsc(copyIdList);
+        if (rent != null) {
+            return rent.getDateEnd();
+        } else {
+            return null;
+        }
     }
 }

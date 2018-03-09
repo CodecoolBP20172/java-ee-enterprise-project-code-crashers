@@ -1,0 +1,108 @@
+<!doctype html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en" xmlns="http://www.w3.org/1999/xhtml">
+    <head th:replace="head :: copy"></head>
+    <body>
+
+        <div th:replace="header/header :: copy"></div>
+
+        <div class="container bookinfo">
+            <div class="card">
+                <div class="card-body row">
+                    <div class="col"><img th:src="'/img/'+${medium.getPictureUrl()}"  /></div>
+                    <div class="col">
+                        <p class="brtitle">Title:</p>
+                        <p class = "brvalue" th:text="${medium.getTitle()}"></p>
+                        <p class="brtitle">Author:</p>
+                        <p class = "brvalue" th:text="${medium.getAuthor().getName()}"></p>
+                        <p class="brtitle">Year of release:</p>
+                        <p class = "brvalue" th:text="${medium.getYear()}"></p>
+
+                        <div class="row">
+
+                            <fieldset class="rating" th:if="${memberName}">
+                                <span class="brtitle">Rate: </span>
+                                <input type="radio" id="star5" name="rating" value="5" th:onclick="|javascript:location.href='/rate/${medium.getId()}/5'|" th:checked="${userRating == 5}" /><label class = "full" for="star5" title="Awesome - 5 stars"></label>
+                                <input type="radio" id="star4" name="rating" value="4" th:onclick="|javascript:location.href='/rate/${medium.getId()}/4'|" th:checked="${userRating == 4}" /><label class = "full" for="star4" title="Pretty good - 4 stars"></label>
+                                <input type="radio" id="star3" name="rating" value="3" th:onclick="|javascript:location.href='/rate/${medium.getId()}/3'|" th:checked="${userRating == 3}" /><label class = "full" for="star3" title="Meh - 3 stars"></label>
+                                <input type="radio" id="star2" name="rating" value="2" th:onclick="|javascript:location.href='/rate/${medium.getId()}/2'|" th:checked="${userRating == 2}" /><label class = "full" for="star2" title="Kinda bad - 2 stars"></label>
+                                <input type="radio" id="star1" name="rating" value="1" th:onclick="|javascript:location.href='/rate/${medium.getId()}/1'|" th:checked="${userRating == 1}" /><label class = "full" for="star1" title="Sucks big time - 1 star"></label>
+                            </fieldset>
+
+                            <span class="col">
+                                <form th:action="'/review/'+${medium.getId()}" method="get">
+                                    <div th:with="review=${userReview==null}">
+                                    <div th:if="${review}">
+                                        <input class="btn btn-primary ml-auto" type="submit" value ="Add Review"/>
+                                    </div>
+                                    </div>
+                                </form>
+                            </span>
+                            <span class="col">
+                                <form action="/rent" method="post">
+                                    <input type="hidden" th:name="media_id" th:value="${medium.getId()}" />
+                                    <div class="d-flex" th:if="${medium.isCopyAvailable()}">
+                                        <input class="btn btn-primary ml-auto" type="submit" value ="Rent"/>
+                                    </div>
+                                    <div class="d-flex" th:unless="${medium.isCopyAvailable()}">
+                                        <input class="btn btn-secondary ml-auto" type="submit" value ="Rent" disabled=""/>
+                                    </div>
+                                </form>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div>
+                <div class="card">
+                    <div class="card-body row" id="brmedia">
+                        <span class="brbottom col">
+                            <strong><span>Category:</span></strong>
+                            <span th:text="'&nbsp;'+${#strings.toLowerCase(medium.getCategory().getType())}+'&nbsp;'"></span>
+                        </span>
+                        <span class="brbottom col">
+                            <strong><span>Genres:</span></strong>
+                            <span th:each="genre,iterStat : ${medium.getGenres()}">
+                                <span th:text="'&nbsp;'+${#strings.toLowerCase(genre.getType())}+'&nbsp;'"></span>
+                            </span>
+                        </span>
+                        <span class="brbottom col">
+                            <strong><span>Average rating:</span></strong>
+                            <span th:text="${averageRating}"></span>
+                        </span>
+                        <span class="brbottom col">
+                            <span th:if="${medium.isCopyAvailable()}">
+                                <span>The book is available</span>
+                            </span>
+                            <span th:unless="${medium.isCopyAvailable()}">
+                                <span th:text="${nextAvailableRentDate}==null ? 'Pending! Please come back later!':'The book will be available at '+${nextAvailableRentDate}"></span>
+                            </span>
+                        </span>
+                    </div>
+                </div>
+            </div>
+            <div class="card">
+                <div class="card-header">
+                    <strong>Description:</strong>
+                </div>
+                <div class="card-body">
+                    <p th:text="${medium.getDescription()}"></p>
+                </div>
+            </div>
+
+            <div class="breadcrumb">
+                <strong>User reviews: </strong>
+            </div>
+            <div th:text="${#lists.size(medium.getReviews())} == 0 ? 'Noone gave a review yet be the first!' : '' "></div>
+            <div th:each="review,iterStat : ${medium.getReviews()}">
+                <div class="card">
+                    <div class="card-header">
+                        <strong th:text="${review.getMember().getName()}"></strong>
+                    </div>
+                    <div class="card-body">
+                        <p th:text="${review.getReviewText()}"></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </body>
+</html>

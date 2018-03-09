@@ -29,8 +29,17 @@ public class Media {
     @OneToMany(mappedBy = "media", fetch = FetchType.EAGER)
     private Set<Copy> copies = new HashSet<>();
 
+    @OneToMany(mappedBy = "media", fetch = FetchType.EAGER)
+    private Set<Rating> ratings = new HashSet<>();
+
+    @OneToMany(mappedBy = "media", fetch = FetchType.EAGER)
+    private Set<Review> reviews = new HashSet<>();
+
     private String pictureUrl;
     private int year;
+
+    @Lob
+    @Column
     private String description;
 
     public Media() {
@@ -44,6 +53,11 @@ public class Media {
         this.pictureUrl = pictureUrl;
         this.year = year;
         this.description = description;
+    }
+
+    public static Media create(String title, Author author, Category category, Genre genre, String pictureUrl,
+                               int year, String description) {
+        return new Media(title, author, category, genre, pictureUrl, year, description);
     }
 
     public int getId() {
@@ -86,9 +100,28 @@ public class Media {
         return copies.stream().anyMatch(copy -> CopyStatuses.AVAILABLE.equals(copy.getStatus()));
     }
 
-    public static Media create(String title, Author author, Category category, Genre genre, String pictureUrl,
-                               int year, String description) {
-        return new Media(title,author, category, genre, pictureUrl, year, description);
+    public Set<Review> getReviews() {
+        return reviews;
+    }
+
+    public int getYear() {
+        return year;
+    }
+
+    public String getAverageRating() {
+        if(ratings.size()==0){
+            return "No rating yet!";
+        }
+        // returns a 1 decimal string
+        return String.format("%.1f", ratings.stream().mapToDouble(o -> o.getStars()).sum()/ratings.size());
+    }
+
+    public int getCopiesCount() {
+        return copies.size();
+    }
+
+    public Set<Copy> getCopies() {
+        return copies;
     }
 }
 
