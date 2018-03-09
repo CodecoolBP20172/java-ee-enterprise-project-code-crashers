@@ -4,22 +4,22 @@
 
 <ul class="nav navbar-nav" th:fragment="copy">
     <li class="active">
-        <div th:if="${member}">
+        <div th:if="${memberName}">
             <div class="btn-group" role="group" aria-label="Basic example">
-                <button type="button" class="btn btn-outline-warning" th:text="'Hi ' + ${member}"></button>
+                <button type="button" class="btn btn-outline-primary reg" th:text="'Hi ' + ${memberName}"></button>
                 <a href="/logout">
-                    <button type="button" class="btn btn-outline-warning">Logout</button>
+                    <button type="button" class="btn btn-outline-primary log">Logout</button>
                 </a>
-            </div>
-            <a href="/profile"><img src="/img/profile.png" alt=""/></a> <!--TODO profile page-->
+            </div> <!--TODO check it-->
+                <a href="/profile"><img th:src="${#strings.toString(memberShip)} != 'ADMIN' ? '/img/profile.png' : ''" alt=""/></a>
         </div>
-        <div th:unless="${member}">
+        <div th:unless="${memberName}">
             <div class="btn-group" role="group" aria-label="Basic example">
                 <a href="/registration">
-                    <button type="register" class="btn btn-warning">Register</button>
+                    <button type="register" class="btn btn-primary reg">Register</button>
                 </a>
                 <a href="/login">
-                    <button type="login" class="btn btn-warning">Login</button>
+                    <button type="login" class="btn btn-primary log">Login</button>
                 </a>
             </div>
         </div>

@@ -1,0 +1,42 @@
+<!doctype html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="head :: copy"></head>
+<body>
+
+<div th:fragment="copy">
+    <div class="breadcrumb">
+        <strong class="breadcrumb-item">
+            Pending media
+        </strong>
+    </div>
+
+    <table class="table table-striped">
+        <thead class="thead-primary">
+        <tr>
+            <th scope="col">Rent ID</th>
+            <th scope="col">Member name</th>
+            <th scope="col">Title</th>
+            <th scope="col">Author</th>
+            <th scope="col">Copy ID</th>
+            <th scope="col">Approve</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="rent,iterStat : ${pendingList}">
+            <td th:text="${rent.getId()}"></td>
+            <td th:text="${rent.getMember().getName()}"></td>
+            <td th:text="${rent.getCopy().getMedia().getTitle()}"></td>
+            <td th:text="${rent.getCopy().getMedia().getAuthor().getName()}"></td>
+            <td th:text="${rent.getCopy().getId()}"></td>
+            <td>
+                <form th:action="${'/startrent/' + rent.getId()}">
+                    <input class="btn btn-success admin" type="submit" value="Start rent"/>
+                </form>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+
+</div>
+</body>
+</html>

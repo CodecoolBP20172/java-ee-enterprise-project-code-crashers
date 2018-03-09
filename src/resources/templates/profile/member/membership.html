@@ -1,0 +1,37 @@
+<!doctype html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en" xmlns="http://www.w3.org/1999/xhtml">
+<head th:replace="head :: copy"></head>
+<body>
+
+<div th:replace="header/header :: copy"></div>
+
+<div class="container">
+    <div th:if="${user_information}">
+        <h3 th:text="${user_information}">user info</h3>
+    </div>
+
+    <div class="breadcrumb">
+        <h2>Choose your membership</h2>
+    </div>
+    <div id="products" class="row list-group">
+        <div class="card col-3" th:each="membership,iterStat : ${membershiplist}">
+            <img class="card-img-top" src="/img/book_thumb.png" th:src="'/img/'+${membership.getImgURL()}" alt=""/>
+            <div class="card-body">
+                <div>
+                    <h4 class="list-group-item-heading" th:text="'Rent limit: ' + ${membership.getLimit()}">Limit</h4>
+                    <h5 class="list-group-item-heading"
+                        th:text="'Price: ' + ${membership.getPrice()} + ' $'">
+                        Price</h5>
+                    <form action="/membership" method="post">
+                        <input type="hidden" th:value="${membership}" name="membership_type"/>
+                        <div th:if="${membership} != ${user_membership}">
+                            <input class="btn btn-primary" type="submit" value="Buy"/>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    </div>
+</body>
+</html>

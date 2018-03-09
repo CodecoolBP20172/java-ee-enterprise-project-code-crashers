@@ -1,0 +1,15 @@
+<!doctype html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="head :: copy"></head>
+<body>
+
+<div th:replace="header/header :: copy"></div>
+<div class="container">
+
+    <div th:switch = "${editable}">  <!--TODO make tab-->
+        <p th:case="'username'"><span th:replace="profile/member/username_change :: copy"></span></p>
+        <p th:case="'password'"><span th:replace="profile/member/password_change :: copy"></span></p>
+    </div>
+</div>
+</body>
+</html>

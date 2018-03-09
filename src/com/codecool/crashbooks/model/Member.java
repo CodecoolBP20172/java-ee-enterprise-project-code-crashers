@@ -1,14 +1,14 @@
 package com.codecool.crashbooks.model;
 
-import com.codecool.crashbooks.model.mediaproperty.Rent;
+import com.codecool.crashbooks.model.mediaProperty.Rating;
+import com.codecool.crashbooks.model.mediaProperty.Review;
+import com.codecool.crashbooks.model.memberProperty.Membership;
 
 import javax.persistence.*;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
-@NamedQueries({
-        @NamedQuery(name = "Member.getMemberById", query = "SELECT m FROM Member m WHERE id =:id"),
-        @NamedQuery(name = "Member.getMemberByName", query = "SELECT m FROM Member m WHERE name = :name")
-})
 @Entity
 public class Member {
 
@@ -17,7 +17,6 @@ public class Member {
     private int id;
 
     private String name;
-
     private String password;
 
     @OneToMany(mappedBy = "member", fetch = FetchType.LAZY)
@@ -25,6 +24,12 @@ public class Member {
 
     @Enumerated(EnumType.STRING)
     private Membership membership;
+
+    @OneToMany(mappedBy = "member", fetch = FetchType.LAZY)
+    private Set<Rating> ratings = new HashSet<>();
+
+    @OneToMany(mappedBy = "member", fetch = FetchType.LAZY)
+    private Set<Review> reviews = new HashSet<>();
 
     public Member(String name, String password) {
         this.name = name;
@@ -35,6 +40,10 @@ public class Member {
     public Member() {
     }
 
+    public static Member create(String name, String password) {
+        return new Member(name, password);
+    }
+
     public int getId() {
         return id;
     }
@@ -43,8 +52,20 @@ public class Member {
         return name;
     }
 
+    public void setName(String name) {
+        this.name = name;
+    }
+
     public String getPassword() {
         return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+    public Membership getMembership() {
+        return membership;
     }
 
     public void setMembership(Membership membership) {

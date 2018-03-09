@@ -1,20 +1,11 @@
 package com.codecool.crashbooks.model;
 
-import com.codecool.crashbooks.model.mediaproperty.*;
+import com.codecool.crashbooks.model.mediaProperty.*;
 
 import javax.persistence.*;
 import java.util.HashSet;
 import java.util.Set;
 
-@NamedQueries({
-        @NamedQuery(name = "Media.getAllMedia", query = "SELECT m FROM Media m"),
-        @NamedQuery(name = "Media.getMediaByGenre", query = "SELECT m FROM Media m JOIN m.genres bg " +
-                " WHERE bg.id = :id"),
-        @NamedQuery(name = "Media.getMediaByGenreAndCategory", query = "SELECT m FROM Media m JOIN m.genres bg " +
-                " WHERE bg.id = :genreId AND category_id = :categoryId"),
-        @NamedQuery(name = "Media.getMediaByCategory", query = "SELECT m FROM Media m WHERE category_id = :id"),
-        @NamedQuery(name = "Media.getMediaByAuthor", query = "SELECT m FROM Media m WHERE author_id = :id")
-})
 @Entity
 public class Media {
 
@@ -38,8 +29,17 @@ public class Media {
     @OneToMany(mappedBy = "media", fetch = FetchType.EAGER)
     private Set<Copy> copies = new HashSet<>();
 
+    @OneToMany(mappedBy = "media", fetch = FetchType.EAGER)
+    private Set<Rating> ratings = new HashSet<>();
+
+    @OneToMany(mappedBy = "media", fetch = FetchType.EAGER)
+    private Set<Review> reviews = new HashSet<>();
+
     private String pictureUrl;
     private int year;
+
+    @Lob
+    @Column
     private String description;
 
     public Media() {
@@ -53,6 +53,11 @@ public class Media {
         this.pictureUrl = pictureUrl;
         this.year = year;
         this.description = description;
+    }
+
+    public static Media create(String title, Author author, Category category, Genre genre, String pictureUrl,
+                               int year, String description) {
+        return new Media(title, author, category, genre, pictureUrl, year, description);
     }
 
     public int getId() {
@@ -88,11 +93,35 @@ public class Media {
     }
 
     public long getAvailableCopiesNumber() {
-        return copies.stream().filter(copy -> StatusType.AVAILABLE.equals(copy.getStatus())).count();
+        return copies.stream().filter(copy -> CopyStatuses.AVAILABLE.equals(copy.getStatus())).count();
     }
 
     public boolean isCopyAvailable() {
-        return copies.stream().anyMatch(copy -> StatusType.AVAILABLE.equals(copy.getStatus()));
+        return copies.stream().anyMatch(copy -> CopyStatuses.AVAILABLE.equals(copy.getStatus()));
+    }
+
+    public Set<Review> getReviews() {
+        return reviews;
+    }
+
+    public int getYear() {
+        return year;
+    }
+
+    public String getAverageRating() {
+        if(ratings.size()==0){
+            return "No rating yet!";
+        }
+        // returns a 1 decimal string
+        return String.format("%.1f", ratings.stream().mapToDouble(o -> o.getStars()).sum()/ratings.size());
+    }
+
+    public int getCopiesCount() {
+        return copies.size();
+    }
+
+    public Set<Copy> getCopies() {
+        return copies;
     }
 }
 

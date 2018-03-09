@@ -1,0 +1,25 @@
+<!doctype html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+    <head th:replace="head :: copy"></head>
+    <body>
+
+        <div th:replace="header/header :: copy"></div>
+        <div class="container">
+            <div class="card logreg">
+                <div class="card-body paddingbotnull">
+                    <form method = "post" action = "/registration">
+                        <div class="form-group">
+                            <div th:replace="logregpart :: copy"></div>
+                            <div class="row">
+                                <div class="btn-group mid">
+                                    <button type="submit" class="btn btn-primary reg">Regist me!</button>
+                                    <a href="/"><button type="button" class="btn btn-primary log">Main page</button></a>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </body>
+</html>
